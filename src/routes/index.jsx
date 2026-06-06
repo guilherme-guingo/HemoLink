@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { DefaultLayout } from '../layouts/DefaultLayout';
 import Home from '../pages/Home';
-import Styleguide from '../pages/Styleguide';
+import Styleguide from '../pages/StyleGuide';
 
 export function AppRoutes() {
   return (
