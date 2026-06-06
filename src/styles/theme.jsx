@@ -5,8 +5,9 @@ export const theme = {
     // Cores de Marca e Ação
     primary: '#C8102E',       // Vermelho principal (Botões, logo, destaques)
     primaryHover: '#A50D24',  // Um tom um pouco mais escuro para o hover dos botões (opcional, calculei baseado no original)
-    secondary: '#1B365D',     // Azul escuro corporativo (Pode ser usado em detalhes institucionais)
-    
+    secondary: '#1E293B',     // Azul escuro corporativo (Pode ser usado em detalhes institucionais)
+    terciary: '#F8FAFC',      // Laranja vibrante para links e ações secundárias (como "Ver Detalhes" ou "Editar")
+
     // Fundos (Backgrounds e Surfaces)
     background: '#F8F9FA',    // Fundo geral do site (cinza bem clarinho/off-white)
     surface: '#FFFFFF',       // Fundo dos cards, painéis e formulários (branco puro)
