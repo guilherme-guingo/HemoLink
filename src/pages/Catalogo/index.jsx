@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+//falta o import do getHospitais e do CardHospitais
 import {
   ContainerTitulo,
   Titulo,
@@ -10,8 +12,44 @@ import {
 } from "./style";
 
 export const Catalogo = () => {
+  const [Hospitais, setHospitais] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function carregarInformaçoes() {
+    setIsLoading(true);
+
+    const response = await GetHospitais();
+
+    if (response.status !== 200) {
+      console.log("Erro ao carregar as informações vinda da API");
+      setIsLoading(false);
+      return;
+    }
+
+    setTimeout(() => {
+      setAlunos(response.data);
+      setIsLoading(false);
+    }, 5000);
+
+    useEffect(() => {
+      carregarInformacoes();
+    }, []);
+  }
+
   return (
     <main>
+      {/* {!isLoading && alunos.length === 0 && (
+        <>
+          <h1>Sem alunos para exibir no momento!</h1>
+        </>
+      )}
+
+      {isLoading && (
+        <>
+          <span>Carregando...</span>
+        </>
+      )} */}
+
       <ContainerTitulo>
         <TituloDiv>
           <Titulo>Hospitais Parceiros</Titulo>
