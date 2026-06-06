@@ -24,6 +24,41 @@ Nunca crie branches com nomes genéricos (ex: `teste`, `minha-tela`). Use os pre
 
 ---
 
+## 🎨 Como Usar o Tema Global (Styled-components)
+
+O nosso projeto utiliza um `ThemeProvider` configurado na raiz da aplicação. Isso significa que você **não precisa importar** o arquivo `theme.jsx` dentro dos seus arquivos de estilo. As variáveis de cor, fontes e bordas estão disponíveis automaticamente através das `props`.
+
+Para acessar qualquer cor oficial do nosso layout, utilize a sintaxe de interpolação do JavaScript chamando `props.theme`.
+
+### Exemplo Básico de Estilização
+
+```javascript
+import styled from 'styled-components';
+
+export const CardDashboard = styled.div`
+  background-color: ${(props) => props.theme.colors.surface};
+  border: 1px solid ${(props) => props.theme.colors.border};
+  border-radius: ${(props) => props.theme.borderRadius.lg};
+  padding: 24px;
+`;
+```
+### Exemplo Avançado (Renderização Condicional)
+Se você precisar que um componente mude de cor baseado em uma informação (como o status do estoque de sangue), passe uma prop com o prefixo $ (prop transiente) na chamada do componente e acesse-a no estilo.
+
+```javascript
+import styled from 'styled-components';
+
+export const StatusPill = styled.span`
+  font-weight: bold;
+  border-radius: ${(props) => props.theme.borderRadius.full};
+  color: ${(props) => {
+    if (props.$nivel === 'Critico') return props.theme.colors.status.danger;
+    if (props.$nivel === 'Alerta') return props.theme.colors.status.warning;
+    return props.theme.colors.status.success;
+  }};
+`;
+```
+
 ## 🔄 Fluxo de Trabalho Passo a Passo
 
 Siga exatamente este fluxo ao começar a trabalhar na sua página/tarefa:
