@@ -4,9 +4,9 @@ export const theme = {
   colors: {
     // Cores de Marca e Ação
     primary: '#C8102E',       // Vermelho principal (Botões, logo, destaques)
-    primaryHover: '#A50D24',  // Um tom um pouco mais escuro para o hover dos botões (opcional, calculei baseado no original)
+    primaryHover: '#A50D24',  // Um tom um pouco mais escuro para o hover dos botões
     secondary: '#1E293B',     // Azul escuro corporativo (Pode ser usado em detalhes institucionais)
-    terciary: '#F8FAFC',      // Laranja vibrante para links e ações secundárias (como "Ver Detalhes" ou "Editar")
+    terciary: '#F8FAFC',      // Azul clarinho para fundos de blocos ou detalhes suaves)
 
     // Fundos (Backgrounds e Surfaces)
     background: '#F8F9FA',    // Fundo geral do site (cinza bem clarinho/off-white)
@@ -18,6 +18,10 @@ export const theme = {
     textBase: '#50606F',      // Cinza chumbo para textos corridos (melhor leitura que o preto puro)
     textMuted: '#6C757D',     // Cinza médio para legendas, placeholders e textos secundários
     
+    textInverseTitle: '#FFFFFF',
+    textInverseBase: '#F8FAFC',
+    textInverseMuted: '#CBD5E1',
+
     // Bordas e Divisores
     border: '#D2DBE4',        // Cinza azulado para bordas de cards e linhas divisórias
     

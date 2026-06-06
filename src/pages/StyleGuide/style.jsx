@@ -30,7 +30,7 @@ export const ColorCard = styled.div`
   font-weight: bold;
   font-size: 14px;
   border: 1px solid ${(props) => props.theme.colors.border};
-  color: ${(props) => (props.$darkText ? props.theme.colors.textTitle : '#FFFFFF')};
+  color: ${(props) => (props.$darkText ? props.theme.colors.textTitle : props.theme.colors.textInverseTitle)};
   background-color: ${(props) => {
     if (props.$status) return props.theme.colors.status[props.$status];
     return props.theme.colors[props.$bg];
@@ -46,7 +46,7 @@ export const gotaSangue = styled.div`
   font-weight: bold;
   font-size: 14px;
   border: 1px solid ${(props) => props.theme.colors.border};
-  color: ${(props) => (props.$darkText ? props.theme.colors.textTitle : '#FFFFFF')};
+  color: ${(props) => (props.$darkText ? props.theme.colors.textTitle : props.theme.colors.textInverseTitle)};
   background-color: ${(props) => {
     if (props.$status) return props.theme.colors.status[props.$status];
     return props.theme.colors[props.$bg];
@@ -76,6 +76,28 @@ export const TypographyBox = styled.div`
   }
 `;
 
+export const InverseTypographyBox = styled.div`
+  background-color: ${(props) => props.theme.colors.secondary};
+  padding: 24px;
+  border-radius: ${(props) => props.theme.borderRadius.lg};
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h1, h2 {
+    color: ${(props) => props.theme.colors.textInverseTitle};
+  }
+
+  p {
+    color: ${(props) => props.theme.colors.textInverseBase};
+  }
+
+  span {
+    color: ${(props) => props.theme.colors.textInverseMuted};
+    font-size: 14px;
+  }
+`;
+
 export const ButtonRow = styled.div`
   display: flex;
   gap: 16px;
@@ -94,7 +116,7 @@ export const Button = styled.button`
     props.$variant === 'primary'
       ? props.theme.colors.primary
       : props.theme.colors.secondary};
-  color: #FFFFFF;
+  color: ${(props) => props.theme.colors.textInverseTitle};
 
   &:hover {
     background-color: ${(props) =>
