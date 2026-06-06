@@ -4,6 +4,7 @@ import {
   ColorGrid,
   ColorCard,
   TypographyBox,
+  InverseTypographyBox,
   ButtonRow,
   Button,
   gotaSangue
@@ -19,6 +20,7 @@ export default function Styleguide() {
         <ColorGrid>
           <ColorCard $bg="primary">Primary</ColorCard>
           <ColorCard $bg="secondary">Secondary</ColorCard>
+          <ColorCard $bg="terciary" $darkText>Terciary</ColorCard>
           <ColorCard $bg="background" $darkText>Background</ColorCard>
           <ColorCard $bg="surface" $darkText>Surface</ColorCard>
           <ColorCard $bg="surfaceSecondary" $darkText>Surface Secondary</ColorCard>
@@ -42,6 +44,12 @@ export default function Styleguide() {
           <p>Texto Base: Este é o texto padrão para parágrafos e leituras longas na plataforma.</p>
           <span>Texto Muted: Usado para legendas, placeholders e informações secundárias.</span>
         </TypographyBox>
+        <InverseTypographyBox>
+          <h1>H1: Exemplo de Título Principal</h1>
+          <h2>H2: Exemplo de Subtítulo</h2>
+          <p>Texto Base: Este é o texto padrão para parágrafos e leituras longas na plataforma.</p>
+          <span>Texto Muted: Usado para legendas, placeholders e informações secundárias.</span>
+        </InverseTypographyBox>
       </Section>
 
       <Section>
