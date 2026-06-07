@@ -61,7 +61,7 @@ export const ContainerCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 80px 80px;
+  margin: 80px 0px 40px 0px;
   flex-wrap: wrap;
   gap: 20px;
 `;
@@ -152,4 +152,37 @@ export const Situacao = styled.span`
     if (porcentagem < 60) return "#FF8C00";
     return "#1E293B";
   }};
+`;
+
+export const ContainerVerMais = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 80px;
+`;
+
+export const BotaoVerMais = styled.button`
+  padding: 13px 25px;
+  border-radius: ${(props) => props.theme.borderRadius.full};
+  font-size: 12px;
+  color: #c8102e;
+  border: 1px solid #c8102e;
+  cursor: pointer;
+  background: transparent;
+
+  font-weight: 600;
+  transition: all 0.5s ease;
+
+  &:hover {
+    background: #c8102e;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 1px 10px #a50d24;
+  }
+`;
+
+export const ContainerBack = styled.div`
+  background: pink;
+  width: 100%;
+  height: 100px;
 `;
