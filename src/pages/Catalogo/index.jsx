@@ -18,6 +18,7 @@ import {
   InfoEstoqueDiv,
   ProgressoDiv,
   PorcentagemDiv,
+  Situacao
 } from "./style";
 import { DadosVindoDaApi } from "./data";
 
@@ -108,9 +109,9 @@ export const Catalogo = () => {
 
               <InfoEstoqueDiv>
                 <span style={{ fontSize: 12 }}>Estoque Geral</span>
-                <span style={{ fontSize: 12 }}>
+                <Situacao style={{ fontSize: 12 }} porcentagem={dados.porcentagemBanco}>
                   Situação: ({dados.porcentagemBanco})
-                </span>
+                </Situacao>
               </InfoEstoqueDiv>
 
               <ProgressoDiv>

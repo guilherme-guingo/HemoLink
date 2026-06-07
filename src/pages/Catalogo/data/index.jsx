@@ -9,7 +9,7 @@ export const DadosVindoDaApi = [
     telefone: "21999999999",
     imagem: "https://hufmj.com.br/img/imagem-capa.jpg",
     sangueNecessario: "0-, A-",
-    porcentagemBanco: "20%",
+    porcentagemBanco: 20,
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ export const DadosVindoDaApi = [
     telefone: "21999999999",
     imagem: "https://hufmj.com.br/img/imagem-capa.jpg",
     sangueNecessario: "Todos",
-    porcentagemBanco: "60%",
+    porcentagemBanco: 60,
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ export const DadosVindoDaApi = [
     telefone: "21999999999",
     imagem: "https://hufmj.com.br/img/imagem-capa.jpg",
     sangueNecessario: "A-, B+",
-    porcentagemBanco: "40%",
+    porcentagemBanco: 40,
   },
   {
     id: 4,
@@ -38,6 +38,6 @@ export const DadosVindoDaApi = [
     telefone: "21999999999",
     imagem: "https://hufmj.com.br/img/imagem-capa.jpg",
     sangueNecessario: "AB+",
-    porcentagemBanco: "80%",
+    porcentagemBanco: 80,
   },
 ];

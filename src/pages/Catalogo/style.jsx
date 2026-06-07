@@ -79,6 +79,16 @@ export const CardDiv = styled.div`
 
   background: ${(props) => props.theme.colors.surface};
   border-radius: ${(props) => props.theme.borderRadius.md};
+  border: 1px solid #d2dbe4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.12),
+      0 4px 8px rgba(0, 0, 0, 0.08);
+  }
 `;
 
 export const ImagemDiv = styled.div`
@@ -99,6 +109,7 @@ export const ConteudoDiv = styled.div`
 
 export const Necessidade = styled.span`
   position: absolute;
+  font-size: 12px;
   background: ${(props) => props.theme.colors.status.danger};
   color: ${(props) => props.theme.colors.surface};
   top: 12px;
@@ -123,9 +134,22 @@ export const ProgressoDiv = styled.div`
 
 export const PorcentagemDiv = styled.div`
   // Nota: essa porcentagem é recebida via props, e ela se adapta conforme ao que é passado pela API
-  width: ${({ porcentagem }) => porcentagem};
+  width: ${({ porcentagem }) => porcentagem}%;
   height: 100%;
-  background-color: #dc2626;
+  background-color: ${({ porcentagem }) => {
+    if (porcentagem < 30) return "#dc2626";
+    if (porcentagem < 60) return " #FF8C00";
+    return "#1E293B";
+  }};
+
   border-radius: 999px;
   transition: width 0.3s ease;
+`;
+
+export const Situacao = styled.span`
+  color: ${({ porcentagem }) => {
+    if (porcentagem < 30) return "#dc2626";
+    if (porcentagem < 60) return "#FF8C00";
+    return "#1E293B";
+  }};
 `;
