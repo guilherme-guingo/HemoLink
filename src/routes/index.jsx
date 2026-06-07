@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { DefaultLayout } from '../layouts/DefaultLayout';
-import Home from '../pages/Home';
-import Styleguide from '../pages/StyleGuide';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { DefaultLayout } from "../layouts/DefaultLayout";
+import Home from "../pages/Home";
+import Styleguide from "../pages/StyleGuide";
+import { Catalogo } from "../pages/Catalogo";
 
 export function AppRoutes() {
   return (
@@ -10,6 +11,7 @@ export function AppRoutes() {
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<Home />} />
           <Route path="styleguide" element={<Styleguide />} />
+          <Route path="catalogo" element={<Catalogo />} />
         </Route>
       </Routes>
     </BrowserRouter>
