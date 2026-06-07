@@ -72,7 +72,7 @@ export const CardDiv = styled.div`
   flex-direction: column;
 
   // Pedro: nota: essa propriedade acaba afetando o desenvolvimento dos outros cards. Necessita analisar com base em cada imagem vinda da api para ajustar adequadamente
-  min-height: 350px;
+  min-height: 400px;
 
   // Pedro: nota: propriedade que recorta qualquer conteúdo que se estenda além da caixa de preenchimento do seu elemento
   overflow: hidden;
