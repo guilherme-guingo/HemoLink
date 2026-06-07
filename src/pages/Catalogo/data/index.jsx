@@ -1,0 +1,43 @@
+import hospitalConceicao from "../../../assets/Hospital/Grupo Hospitar Conceição/imagem-f.jpg";
+
+export const DadosVindoDaApi = [
+  {
+    id: 1,
+    nome: "Grupo Hospitar Conceição",
+    endereco:
+      "Avenida Francisco Trein, 596, no bairro Cristo Redentor, em Porto Alegre - RS",
+    telefone: "21999999999",
+    imagem: "https://hufmj.com.br/img/imagem-capa.jpg",
+    sangueNecessario: "0-, A-",
+    porcentagemBanco: "20%",
+  },
+  {
+    id: 2,
+    nome: "Hospital da Cidade",
+    endereco:
+      "R. Ariosvaldo Pereira Cintra, 152 - Gruta de Lourdes, Maceió - AL, 57052-580",
+    telefone: "21999999999",
+    imagem: "https://hufmj.com.br/img/imagem-capa.jpg",
+    sangueNecessario: "Todos",
+    porcentagemBanco: "60%",
+  },
+  {
+    id: 3,
+    nome: "Hospital Geral de Itapevi",
+    endereco: "Av. da Liberdade, 765, Liberdade, São Paulo, 01503-001",
+    telefone: "21999999999",
+    imagem: "https://hufmj.com.br/img/imagem-capa.jpg",
+    sangueNecessario: "A-, B+",
+    porcentagemBanco: "40%",
+  },
+  {
+    id: 4,
+    nome: "Grupo Hospitar Conceição",
+    endereco:
+      "Avenida Francisco Trein, 596, no bairro Cristo Redentor, em Porto Alegre - RS",
+    telefone: "21999999999",
+    imagem: "https://hufmj.com.br/img/imagem-capa.jpg",
+    sangueNecessario: "AB+",
+    porcentagemBanco: "80%",
+  },
+];
