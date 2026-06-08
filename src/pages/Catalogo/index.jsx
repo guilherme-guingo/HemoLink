@@ -24,8 +24,11 @@ import {
   ContainerBack,
   NaoEncontrouDiv,
   SubTexto,
+  BotaoBuscar,
+  TextoFiltro,
 } from "./style";
 import { DadosVindoDaApi } from "./data";
+import { IoFilter } from "react-icons/io5";
 
 import { useFavoritos } from "../../contexts/FavoritesContext";
 
@@ -93,9 +96,14 @@ export const Catalogo = () => {
             <p style={{ fontWeight: 600 }}>Tipo sanguíneo necessário</p>
             <Input type="text" placeholder="Todas os tipos" />
           </BuscaDiv>
-          <div>
-            <button>teste</button>
-          </div>
+          <BotaoBuscar>
+            <IoFilter size={20} color="white" />
+            <TextoFiltro>
+              Aplicar
+              <br />
+              Filtros
+            </TextoFiltro>
+          </BotaoBuscar>
         </FiltroDiv>
       </ContainerFiltro>
       {/* NOTA: Simulacao de dados vindo da API */}
@@ -109,7 +117,11 @@ export const Catalogo = () => {
                   alt="Imagem de um Hospital"
                 />
               )}
-              <Necessidade>Necessita: {dados.sangueNecessario}</Necessidade>
+              <Necessidade porcentagem={dados.porcentagemBanco}>
+                {dados.porcentagemBanco <= 30
+                  ? `Urgência: ${dados.sangueNecessario}`
+                  : `Necessita: ${dados.sangueNecessario}`}
+              </Necessidade>
             </ImagemDiv>
 
             <ConteudoDiv>
@@ -121,10 +133,14 @@ export const Catalogo = () => {
               <InfoEstoqueDiv>
                 <span style={{ fontSize: 12 }}>Estoque Geral</span>
                 <Situacao
-                  style={{ fontSize: 12 }}
+                  style={{ fontSize: 12, fontWeight: 600 }}
                   porcentagem={dados.porcentagemBanco}
                 >
-                  Situação: ({dados.porcentagemBanco}%)
+                  {dados.porcentagemBanco <= 30
+                    ? `Critico (${dados.porcentagemBanco}%)`
+                    : `${dados.porcentagemBanco}` <= 50
+                      ? `Alerta (${dados.porcentagemBanco}%)`
+                      : `Regular (${dados.porcentagemBanco}%)`}
                 </Situacao>
               </InfoEstoqueDiv>
 
