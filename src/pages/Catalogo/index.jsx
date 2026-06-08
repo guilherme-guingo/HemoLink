@@ -29,6 +29,7 @@ import {
   FavoritarDiv,
   BotaoFavoritar,
   BotaoConhecer,
+  BotaoFalarConosco,
 } from "./style";
 import { DadosVindoDaApi } from "./data";
 import { IoFilter } from "react-icons/io5";
@@ -233,7 +234,7 @@ export const Catalogo = () => {
       </ContainerVerMais>
       <ContainerBack>
         <NaoEncontrouDiv>
-          <div style={{ marginLeft: 40, color: "#ffffff" }}>
+          <div style={{ marginLeft: 70, color: "#ffffff" }}>
             <h1 style={{ marginBottom: 10, fontSize: "2.3rem" }}>
               Não encontrou o que procurava?
             </h1>
@@ -247,10 +248,12 @@ export const Catalogo = () => {
           </div>
           <div>
             {/* Obs: provavelmente cabe um componente de botão aqui */}
-            <button>Falar Conosco</button>
+            <BotaoFalarConosco>Falar Conosco</BotaoFalarConosco>
           </div>
         </NaoEncontrouDiv>
       </ContainerBack>
+
+      <div style={{ height: 100 }}></div>
     </main>
   );
 };

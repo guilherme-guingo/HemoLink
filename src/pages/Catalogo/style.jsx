@@ -208,7 +208,6 @@ export const BotaoVerMais = styled.button`
 export const ContainerBack = styled.div`
   background: #eaf0f6;
   // background: #ECF5FE;
-  width: 100%;
   height: 400px;
   display: flex;
   justify-content: center;
@@ -317,3 +316,23 @@ export const BotaoConhecer = styled.button`
   }
 `;
 
+export const BotaoFalarConosco = styled.button`
+  padding: 13px 30px;
+  border-radius: ${(props) => props.theme.borderRadius.full};
+  font-size: 0.9rem;
+  color: #c8102e;
+  cursor: pointer;
+  margin-right: 70px;
+  background: ${(props) => props.theme.colors.surface};
+  transition: all 0.5s ease;
+  font-weight: 550;
+  border: none;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease;
+  &:hover {
+    border: 1px solid #ffffff;
+  }
+`;
