@@ -18,15 +18,26 @@ import {
   InfoEstoqueDiv,
   ProgressoDiv,
   PorcentagemDiv,
+  Situacao,
+  ContainerVerMais,
+  BotaoVerMais,
+  ContainerBack,
+  NaoEncontrouDiv,
+  SubTexto,
 } from "./style";
 import { DadosVindoDaApi } from "./data";
 
 import { useFavoritos } from "../../contexts/FavoritesContext";
 
 export const Catalogo = () => {
+  //Funcionalidade loading e carregamento de dados da API
   const [Hospitais, setHospitais] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const {favoritar, isFavorito} = useFavoritos();
+
+  //Funcionalidade de ver mais/ver menos dos cards
+  const [quantidadeVisivel, setQuantidadeVisivel] = useState(4);
+  const todosVisiveis = quantidadeVisivel >= DadosVindoDaApi.length;
 
   async function carregarInformaçoes() {
     setIsLoading(true);
@@ -40,7 +51,7 @@ export const Catalogo = () => {
     }
 
     setTimeout(() => {
-      setAlunos(response.data);
+      setHospitais(response.data);
       setIsLoading(false);
     }, 5000);
 
@@ -51,9 +62,9 @@ export const Catalogo = () => {
 
   return (
     <main>
-      {/* {!isLoading && alunos.length === 0 && (
+      {/* {!isLoading && hospitais.length === 0 && (
         <>
-          <h1>Sem alunos para exibir no momento!</h1>
+          <h1>Sem hospitais para exibir no momento!</h1>
         </>
       )}
 
@@ -62,7 +73,6 @@ export const Catalogo = () => {
           <span>Carregando...</span>
         </>
       )} */}
-
       <ContainerTitulo>
         <TituloDiv>
           <Titulo>Hospitais Parceiros</Titulo>
@@ -88,10 +98,9 @@ export const Catalogo = () => {
           </div>
         </FiltroDiv>
       </ContainerFiltro>
-
       {/* NOTA: Simulacao de dados vindo da API */}
       <ContainerCard>
-        {DadosVindoDaApi.map((dados) => (
+        {DadosVindoDaApi.slice(0, quantidadeVisivel).map((dados) => (
           <CardDiv key={dados.id}>
             <ImagemDiv>
               {dados.imagem && (
@@ -111,9 +120,12 @@ export const Catalogo = () => {
 
               <InfoEstoqueDiv>
                 <span style={{ fontSize: 12 }}>Estoque Geral</span>
-                <span style={{ fontSize: 12 }}>
-                  Situação: ({dados.porcentagemBanco})
-                </span>
+                <Situacao
+                  style={{ fontSize: 12 }}
+                  porcentagem={dados.porcentagemBanco}
+                >
+                  Situação: ({dados.porcentagemBanco}%)
+                </Situacao>
               </InfoEstoqueDiv>
 
               <ProgressoDiv>
@@ -129,6 +141,39 @@ export const Catalogo = () => {
           </CardDiv>
         ))}
       </ContainerCard>
+      <ContainerVerMais>
+        <BotaoVerMais
+          onClick={() => {
+            if (todosVisiveis) {
+              setQuantidadeVisivel(4);
+            } else {
+              setQuantidadeVisivel(quantidadeVisivel + 4);
+            }
+          }}
+        >
+          {todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
+        </BotaoVerMais>
+      </ContainerVerMais>
+      <ContainerBack>
+        <NaoEncontrouDiv>
+          <div style={{ marginLeft: 40, color: "#ffffff" }}>
+            <h1 style={{ marginBottom: 10, fontSize: "2.3rem" }}>
+              Não encontrou o que procurava?
+            </h1>
+            <SubTexto>
+              Nós possuimos parceiros em todo o território nacional.
+            </SubTexto>
+            <SubTexto>
+              Você também pode solicitar uma campanha móvel para sua empresa ou
+              condomínio.
+            </SubTexto>
+          </div>
+          <div>
+            {/* Nota: provavelmente cabe um componente de botão */}
+            <button>Falar Conosco</button>
+          </div>
+        </NaoEncontrouDiv>
+      </ContainerBack>
     </main>
   );
 };
