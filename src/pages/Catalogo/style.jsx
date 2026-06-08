@@ -13,6 +13,8 @@ export const TituloDiv = styled.div`
 export const Titulo = styled.h1`
   color: ${(props) => props.theme.colors.textTitle};
   font-size: 3rem;
+  // ver sobre a cor qual preferem
+  // color: #c8102e;
 `;
 
 export const Subtitulo = styled.h2`
@@ -99,12 +101,18 @@ export const CardDiv = styled.div`
 export const ImagemDiv = styled.div`
   width: 100%;
   position: relative;
+  // overflow: hidden;
 `;
 
 export const ImagemHospital = styled.img`
   width: 100%;
   height: 12.5rem;
   object-fit: cover;
+  // transition: transform 0.5s ease;
+
+  // &:hover {
+  //   transform: scale(1.1); /* imagem em 10% maior*/
+  // }
 `;
 
 export const ConteudoDiv = styled.div`
@@ -159,8 +167,8 @@ export const PorcentagemDiv = styled.div`
 
 export const Situacao = styled.span`
   color: ${({ porcentagem }) => {
-    if (porcentagem < 30) return "#dc2626";
-    if (porcentagem < 60) return "#FF8C00";
+    if (porcentagem <= 30) return "#dc2626";
+    if (porcentagem <= 50) return "#FF8C00";
     return "#466585";
   }};
 `;
@@ -215,4 +223,28 @@ export const NaoEncontrouDiv = styled.div`
 export const SubTexto = styled.p`
   margin-top: 5px;
   color: ${(props) => props.theme.colors.textInverseBase};
+`;
+
+export const BotaoBuscar = styled.button`
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: ${(props) => props.theme.borderRadius.md};
+  cursor: pointer;
+  background: #466585;
+  outline: none;
+  border: none;
+
+  transition: all 0.5s ease;
+  &:hover {
+    background: #3d5875;
+  }
+`;
+
+export const TextoFiltro = styled.p`
+  margin-top: 0;
+  line-height: 1.3;
+  font-size: 13px;
+  color: ${(props) => props.theme.colors.surface};
 `;
