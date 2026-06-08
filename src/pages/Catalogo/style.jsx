@@ -75,27 +75,31 @@ export const ContainerCard = styled.div`
 `;
 
 export const CardDiv = styled.div`
+  position: relative;
   width: 320px;
   display: flex;
   flex-direction: column;
 
   // Pedro: nota: essa propriedade acaba afetando o desenvolvimento dos outros cards. Necessita analisar com base em cada imagem vinda da api para ajustar adequadamente
-  min-height: 400px;
+  min-height: 450px;
 
   // Pedro: nota: propriedade que recorta qualquer conteúdo que se estenda além da caixa de preenchimento do seu elemento
   overflow: hidden;
 
   background: ${(props) => props.theme.colors.surface};
   border-radius: ${(props) => props.theme.borderRadius.md};
-  border: 1px solid #d2dbe4;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #E8D8D8;
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.02),
+    0 4px 16px rgba(36, 75, 126, 0.04);
 
   transition: all 0.3s ease;
   &:hover {
     transform: translateY(-2px);
     box-shadow:
-      0 8px 20px rgba(0, 0, 0, 0.12),
-      0 4px 8px rgba(0, 0, 0, 0.08);
+     box-shadow: 
+      0 12px 24px rgba(36, 75, 126, 0.08),
+      0 4px 8px rgba(0, 0, 0, 0.04);
   }
 `;
 
@@ -249,3 +253,67 @@ export const TextoFiltro = styled.p`
   font-size: 15px;
   color: ${(props) => props.theme.colors.surface};
 `;
+
+export const FavoritarDiv = styled.div`
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  border-radius: ${(props) => props.theme.borderRadius.lg};
+`;
+
+export const BotaoFavoritar = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666666;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    background-color: #ffffff;
+    color: #e53e3e;
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  }
+  &.favoritado {
+    color: #c5112e;
+    background-color: #ffffff;
+  }
+`;
+
+export const BotaoConhecer = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 40px;
+  background: ${(props) => props.theme.colors.status.danger};
+  border: 1px solid #777777;
+  border-radius: ${(props) => props.theme.borderRadius.md};
+  cursor: pointer;
+  font-size: 14px;
+  margin: 0 auto;
+  color: ${(props) => props.theme.colors.surface};
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    background-color: #a30e25;
+    box-shadow: 0 4px 12px rgba(197, 17, 46, 0.25);
+  }
+`;
+

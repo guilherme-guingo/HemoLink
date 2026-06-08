@@ -26,9 +26,15 @@ import {
   SubTexto,
   BotaoBuscar,
   TextoFiltro,
+  FavoritarDiv,
+  BotaoFavoritar,
+  BotaoConhecer,
 } from "./style";
 import { DadosVindoDaApi } from "./data";
 import { IoFilter } from "react-icons/io5";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa6";
+import { RiContactsLine } from "react-icons/ri";
 
 import { useFavoritos } from "../../contexts/FavoritesContext";
 
@@ -36,6 +42,8 @@ export const Catalogo = () => {
   //Funcionalidade loading e carregamento de dados da API
   const [Hospitais, setHospitais] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  //Funcionalidade favoritar card
   const { favoritar, isFavorito } = useFavoritos();
 
   //Funcionalidade de ver mais/ver menos dos cards
@@ -191,10 +199,17 @@ export const Catalogo = () => {
               </ProgressoDiv>
             </ConteudoDiv>
 
+            <FavoritarDiv>
+              <BotaoFavoritar onClick={() => favoritar(dados)}>
+                {isFavorito(dados.id) ? <FaHeart /> : <FaRegHeart />}
+              </BotaoFavoritar>
+            </FavoritarDiv>
+
             <div>
-              <button onClick={() => favoritar(dados)}>
-                {isFavorito(dados.id) ? "♥ Favoritado" : "♡ Favoritar"}
-              </button>
+              <BotaoConhecer>
+                <RiContactsLine />
+                Conhecer esta Unidade
+              </BotaoConhecer>
             </div>
           </CardDiv>
         ))}
