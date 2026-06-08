@@ -109,7 +109,11 @@ export const Catalogo = () => {
                   alt="Imagem de um Hospital"
                 />
               )}
-              <Necessidade>Necessita: {dados.sangueNecessario}</Necessidade>
+              <Necessidade porcentagem={dados.porcentagemBanco}>
+                {dados.porcentagemBanco <= 30
+                  ? `Urgência: ${dados.sangueNecessario}`
+                  : `Necessita: ${dados.sangueNecessario}`}
+              </Necessidade>
             </ImagemDiv>
 
             <ConteudoDiv>

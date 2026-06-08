@@ -115,7 +115,13 @@ export const ConteudoDiv = styled.div`
 export const Necessidade = styled.span`
   position: absolute;
   font-size: 12px;
-  background: ${(props) => props.theme.colors.status.danger};
+
+  background-color: ${({ porcentagem }) => {
+    //Obs: nao estou conseguindo puxar o cor global de danger
+    if (porcentagem <= 30) return "#dc2626";
+    if (porcentagem <= 50) return " #FF8C00";
+    return "#466585";
+  }};
   color: ${(props) => props.theme.colors.surface};
   top: 12px;
   right: 12px;
@@ -142,8 +148,8 @@ export const PorcentagemDiv = styled.div`
   width: ${({ porcentagem }) => porcentagem}%;
   height: 100%;
   background-color: ${({ porcentagem }) => {
-    if (porcentagem < 30) return "#dc2626";
-    if (porcentagem < 60) return " #FF8C00";
+    if (porcentagem <= 30) return "#dc2626";
+    if (porcentagem <= 50) return " #FF8C00";
     return "#466585";
   }};
 
