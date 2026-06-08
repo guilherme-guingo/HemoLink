@@ -32,12 +32,12 @@ export const Card = styled.section`
     border: 1px solid ${(props) => props.theme.colors?.border || '#D2DBE4'};
     border-radius: ${(props) => props.theme.borderRadius?.md || '8px'};
     padding: 32px;
-    box-shadow: 0 4px 6px rgba (0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 `;
 
-export const Container = styled-main`
-    max-width:800px;
-    margin 40px auto;
+export const Container = styled.main`
+    max-width: 800px;
+    margin: 40px auto;
     padding: 20px;
     background-color: ${(props) => props.theme.colors?.background || '#F8F9FA'};
     min-height: 80vh;
@@ -80,11 +80,8 @@ export const VoltarLink = styled.div`
         font-weight: 500;
         transition: color 0.2s;
         
-        $:hover {
-            color: ${(props.theme.colors?.primary || '#C8102E')};
+        &:hover {
+            color: ${(props) => props.theme.colors?.primary || '#C8102E'};
         }
     }
  `;
-
-
-

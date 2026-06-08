@@ -5,6 +5,7 @@ import Styleguide from "../pages/StyleGuide";
 import { Catalogo } from "../pages/Catalogo";
 import { Perfil } from "../pages/Perfil";
 import { AdminDashboard } from "../pages/AdminDashboard";
+import { Hospital } from "../pages/Hospital";
 
 export function AppRoutes() {
   return (
@@ -16,6 +17,7 @@ export function AppRoutes() {
           <Route path="catalogo" element={<Catalogo />} />
           <Route path="perfil" element={<Perfil />} />
           <Route path="adminDashboard" element={<AdminDashboard />} />
+          <Route path="hospital/:id" element={<Hospital />} />
         </Route>
       </Routes>
     </BrowserRouter>
