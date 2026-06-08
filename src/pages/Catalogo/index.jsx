@@ -27,10 +27,13 @@ import {
 } from "./style";
 import { DadosVindoDaApi } from "./data";
 
+import { useFavoritos } from "../../contexts/FavoritesContext";
+
 export const Catalogo = () => {
   //Funcionalidade loading e carregamento de dados da API
   const [Hospitais, setHospitais] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const {favoritar, isFavorito} = useFavoritos();
 
   //Funcionalidade de ver mais/ver menos dos cards
   const [quantidadeVisivel, setQuantidadeVisivel] = useState(4);
@@ -131,7 +134,9 @@ export const Catalogo = () => {
             </ConteudoDiv>
 
             <div>
-              <button>Teste</button>
+              <button onClick={() => favoritar(dados)}>
+                {isFavorito(dados.id) ? "♥ Favoritado" : "♡ Favoritar"}
+              </button>
             </div>
           </CardDiv>
         ))}
