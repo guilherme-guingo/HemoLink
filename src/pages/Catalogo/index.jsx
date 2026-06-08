@@ -36,12 +36,39 @@ export const Catalogo = () => {
   //Funcionalidade loading e carregamento de dados da API
   const [Hospitais, setHospitais] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const {favoritar, isFavorito} = useFavoritos();
+  const { favoritar, isFavorito } = useFavoritos();
 
   //Funcionalidade de ver mais/ver menos dos cards
   const [quantidadeVisivel, setQuantidadeVisivel] = useState(4);
   const todosVisiveis = quantidadeVisivel >= DadosVindoDaApi.length;
 
+  //Funcionalidade de filtro
+  const [enderecoOuInstituicao, setEnderecoOuInstituicao] = useState("");
+  const [tipoSanguineo, setTipoSanguineo] = useState("");
+  const [resultadoFiltro, setResultadoFiltro] = useState(DadosVindoDaApi);
+
+  const aplicarFiltro = (e) => {
+    e.preventDefault(); //util para evitar que a pagina recarregue ao apertar(enter)
+    const hospitaisFiltrados = DadosVindoDaApi.filter((hospital) => {
+      const filtroEndeOuInst =
+        hospital.nome
+          .toLowerCase()
+          .includes(enderecoOuInstituicao.toLowerCase()) ||
+        hospital.endereco
+          .toLowerCase()
+          .includes(enderecoOuInstituicao.toLowerCase());
+
+      const filtoTipoSanguineo = hospital.sangueNecessario
+        .toLowerCase()
+        .includes(tipoSanguineo.toLowerCase());
+
+      return filtroEndeOuInst && filtoTipoSanguineo;
+    });
+
+    setResultadoFiltro(hospitaisFiltrados);
+  };
+
+  //
   async function carregarInformaçoes() {
     setIsLoading(true);
 
@@ -89,15 +116,30 @@ export const Catalogo = () => {
       <ContainerFiltro>
         <FiltroDiv>
           <BuscaDiv>
-            <p style={{ fontWeight: 600 }}>Cidade</p>
-            <Input type="text" placeholder="Todas as cidades" />
+            <p style={{ fontWeight: 600 }}>Endereço ou Instituição</p>
+            {/* Obs: talvez um componente de input aqui */}
+            <form onSubmit={aplicarFiltro}>
+              <Input
+                type="text"
+                placeholder="Todas as instituições"
+                value={enderecoOuInstituicao}
+                onChange={(e) => setEnderecoOuInstituicao(e.target.value)}
+              />
+            </form>
           </BuscaDiv>
           <BuscaDiv>
             <p style={{ fontWeight: 600 }}>Tipo sanguíneo necessário</p>
-            <Input type="text" placeholder="Todas os tipos" />
+            <form onSubmit={aplicarFiltro}>
+              <Input
+                type="text"
+                placeholder="Todas os tipos"
+                value={tipoSanguineo}
+                onChange={(e) => setTipoSanguineo(e.target.value)}
+              />
+            </form>
           </BuscaDiv>
-          <BotaoBuscar>
-            <IoFilter size={20} color="white" />
+          <BotaoBuscar onClick={aplicarFiltro}>
+            <IoFilter size={22} color="white" />
             <TextoFiltro>
               Aplicar
               <br />
@@ -108,7 +150,7 @@ export const Catalogo = () => {
       </ContainerFiltro>
       {/* NOTA: Simulacao de dados vindo da API */}
       <ContainerCard>
-        {DadosVindoDaApi.slice(0, quantidadeVisivel).map((dados) => (
+        {resultadoFiltro.slice(0, quantidadeVisivel).map((dados) => (
           <CardDiv key={dados.id}>
             <ImagemDiv>
               {dados.imagem && (
@@ -127,7 +169,7 @@ export const Catalogo = () => {
             <ConteudoDiv>
               <h3 style={{ marginBottom: 10 }}>{dados.nome}</h3>
               <p style={{ marginBottom: 15 }}>📍 ​{dados.endereco}</p>
-              {/* Pedro: deixar o campo endereço no ver mais */}
+              {/* Pedro: deixar o campo telefone no ver mais */}
               {/* <p>Contato: {dados.telefone}</p> */}
 
               <InfoEstoqueDiv>
@@ -158,17 +200,21 @@ export const Catalogo = () => {
         ))}
       </ContainerCard>
       <ContainerVerMais>
-        <BotaoVerMais
-          onClick={() => {
-            if (todosVisiveis) {
-              setQuantidadeVisivel(4);
-            } else {
-              setQuantidadeVisivel(quantidadeVisivel + 4);
-            }
-          }}
-        >
-          {todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
-        </BotaoVerMais>
+        {resultadoFiltro.length === 0 || resultadoFiltro.length < 5 ? (
+          ""
+        ) : (
+          <BotaoVerMais
+            onClick={() => {
+              if (todosVisiveis) {
+                setQuantidadeVisivel(4);
+              } else {
+                setQuantidadeVisivel(quantidadeVisivel + 4);
+              }
+            }}
+          >
+            {todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
+          </BotaoVerMais>
+        )}
       </ContainerVerMais>
       <ContainerBack>
         <NaoEncontrouDiv>
@@ -185,7 +231,7 @@ export const Catalogo = () => {
             </SubTexto>
           </div>
           <div>
-            {/* Nota: provavelmente cabe um componente de botão */}
+            {/* Obs: provavelmente cabe um componente de botão aqui */}
             <button>Falar Conosco</button>
           </div>
         </NaoEncontrouDiv>

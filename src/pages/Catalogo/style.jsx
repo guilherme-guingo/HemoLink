@@ -68,9 +68,10 @@ export const ContainerCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 100px 0px 40px 0px;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px;
+  margin: 100px auto 40px auto;
+  max-width: 1500px;
 `;
 
 export const CardDiv = styled.div`
@@ -245,6 +246,6 @@ export const BotaoBuscar = styled.button`
 export const TextoFiltro = styled.p`
   margin-top: 0;
   line-height: 1.3;
-  font-size: 13px;
+  font-size: 15px;
   color: ${(props) => props.theme.colors.surface};
 `;

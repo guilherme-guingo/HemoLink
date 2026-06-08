@@ -6,7 +6,7 @@ export const DadosVindoDaApi = [
       "Avenida Francisco Trein, 596, no bairro Cristo Redentor, em Porto Alegre - RS",
     telefone: "21999999999",
     imagem: "https://hufmj.com.br/img/imagem-capa.jpg",
-    sangueNecessario: "0-, A-",
+    sangueNecessario: "O-, A-",
     porcentagemBanco: 20,
   },
   {
@@ -58,7 +58,7 @@ export const DadosVindoDaApi = [
     sangueNecessario: "AB+",
     porcentagemBanco: 80,
   },
-    {
+  {
     id: 7,
     nome: "Grupo Hospitar Conceição",
     endereco:
@@ -68,7 +68,7 @@ export const DadosVindoDaApi = [
     sangueNecessario: "AB+",
     porcentagemBanco: 80,
   },
-    {
+  {
     id: 8,
     nome: "Grupo Hospitar Conceição",
     endereco:
@@ -78,7 +78,7 @@ export const DadosVindoDaApi = [
     sangueNecessario: "AB+",
     porcentagemBanco: 80,
   },
-    {
+  {
     id: 9,
     nome: "Grupo Hospitar Conceição",
     endereco:
@@ -88,7 +88,7 @@ export const DadosVindoDaApi = [
     sangueNecessario: "AB+",
     porcentagemBanco: 80,
   },
-    {
+  {
     id: 10,
     nome: "Grupo Hospitar Conceição",
     endereco:
@@ -98,7 +98,7 @@ export const DadosVindoDaApi = [
     sangueNecessario: "AB+",
     porcentagemBanco: 80,
   },
-    {
+  {
     id: 11,
     nome: "Grupo Hospitar Conceição",
     endereco:
