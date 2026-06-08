@@ -3,6 +3,8 @@ import { DefaultLayout } from "../layouts/DefaultLayout";
 import Home from "../pages/Home";
 import Styleguide from "../pages/StyleGuide";
 import { Catalogo } from "../pages/Catalogo";
+import { Perfil } from "../pages/Perfil";
+import { AdminDashboard } from "../pages/AdminDashboard";
 
 export function AppRoutes() {
   return (
@@ -12,6 +14,8 @@ export function AppRoutes() {
           <Route index element={<Home />} />
           <Route path="styleguide" element={<Styleguide />} />
           <Route path="catalogo" element={<Catalogo />} />
+          <Route path="perfil" element={<Perfil />} />
+          <Route path="adminDashboard" element={<AdminDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
