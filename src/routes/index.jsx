@@ -5,6 +5,7 @@ import Styleguide from "../pages/StyleGuide";
 import { Catalogo } from "../pages/Catalogo";
 import { Perfil } from "../pages/Perfil";
 import { AdminDashboard } from "../pages/AdminDashboard";
+import { SolicitarDoacao } from '../pages/SolicitarDoacao';
 
 export function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export function AppRoutes() {
           <Route path="styleguide" element={<Styleguide />} />
           <Route path="catalogo" element={<Catalogo />} />
           <Route path="perfil" element={<Perfil />} />
+          <Route path="solicitar" element={<SolicitarDoacao />} />
           <Route path="adminDashboard" element={<AdminDashboard />} />
         </Route>
       </Routes>
