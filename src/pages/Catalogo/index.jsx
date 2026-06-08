@@ -22,6 +22,8 @@ import {
   ContainerVerMais,
   BotaoVerMais,
   ContainerBack,
+  NaoEncontrouDiv,
+  SubTexto,
 } from "./style";
 import { DadosVindoDaApi } from "./data";
 
@@ -57,9 +59,9 @@ export const Catalogo = () => {
 
   return (
     <main>
-      {/* {!isLoading && alunos.length === 0 && (
+      {/* {!isLoading && hospitais.length === 0 && (
         <>
-          <h1>Sem alunos para exibir no momento!</h1>
+          <h1>Sem hospitais para exibir no momento!</h1>
         </>
       )}
 
@@ -119,7 +121,7 @@ export const Catalogo = () => {
                   style={{ fontSize: 12 }}
                   porcentagem={dados.porcentagemBanco}
                 >
-                  Situação: ({dados.porcentagemBanco})
+                  Situação: ({dados.porcentagemBanco}%)
                 </Situacao>
               </InfoEstoqueDiv>
 
@@ -147,7 +149,26 @@ export const Catalogo = () => {
           {todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
         </BotaoVerMais>
       </ContainerVerMais>
-      <ContainerBack></ContainerBack>
+      <ContainerBack>
+        <NaoEncontrouDiv>
+          <div style={{ marginLeft: 40, color: "#ffffff" }}>
+            <h1 style={{ marginBottom: 10, fontSize: "2.3rem" }}>
+              Não encontrou o que procurava?
+            </h1>
+            <SubTexto>
+              Nós possuimos parceiros em todo o território nacional.
+            </SubTexto>
+            <SubTexto>
+              Você também pode solicitar uma campanha móvel para sua empresa ou
+              condomínio.
+            </SubTexto>
+          </div>
+          <div>
+            {/* Nota: provavelmente cabe um componente de botão */}
+            <button>Falar Conosco</button>
+          </div>
+        </NaoEncontrouDiv>
+      </ContainerBack>
     </main>
   );
 };

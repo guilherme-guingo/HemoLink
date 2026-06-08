@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const ContainerTitulo = styled.div`
-  padding: 100px 40px 40px 40px;
+  padding: 100px 40px 100px 40px;
   text-align: center;
+  background: #eaf0f6;
 `;
 
 export const TituloDiv = styled.div`
@@ -16,19 +17,23 @@ export const Titulo = styled.h1`
 
 export const Subtitulo = styled.h2`
   color: ${(props) => props.theme.colors.textBase};
+  text-align: center;
+  width: 820px;
+  margin: 0 auto; //possibilita a centralizacao
+  line-height: 1.5;
 `;
 
 export const ContainerFiltro = styled.div`
   width: 85%;
   max-width: 1200px;
-  margin: 40px auto;
+  margin: 0px auto;
   padding: 24px;
   background: ${(props) => props.theme.colors.surface};
   border-radius: ${(props) => props.theme.borderRadius.lg};
-  display: flex;
   gap: 24px;
   align-items: end;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-top: -30px;
 `;
 
 export const FiltroDiv = styled.div`
@@ -61,7 +66,7 @@ export const ContainerCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 80px 0px 40px 0px;
+  margin: 100px 0px 40px 0px;
   flex-wrap: wrap;
   gap: 20px;
 `;
@@ -139,7 +144,7 @@ export const PorcentagemDiv = styled.div`
   background-color: ${({ porcentagem }) => {
     if (porcentagem < 30) return "#dc2626";
     if (porcentagem < 60) return " #FF8C00";
-    return "#1E293B";
+    return "#466585";
   }};
 
   border-radius: 999px;
@@ -150,7 +155,7 @@ export const Situacao = styled.span`
   color: ${({ porcentagem }) => {
     if (porcentagem < 30) return "#dc2626";
     if (porcentagem < 60) return "#FF8C00";
-    return "#1E293B";
+    return "#466585";
   }};
 `;
 
@@ -182,7 +187,26 @@ export const BotaoVerMais = styled.button`
 `;
 
 export const ContainerBack = styled.div`
-  background: pink;
+  background: #eaf0f6;
+  // background: #ECF5FE;
   width: 100%;
-  height: 100px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const NaoEncontrouDiv = styled.div`
+  background: ${(props) => props.theme.colors.primary};
+  width: 80%;
+  height: 50%;
+  border-radius: ${(props) => props.theme.borderRadius.lg};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const SubTexto = styled.p`
+  margin-top: 5px;
+  color: ${(props) => props.theme.colors.textInverseBase};
 `;
