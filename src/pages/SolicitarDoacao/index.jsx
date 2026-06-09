@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import api from '../../services/api/Api.jsx';
+import { postSolicitacao } from '../../services/postSolicitacao.jsx';
+import { getHospital } from '../../services/getHospital';
+import axios from 'axios';
 import { Container, Titulo, Formulario,
          Label, Input, Select,
          Textarea, Botao, GrupoCampo,
         } from './style';
-import axios from 'axios';
+
 
 
 export function SolicitarDoacao() {
@@ -27,6 +29,9 @@ export function SolicitarDoacao() {
   const [estadoSelecionado, setEstadoSelecionado] = useState('');
   const [cidades, setCidades] = useState([]);
   const [loadingCidades, setLoadingCidades] = useState(false);
+  const [hospitais, setHospitais] = useState([]);
+  const [loadingHospitais, setLoadingHospitais] = useState(false);
+  const [cidadeSelecionada, setCidadeSelecionada] = useState('');
   const navigate = useNavigate()
 
   function handleChange(event) {
@@ -36,7 +41,7 @@ export function SolicitarDoacao() {
 
   async function handleSubmit() {
     try {
-      await api.post('/pedidos', formData);
+      await postSolicitacao(formData);
       toast.success('Solicitação enviada com sucesso!');
       setFormData({
         nomePaciente: '',
@@ -90,6 +95,24 @@ export function SolicitarDoacao() {
     }
   }
 
+  async function buscarHospitais(cidade) {
+    setHospitais([]);
+    setLoadingHospitais(true);
+    try {
+      const response = await getHospital();
+      const filtrados = response.data.filter(
+        (hospital) => hospital.city === cidade
+      );
+      setHospitais(filtrados);
+    } 
+    catch (error) {
+      console.error('Erro ao buscar hospitais:', error);
+    } 
+    finally {
+      setLoadingHospitais(false);
+    }
+  }
+
   useEffect(() => {buscarEstados();}, []);
   
   useEffect(() => {
@@ -97,10 +120,21 @@ export function SolicitarDoacao() {
     buscarCidades(estadoSelecionado);
   }, [estadoSelecionado]);
 
+  useEffect(() => {
+    if (!cidadeSelecionada) return;
+    buscarHospitais(cidadeSelecionada);
+  }, [cidadeSelecionada]);
+
   function handleEstadoChange(event) {
     const sigla = event.target.value;
     setEstadoSelecionado(sigla);
     setFormData({ ...formData, estado: sigla, cidade: '' });
+  }
+
+  function handleCidadeChange(event) {
+    const cidade = event.target.value;
+    setCidadeSelecionada(cidade);
+    setFormData({ ...formData, cidade: cidade });
   }
 
   return (
@@ -117,18 +151,6 @@ export function SolicitarDoacao() {
             type="text"
             placeholder="Nome completo do paciente"
             value={formData.nomePaciente}
-            onChange={handleChange}
-          />
-        </GrupoCampo>
-
-        <GrupoCampo>
-          <Label htmlFor="nomeHospital">Nome do Hospital</Label>
-          <Input
-            id="nomeHospital"
-            name="nomeHospital"
-            type="text"
-            placeholder="Hospital onde o paciente está internado"
-            value={formData.nomeHospital}
             onChange={handleChange}
           />
         </GrupoCampo>
@@ -194,9 +216,7 @@ export function SolicitarDoacao() {
             name="cidade"
             disabled={loadingCidades || !estadoSelecionado}
             value={formData.cidade}
-            onChange={(event) =>
-              setFormData({ ...formData, cidade: event.target.value })
-            }
+            onChange={handleCidadeChange}
           >
             <option value="">
               {loadingCidades
@@ -208,6 +228,30 @@ export function SolicitarDoacao() {
             {cidades.map((cidade) => (
               <option key={cidade.id} value={cidade.nome}>
                 {cidade.nome}
+              </option>
+            ))}
+          </Select>
+        </GrupoCampo>
+        
+        <GrupoCampo>
+          <Label htmlFor="hospital">Hospital</Label>
+          <Select
+            id="hospital"
+            name="nomeHospital"
+            disabled={loadingHospitais || !cidadeSelecionada}
+            value={formData.nomeHospital}
+            onChange={handleChange}
+          >
+            <option value="">
+              {loadingHospitais
+                ? 'Carregando hospitais...'
+                : !cidadeSelecionada
+                ? 'Selecione primeiro uma cidade'
+                : 'Selecione o hospital'}
+            </option>
+            {hospitais.map((hospital) => (
+              <option key={hospital.id} value={hospital.name}>
+                {hospital.name}
               </option>
             ))}
           </Select>
