@@ -1,5 +1,23 @@
 import styled from "styled-components";
 
+export const LoadingContainer = styled.div`
+  width: 100%;
+  min-height: 70vh;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  text-align: center;
+  canvas,
+  svg {
+    width: 400px !important;
+    height: 400px !important;
+    display: block;
+    margin: 0 auto;
+  }
+`;
+
 export const ContainerTitulo = styled.div`
   padding: 100px 40px 100px 40px;
   text-align: center;
