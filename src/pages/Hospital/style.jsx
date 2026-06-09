@@ -161,7 +161,7 @@ export const Dot = styled.span`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: ${(props) => props.active ? (props.theme.colors?.primary || '#C8102E') : '#D2DBE4'};
+  background-color: ${(props) => props.$active ? (props.theme.colors?.primary || '#C8102E') : '#D2DBE4'};
   cursor: pointer;
   transition: background-color 0.2s;
 `;
@@ -201,9 +201,15 @@ export const InfoBlock = styled.div`
 
 export const StockGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px; 
   margin-top: 12px;
+  width: 100%;
+
+  @media (max-width: 650px) {
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 8px;
+  }
 `;
 
 export const StockItem = styled.div`
@@ -211,7 +217,7 @@ export const StockItem = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px 6px;
+  padding: 12px 4px; 
   border-radius: 8px;
   font-weight: 700;
   text-align: center;
@@ -230,15 +236,15 @@ export const StockItem = styled.div`
     props.status === 'alerta' ? '#F3D470' : '#C3E6CB'};
 
   span {
-    font-size: 1.15rem;
+    font-size: 1.1rem; 
   }
 
   small {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     margin-top: 4px;
     text-transform: uppercase;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
   }
 `;
 
