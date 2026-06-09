@@ -1,4 +1,4 @@
-import { HospitalApi } from "./Api/Api"
+import  HospitalApi   from "./Api/Api";
 
 
 
