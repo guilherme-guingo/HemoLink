@@ -10,7 +10,7 @@ export const theme = {
 
     // Fundos (Backgrounds e Surfaces)
     background: "#F8F9FA", // Fundo geral do site (cinza bem clarinho/off-white)
-    // background: "#ECF5FE", // Fundo de container para destaque/detalhe(cinza claro)
+    // background: "#Eaf0fc", // Fundo de container para destaque/detalhe(cinza claro)
     // background: "#e2e8f0", // Fundo de container para destaque/detalhe(uma variação do cinza claro)
     surface: "#FFFFFF", // Fundo dos cards, painéis e formulários (branco puro)#
     surfaceSecondary: "#ECF5FE", // Fundo azuladinho bem claro (usado para blocos de destaque suaves)
