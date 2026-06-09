@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
-import logoHemoLink from '../../assets/marca/logo-HemoLink.png';
+import logoHemoLink from '../../assets/marca/logo-hemolink.png';
 import { Container, Logo, Nav, NavLink, ProfileLink } from './style';
 
 export function Header() {

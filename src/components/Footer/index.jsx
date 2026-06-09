@@ -1,5 +1,5 @@
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import iconeHemoLink from '../../assets/marca/icone-HemoLink.png';
+import iconeHemoLink from '../../assets/marca/icone-hemolink.png';
 import {
   Container,
   FooterBrand,
