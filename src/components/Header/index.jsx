@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Container, Logo } from './style';
+import { AiOutlineUser } from 'react-icons/ai';
+import logoHemoLink from '../../assets/Marca/logo-hemolink.png';
+import { Container, Logo, Nav, NavLink, ProfileLink } from './style';
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -12,8 +14,16 @@ export function Header() {
   return (
     <Container>
       <Logo to="/" onClick={handleLogoClick}>
-        HemoLink
+        <img src={logoHemoLink} alt="HemoLink Logo" />
       </Logo>
+      <Nav>
+        <NavLink to="/catalogo" onClick={() => setIsMobileMenuOpen(false)}>
+          Catálogo
+        </NavLink>
+        <ProfileLink to="/adminDashboard" aria-label="Dashboard">
+          <AiOutlineUser size={24} />
+        </ProfileLink>
+      </Nav>
     </Container>
   );
 }
