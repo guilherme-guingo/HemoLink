@@ -1,4 +1,7 @@
-import { useFavoritos } from "../../contexts/FavoritesContext";
+import { useFavoritos } from '../../contexts/FavoritesContext';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   ContainerPerfil,
   TituloPerfil,
@@ -14,6 +17,14 @@ import {
 
 export const Perfil = () => {
   const { favoritos, favoritar } = useFavoritos();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }
+  }, [navigate, user])
 
   return (
     <ContainerPerfil>
