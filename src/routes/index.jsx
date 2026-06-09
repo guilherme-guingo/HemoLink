@@ -6,6 +6,8 @@ import { Catalogo } from "../pages/Catalogo";
 import { Perfil } from "../pages/Perfil";
 import { AdminDashboard } from "../pages/AdminDashboard";
 import { SolicitarDoacao } from '../pages/SolicitarDoacao';
+import { HospitalDetail } from "../pages/AdminDashboard/HospitalDetail";
+import { AddHospital, EditHospital } from "../pages/AdminDashboard/HospitalDetail/HospitalForm";
 
 export function AppRoutes() {
   return (
@@ -18,6 +20,9 @@ export function AppRoutes() {
           <Route path="perfil" element={<Perfil />} />
           <Route path="solicitar" element={<SolicitarDoacao />} />
           <Route path="adminDashboard" element={<AdminDashboard />} />
+          <Route path="adminDashboard/new" element={<AddHospital />} />
+          <Route path="adminDashboard/:id/edit" element={<EditHospital />} />
+          <Route path="adminDashboard/:id" element={<HospitalDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

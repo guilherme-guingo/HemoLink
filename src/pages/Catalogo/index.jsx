@@ -1,3 +1,7 @@
+//[] comentario na linha 83 - sobre o professor;
+//[] comentario linha 66 - de outro State;
+//[] comentario linha 215 - acerca do ver mais;
+
 import { useEffect, useState } from "react";
 //falta o import do getHospitais e do CardHospitais
 import {
@@ -26,27 +30,58 @@ import {
   SubTexto,
   BotaoBuscar,
   TextoFiltro,
+  FavoritarDiv,
+  BotaoFavoritar,
+  BotaoConhecer,
+  BotaoFalarConosco,
+  LoadingContainer,
 } from "./style";
-import { DadosVindoDaApi } from "./data";
 import { IoFilter } from "react-icons/io5";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa6";
+import { RiContactsLine } from "react-icons/ri";
 
 import { useFavoritos } from "../../contexts/FavoritesContext";
+import { getHospital } from "../../services/getHospital";
+
+import loadingAnimation from "../../assets/loading.json";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
+//Funcao para retornar os tipos sanguineos mais baixos
+export const obterTiposSanguineosCriticos = (bloodStock) => {
+  if (!bloodStock || Object.keys(bloodStock).length === 0) return "Nenhum";
+
+  //Funcionalidade: Converte o objeto em array, ordena do menor para o maior estoque e pega os 2 primeiros
+  const menoresEstoques = Object.entries(bloodStock)
+    .sort((a, b) => a[1] - b[1]) // Ordenação crescente pelo valor numérico
+    .slice(0, 2); // Pega os dois primeiros (os mais baixos)
+
+  //Extrai apenas as chaves e junta com uma vírgula
+  return menoresEstoques.map((item) => item[0]).join(", ");
+};
 
 export const Catalogo = () => {
   //Funcionalidade loading e carregamento de dados da API
-  const [Hospitais, setHospitais] = useState([]);
+  const [hospitais, setHospitais] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const {favoritar, isFavorito} = useFavoritos();
+  const [isDataFetched, setIsDataFetched] = useState(false); // ver mais sobre
+
+  //Funcionalidade favoritar card
+  const { favoritar, isFavorito } = useFavoritos();
 
   //Funcionalidade de ver mais/ver menos dos cards
   const [quantidadeVisivel, setQuantidadeVisivel] = useState(4);
-  const todosVisiveis = quantidadeVisivel >= DadosVindoDaApi.length;
+  const todosVisiveis = quantidadeVisivel >= hospitais.length;
 
-  async function carregarInformaçoes() {
+  //Funcionalidade de filtro
+  const [enderecoOuInstituicao, setEnderecoOuInstituicao] = useState("");
+  const [tipoSanguineo, setTipoSanguineo] = useState("");
+  const [resultadoFiltro, setResultadoFiltro] = useState([]);
+
+  async function carregarInformacoes() {
     setIsLoading(true);
 
-    const response = await GetHospitais();
-
+    const response = await getHospital(); //Perguntar ao professor sobre(quando apago fica em loop)
     if (response.status !== 200) {
       console.log("Erro ao carregar as informações vinda da API");
       setIsLoading(false);
@@ -55,141 +90,205 @@ export const Catalogo = () => {
 
     setTimeout(() => {
       setHospitais(response.data);
+      setResultadoFiltro(response.data);
       setIsLoading(false);
-    }, 5000);
-
-    useEffect(() => {
-      carregarInformacoes();
-    }, []);
+      setIsDataFetched(true);
+    }, 2000);
   }
+  useEffect(() => {
+    carregarInformacoes();
+  }, []);
 
+  const aplicarFiltro = (e) => {
+    e.preventDefault(); //util para evitar que a pagina recarregue ao apertar(enter)
+    const hospitaisFiltrados = hospitais.filter((hospital) => {
+      const filtroEndeOuInst =
+        hospital.name
+          .toLowerCase()
+          .includes(enderecoOuInstituicao.toLowerCase()) ||
+        hospital.city
+          .toLowerCase()
+          .includes(enderecoOuInstituicao.toLowerCase());
+
+      const filtoTipoSanguineo = obterTiposSanguineosCriticos(
+        hospital.bloodStock,
+      )
+        .toLowerCase()
+        .includes(tipoSanguineo.toLowerCase());
+
+      return filtroEndeOuInst && filtoTipoSanguineo;
+    });
+
+    setResultadoFiltro(hospitaisFiltrados);
+  };
   return (
     <main>
       {/* {!isLoading && hospitais.length === 0 && (
         <>
           <h1>Sem hospitais para exibir no momento!</h1>
         </>
-      )}
-
-      {isLoading && (
-        <>
-          <span>Carregando...</span>
-        </>
       )} */}
-      <ContainerTitulo>
-        <TituloDiv>
-          <Titulo>Hospitais Parceiros</Titulo>
-        </TituloDiv>
-        <Subtitulo>
-          Sua doação pode ser o fôlego de vida que alguém espera hoje. Encontre
-          a unidade de saúde mais próxima e agende sua contribuição para a nossa
-          rede de solidariedade.
-        </Subtitulo>
-      </ContainerTitulo>
-      <ContainerFiltro>
-        <FiltroDiv>
-          <BuscaDiv>
-            <p style={{ fontWeight: 600 }}>Cidade</p>
-            <Input type="text" placeholder="Todas as cidades" />
-          </BuscaDiv>
-          <BuscaDiv>
-            <p style={{ fontWeight: 600 }}>Tipo sanguíneo necessário</p>
-            <Input type="text" placeholder="Todas os tipos" />
-          </BuscaDiv>
-          <BotaoBuscar>
-            <IoFilter size={20} color="white" />
-            <TextoFiltro>
-              Aplicar
-              <br />
-              Filtros
-            </TextoFiltro>
-          </BotaoBuscar>
-        </FiltroDiv>
-      </ContainerFiltro>
-      {/* NOTA: Simulacao de dados vindo da API */}
-      <ContainerCard>
-        {DadosVindoDaApi.slice(0, quantidadeVisivel).map((dados) => (
-          <CardDiv key={dados.id}>
-            <ImagemDiv>
-              {dados.imagem && (
-                <ImagemHospital
-                  src={dados.imagem}
-                  alt="Imagem de um Hospital"
-                />
-              )}
-              <Necessidade porcentagem={dados.porcentagemBanco}>
-                {dados.porcentagemBanco <= 30
-                  ? `Urgência: ${dados.sangueNecessario}`
-                  : `Necessita: ${dados.sangueNecessario}`}
-              </Necessidade>
-            </ImagemDiv>
 
-            <ConteudoDiv>
-              <h3 style={{ marginBottom: 10 }}>{dados.nome}</h3>
-              <p style={{ marginBottom: 15 }}>📍 ​{dados.endereco}</p>
-              {/* Pedro: deixar o campo endereço no ver mais */}
-              {/* <p>Contato: {dados.telefone}</p> */}
+      {isLoading ? (
+        <LoadingContainer>
+          <DotLottieReact data={loadingAnimation} loop autoplay />
+        </LoadingContainer>
+      ) : isDataFetched && hospitais.length === 0 ? (
+        <>
+          <h1>Sem hospitais para exibir no momento!</h1>
+        </>
+      ) : (
+        <>
+          <ContainerTitulo>
+            <TituloDiv>
+              <Titulo>Hospitais Parceiros</Titulo>
+            </TituloDiv>
+            <Subtitulo>
+              Sua doação pode ser o fôlego de vida que alguém espera hoje.
+              Encontre a unidade de saúde mais próxima e agende sua contribuição
+              para a nossa rede de solidariedade.
+            </Subtitulo>
+          </ContainerTitulo>
+          <ContainerFiltro>
+            <FiltroDiv>
+              <BuscaDiv>
+                <p style={{ fontWeight: 600 }}>Cidade ou Instituição</p>
+                {/* Obs: talvez um componente de input aqui */}
+                <form onSubmit={aplicarFiltro}>
+                  <Input
+                    type="text"
+                    placeholder="Todas as instituições"
+                    value={enderecoOuInstituicao}
+                    onChange={(e) => setEnderecoOuInstituicao(e.target.value)}
+                  />
+                </form>
+              </BuscaDiv>
+              <BuscaDiv>
+                <p style={{ fontWeight: 600 }}>Tipo sanguíneo necessário</p>
+                <form onSubmit={aplicarFiltro}>
+                  <Input
+                    type="text"
+                    placeholder="Todas os tipos"
+                    value={tipoSanguineo}
+                    onChange={(e) => setTipoSanguineo(e.target.value)}
+                  />
+                </form>
+              </BuscaDiv>
+              <BotaoBuscar onClick={aplicarFiltro}>
+                <IoFilter size={22} color="white" />
+                <TextoFiltro>
+                  Aplicar
+                  <br />
+                  Filtros
+                </TextoFiltro>
+              </BotaoBuscar>
+            </FiltroDiv>
+          </ContainerFiltro>
+          <ContainerCard>
+            {resultadoFiltro.slice(0, quantidadeVisivel).map((dados) => {
+              const totalBlood = Object.values(dados.bloodStock).reduce(
+                (acc, value) => acc + value,
+                0,
+              );
+              const averageBlood =
+                totalBlood / Object.values(dados.bloodStock).length;
+              const percentage = Math.min(averageBlood, 100);
 
-              <InfoEstoqueDiv>
-                <span style={{ fontSize: 12 }}>Estoque Geral</span>
-                <Situacao
-                  style={{ fontSize: 12, fontWeight: 600 }}
-                  porcentagem={dados.porcentagemBanco}
-                >
-                  {dados.porcentagemBanco <= 30
-                    ? `Critico (${dados.porcentagemBanco}%)`
-                    : `${dados.porcentagemBanco}` <= 50
-                      ? `Alerta (${dados.porcentagemBanco}%)`
-                      : `Regular (${dados.porcentagemBanco}%)`}
-                </Situacao>
-              </InfoEstoqueDiv>
+              return (
+                <CardDiv key={dados.id}>
+                  <ImagemDiv>
+                    {dados.image && (
+                      <ImagemHospital
+                        src={dados.image}
+                        alt="Imagem de um Hospital"
+                      />
+                    )}
+                    <Necessidade porcentagem={percentage}>
+                      {percentage <= 30
+                        ? `Urgência: ${obterTiposSanguineosCriticos(dados.bloodStock)}`
+                        : `Necessita: ${obterTiposSanguineosCriticos(dados.bloodStock)}`}
+                    </Necessidade>
+                  </ImagemDiv>
+                  <ConteudoDiv>
+                    <h3 style={{ marginBottom: 10 }}>{dados.name}</h3>
+                    <p style={{ marginBottom: 15 }}>📍 ​{dados.city} - {dados.state}</p>
+                    {/* Pedro: deixar o campo telefone no ver mais */}
+                    {/* <p>Contato: {dados.telefone}</p> */}
 
-              <ProgressoDiv>
-                <PorcentagemDiv porcentagem={dados.porcentagemBanco} />
-              </ProgressoDiv>
-            </ConteudoDiv>
+                    <InfoEstoqueDiv>
+                      <span style={{ fontSize: 12 }}>Estoque Geral</span>
+                      <Situacao
+                        style={{ fontSize: 12, fontWeight: 600 }}
+                        porcentagem={percentage}
+                      >
+                        {percentage <= 30
+                          ? `Critico (${percentage}%)`
+                          : `${percentage}` <= 50
+                            ? `Alerta (${percentage}%)`
+                            : `Regular (${percentage}%)`}
+                      </Situacao>
+                    </InfoEstoqueDiv>
 
-            <div>
-              <button onClick={() => favoritar(dados)}>
-                {isFavorito(dados.id) ? "♥ Favoritado" : "♡ Favoritar"}
-              </button>
-            </div>
-          </CardDiv>
-        ))}
-      </ContainerCard>
-      <ContainerVerMais>
-        <BotaoVerMais
-          onClick={() => {
-            if (todosVisiveis) {
-              setQuantidadeVisivel(4);
-            } else {
-              setQuantidadeVisivel(quantidadeVisivel + 4);
-            }
-          }}
-        >
-          {todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
-        </BotaoVerMais>
-      </ContainerVerMais>
-      <ContainerBack>
-        <NaoEncontrouDiv>
-          <div style={{ marginLeft: 40, color: "#ffffff" }}>
-            <h1 style={{ marginBottom: 10, fontSize: "2.3rem" }}>
-              Não encontrou o que procurava?
-            </h1>
-            <SubTexto>
-              Nós possuimos parceiros em todo o território nacional.
-            </SubTexto>
-            <SubTexto>
-              Você também pode solicitar uma campanha móvel para sua empresa ou
-              condomínio.
-            </SubTexto>
-          </div>
-          <div>
-            {/* Nota: provavelmente cabe um componente de botão */}
-            <button>Falar Conosco</button>
-          </div>
-        </NaoEncontrouDiv>
-      </ContainerBack>
+                    <ProgressoDiv>
+                      <PorcentagemDiv porcentagem={percentage} />
+                    </ProgressoDiv>
+                  </ConteudoDiv>
+                  <FavoritarDiv>
+                    <BotaoFavoritar onClick={() => favoritar(dados)}>
+                      {isFavorito(dados.id) ? <FaHeart /> : <FaRegHeart />}
+                    </BotaoFavoritar>
+                  </FavoritarDiv>
+                  <div>
+                    <BotaoConhecer>
+                      <RiContactsLine />
+                      Conhecer esta Unidade
+                    </BotaoConhecer>
+                  </div>
+                </CardDiv>
+              );
+            })}
+          </ContainerCard>
+          <ContainerVerMais>
+            {resultadoFiltro.length === 0 || resultadoFiltro.length < 5 ? (
+              ""
+            ) : (
+              <BotaoVerMais
+                onClick={() => {
+                  if (todosVisiveis) {
+                    setQuantidadeVisivel(4);
+                  } else {
+                    setQuantidadeVisivel(quantidadeVisivel + 4);
+                  }
+                }}
+              >
+                {todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
+              </BotaoVerMais>
+            )}
+          </ContainerVerMais>
+          <ContainerBack>
+            <NaoEncontrouDiv>
+              <div style={{ marginLeft: 70, color: "#ffffff" }}>
+                <h1 style={{ marginBottom: 10, fontSize: "2.3rem" }}>
+                  Não encontrou o que procurava?
+                </h1>
+                <SubTexto>
+                  Nós possuimos parceiros em todo o território nacional.
+                </SubTexto>
+                <SubTexto>
+                  Você também pode solicitar uma campanha móvel para sua empresa
+                  ou condomínio.
+                </SubTexto>
+              </div>
+              <div>
+                {/* Obs: provavelmente cabe um componente de botão aqui */}
+                <BotaoFalarConosco>Falar Conosco</BotaoFalarConosco>
+              </div>
+            </NaoEncontrouDiv>
+          </ContainerBack>
+
+          <div style={{ height: 100 }}></div>
+        </>
+      )}
     </main>
   );
 };
