@@ -4,7 +4,7 @@ import { theme } from "../../styles/theme";
 
 //=== Estilo da secao
 export const AdmContainer = styled.div`
-    padding-inline: 8rem;
+    padding-inline: 6rem;
 `
 
 export const AdmHeader = styled.div`
@@ -56,7 +56,27 @@ export const TrBody = styled.tr`
 
 export const Td = styled.td`
     padding: 0.75rem 1rem;
-   
+`
+export const TdBlood = styled.td`
+  padding: 0.75rem 1rem;
+  
+  //COR
+  color: ${({ $percentage}) => {
+    const value = Number($percentage); 
+    if (value >= 30) {
+      return '#000000'; 
+    }
+    
+    return `${theme.colors.status.danger}`;
+  }};
+  //BOld[]
+  font-weight: ${({$percentage}) => {
+    const value = Number($percentage);
+    if(value > 30){
+        return 400
+    }
+    return 700
+  }}
 `
 
 export const TdWrapperIcon = styled.td`
@@ -75,13 +95,12 @@ export const AdmCardContainer = styled.div`
     display:flex;
     gap:2rem;
     flex-Wrap:wrap;
-     
+     justify-content: center;
 `
 
 export const AdmCard = styled.div`
   width: 18rem;
   height: 22rem;
-  background: #ebf1fd;;
   border-radius: 16px;
   border: 0.5rem solid white;
   
@@ -90,7 +109,7 @@ export const AdmCard = styled.div`
     0 4px 12px rgba(0,0,0,.04);
   overflow: hidden;
   cursor: pointer;
-  background-color: #ecf0ff;
+  background-color: #e2e8f0;
   transition: .2s;
   &:hover{
     transform: translateY(-3px);
@@ -108,10 +127,17 @@ export const AdmCardInfo = styled.p`
     
 `
 
+export const CardTitle = styled.h3`
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-Content:center;
+`
+
 export const BloodBarContainer = styled.div`
   width: 100%;
   height: 0.7rem;
-  background: #2c2c2c;
+  background:  #ecf0ff;
   border-radius: 999px;
   overflow: hidden;
 

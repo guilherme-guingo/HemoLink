@@ -1,21 +1,44 @@
 import React, { useEffect, useState } from 'react'
-import { bodyRows, headerColumns } from './data/mockDate'
-import { AdmCard, AdmCardContainer, AdmCardInfo, AdmContainer, AdmHeader, AdmTitle, BloodBarContainer, BloodBarFill, Table, Td, TdWrapperIcon, Th, TitleWrapper, Tr, TrBody } from './style'
+
+import { headerColumns } from './helper/helper.jsx'
+import { getHospital, deleteHospital } from '../../services/getHospital.jsx'
+
+import {
+    AdmCard,
+    AdmCardContainer,
+    AdmCardInfo,
+    AdmContainer,
+    AdmHeader,
+    AdmTitle,
+    BloodBarContainer,
+    BloodBarFill,
+    CardTitle,
+    Table,
+    Td,
+    TdBlood,
+    TdWrapperIcon,
+    Th,
+    TitleWrapper,
+    Tr,
+    TrBody
+} from './style'
+
 import { TbEdit } from 'react-icons/tb'
 import { RiAdminFill, RiDeleteBin5Fill } from 'react-icons/ri'
 import { ToggleBtn } from '../../components/ToggleBtn'
 import { BiArrowFromLeft, BiArrowFromRight } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
-import { getHospital } from '../../services/getHospital'
+import { FaPhoneAlt } from 'react-icons/fa'
+import { IoIosMail } from 'react-icons/io'
 
 //TODO
 //[ ].Melhorar UI UX(Ser alem de uma tabela com CRUD)
-//[ ].Sistema automatico de cores de acordo com nivel do sangue
+//[x].Sistema automatico de cores de acordo com nivel do sangue
 //[ ].Sistema de avisos ou visual que mostre hospitais que estao em estado emergencial
 //[x]. trocar entre tabela e cards
-//[ ]. APENAS cars estarao ativos mobile
+//[ ]. APENAS cards estarao ativos mobile
 //[ ]. Cards condizentes com esttilo
-//[ ] Acesso direto a pagina de cadatro individual de cada hospital
+//[x] Acesso direto a pagina de cadatro individual de cada hospital[PUT & POST]
 //[ ] Paginacao
 //[ ] Filtro Digitavel
 //[ ] Ordenacao por estoque sangue
@@ -30,9 +53,9 @@ import { getHospital } from '../../services/getHospital'
 //Remodelar tabela para ter mais controle de estilo
 
 export const AdminDashboard = () => {
-    const [hospital,setHospital] = useState([])
+    const [hospital, setHospital] = useState([])
     const [card, setCard] = useState(false)
-
+    const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
     //Toggle Button
@@ -41,17 +64,26 @@ export const AdminDashboard = () => {
     }
 
     useEffect(() => {
-        async function listHospitals(){
-            const response = await getHospital();
-            console.log("RENDERIZOU");
-            console.log(response.data);
-            if(response && response.status === 200){
-                setHospital(response.data)
+        async function listHospitals() {
+            try {
+                const response = await getHospital();
+                console.log("renderizou");
+                console.log(response.data);
+                if (response && response.status === 200) {
+                    setHospital(response.data)
+                }
+            } catch (err) {
+                console.error("erro ao carregar hospital", err)
+            } finally {
+                setLoading(false)
             }
+
         }
         listHospitals()
-    },[])
+    }, [])
 
+    if (loading) return <AdmContainer><p>Carregando...</p></AdmContainer>
+    if (!hospital) return <AdmContainer><p>Hospital não foi encontrado</p></AdmContainer>
 
     return (
         <AdmContainer>
@@ -60,7 +92,7 @@ export const AdminDashboard = () => {
                     <RiAdminFill size={24} />
                     <AdmTitle>Dashboard</AdmTitle>
                 </TitleWrapper>
-                <button>Adicionar Hospital</button>
+                <button onClick={() => navigate('/adminDashboard/new')}>Adicionar Hospital</button>
             </AdmHeader>
 
 
@@ -104,18 +136,14 @@ export const AdminDashboard = () => {
                                         >
                                             <Td>{row.id}</Td>
                                             <Td><strong>{row.name}</strong></Td>
-                                            <Td>{row.bloodStock['A+']}</Td>
-                                            <Td>{row.bloodStock['A-']}</Td>
-                                            <Td>{row.bloodStock['B+']}</Td>
-                                            <Td>{row.bloodStock['B-']}</Td>
-                                            <Td>{row.bloodStock['AB+']}</Td>
-                                            <Td>{row.bloodStock['AB-']}</Td>
-                                            <Td>{row.bloodStock['O+']}</Td>
-                                            <Td>{row.bloodStock['O-']}</Td>
-                                            <TdWrapperIcon>
-                                                <TbEdit />
-                                                <RiDeleteBin5Fill />
-                                            </TdWrapperIcon>
+                                            <TdBlood $percentage={row.bloodStock['A+']}>{row.bloodStock['A+']}</TdBlood>
+                                            <TdBlood $percentage={row.bloodStock['A-']}>{row.bloodStock['A-']}</TdBlood>
+                                            <TdBlood $percentage={row.bloodStock['B+']}>{row.bloodStock['B+']}</TdBlood>
+                                            <TdBlood $percentage={row.bloodStock['B-']}>{row.bloodStock['B-']}</TdBlood>
+                                            <TdBlood $percentage={row.bloodStock['AB+']}>{row.bloodStock['AB+']}</TdBlood>
+                                            <TdBlood $percentage={row.bloodStock['AB-']}>{row.bloodStock['AB-']}</TdBlood>
+                                            <TdBlood $percentage={row.bloodStock['O+']}>{row.bloodStock['O+']}</TdBlood>
+                                            <TdBlood $percentage={row.bloodStock['O-']}>{row.bloodStock['O-']}</TdBlood>
                                         </TrBody>
                                     )
                                 })}
@@ -134,22 +162,28 @@ export const AdminDashboard = () => {
                             const percentage = Math.min(averageBlood, 100);
 
                             return (
-                                <AdmCard 
-                                key={item.id}   
-                                $percentage={percentage}
-                                onClick={() => navigate(`/adminDashboard/${item.id}`)}
+                                <AdmCard
+                                    key={item.id}
+                                    $percentage={percentage}
+                                    onClick={() => navigate(`/adminDashboard/${item.id}`)}
                                 >
                                     <img
                                         style={{ height: "10rem", width: "100%" }}
                                         src={item.image}
                                         alt={item.name}
-                                      
+
                                     />
 
                                     <AdmCardInfo>
-                                        <h3 style={{height:"3rem"}}><strong>{item.name}</strong></h3>
-                                        <p>{item.phone}</p>
-                                        <p>{item.email}</p>
+                                        <CardTitle><strong>{item.name}</strong></CardTitle>
+                                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                            <FaPhoneAlt size={14} />
+                                            <p>{item.phone}</p>
+                                        </div>
+                                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                            <IoIosMail />
+                                            <p>{item.email}</p>
+                                        </div>
                                         <p>Média Sangue: {averageBlood.toFixed(1)}%</p>
 
                                         <BloodBarContainer>
