@@ -3,7 +3,6 @@
 //[] comentario linha 215 - acerca do ver mais;
 
 import { useEffect, useState } from "react";
-//falta o import do getHospitais e do CardHospitais
 import {
   ContainerTitulo,
   Titulo,
@@ -35,11 +34,14 @@ import {
   BotaoConhecer,
   BotaoFalarConosco,
   LoadingContainer,
+  NaoEncontouFilhoDiv,
+  TituloTexto,
 } from "./style";
 import { IoFilter } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 import { RiContactsLine } from "react-icons/ri";
+import { FaRegAddressCard } from "react-icons/fa6";
 
 import { useFavoritos } from "../../contexts/FavoritesContext";
 import { getHospital } from "../../services/getHospital";
@@ -176,11 +178,7 @@ export const Catalogo = () => {
               </BuscaDiv>
               <BotaoBuscar onClick={aplicarFiltro}>
                 <IoFilter size={22} color="white" />
-                <TextoFiltro>
-                  Aplicar
-                  <br />
-                  Filtros
-                </TextoFiltro>
+                <TextoFiltro>Aplicar Filtros</TextoFiltro>
               </BotaoBuscar>
             </FiltroDiv>
           </ContainerFiltro>
@@ -211,10 +209,9 @@ export const Catalogo = () => {
                   </ImagemDiv>
                   <ConteudoDiv>
                     <h3 style={{ marginBottom: 10 }}>{dados.name}</h3>
-                    <p style={{ marginBottom: 15 }}>📍 ​{dados.city} - {dados.state}</p>
-                    {/* Pedro: deixar o campo telefone no ver mais */}
-                    {/* <p>Contato: {dados.telefone}</p> */}
-
+                    <p style={{ marginBottom: 15 }}>
+                      📍 ​{dados.city} - {dados.state}
+                    </p>
                     <InfoEstoqueDiv>
                       <span style={{ fontSize: 12 }}>Estoque Geral</span>
                       <Situacao
@@ -267,10 +264,8 @@ export const Catalogo = () => {
           </ContainerVerMais>
           <ContainerBack>
             <NaoEncontrouDiv>
-              <div style={{ marginLeft: 70, color: "#ffffff" }}>
-                <h1 style={{ marginBottom: 10, fontSize: "2.3rem" }}>
-                  Não encontrou o que procurava?
-                </h1>
+              <NaoEncontouFilhoDiv>
+                <TituloTexto>Não encontrou o que procurava?</TituloTexto>
                 <SubTexto>
                   Nós possuimos parceiros em todo o território nacional.
                 </SubTexto>
@@ -278,7 +273,7 @@ export const Catalogo = () => {
                   Você também pode solicitar uma campanha móvel para sua empresa
                   ou condomínio.
                 </SubTexto>
-              </div>
+              </NaoEncontouFilhoDiv>
               <div>
                 {/* Obs: provavelmente cabe um componente de botão aqui */}
                 <BotaoFalarConosco>Falar Conosco</BotaoFalarConosco>
