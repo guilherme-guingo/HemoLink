@@ -8,10 +8,58 @@ export const Container = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 90px;
+  overflow: hidden;
 `;
 
 export const Logo = styled(Link)`
-  color: ${(props) => props.theme.colors.primary};
-  font-weight: bold;
-  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: auto;
+  text-decoration: none;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+`;
+
+export const Nav = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: 24px;
+`;
+
+export const NavLink = styled(Link)`
+  color: ${(props) => props.theme.colors.textBase};
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: ${(props) => props.theme.colors.primary};
+  }
+`;
+
+export const ProfileLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${(props) => props.theme.colors.secondary};
+  transition: color 0.2s;
+
+  &:hover {
+    color: ${(props) => props.theme.colors.primary};
+  }
 `;
