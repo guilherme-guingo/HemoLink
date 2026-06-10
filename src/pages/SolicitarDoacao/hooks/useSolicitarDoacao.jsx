@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useToast } from '../../../components/Toast';
 import { postSolicitacao } from '../../../services/postSolicitacao.jsx';
-import { getHospital } from '../../../services/getHospital';
+import { getHospital } from '../../../services/getHospital.jsx';
 import axios from 'axios';
 
 const FORM_INICIAL = {
@@ -16,6 +16,7 @@ const FORM_INICIAL = {
 };
 
 export function useSolicitarDoacao() {
+  const { notifySuccess, notifyError } = useToast();
   const [formData, setFormData] = useState(FORM_INICIAL);
   const [estados, setEstados] = useState([]);
   const [loadingEstados, setLoadingEstados] = useState(false);
@@ -47,14 +48,15 @@ export function useSolicitarDoacao() {
   async function handleSubmit() {
     try {
       await postSolicitacao(formData);
-      toast.success('Solicitação enviada com sucesso!');
+      notifySuccess('Solicitação enviada com sucesso!');
       setFormData(FORM_INICIAL);
       setEstadoSelecionado('');
       setCidades([]);
       setTimeout(() => navigate('/'), 3000);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Erro ao enviar solicitação:', error);
-      toast.error('Erro ao enviar solicitação. Tente novamente.');
+      notifyError('Erro ao enviar solicitação. Tente novamente.');
     }
   }
 
@@ -65,9 +67,11 @@ export function useSolicitarDoacao() {
         'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome'
       );
       setEstados(response.data);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Erro ao buscar estados:', error);
-    } finally {
+    } 
+    finally {
       setLoadingEstados(false);
     }
   }
