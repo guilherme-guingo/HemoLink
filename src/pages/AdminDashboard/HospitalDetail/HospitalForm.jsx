@@ -6,11 +6,14 @@ import {
   updateHospital
 } from '../../../services/getHospital.jsx'
 import {
+  AdmFormHeader,
   FormActions,
   FormCard,
   FormColumn,
   FormGrid,
+  FormGridInfo,
   FormGroup,
+  FormGroupBlood,
   FormInput,
   FormLabel,
   FormRow,
@@ -22,6 +25,8 @@ import {
 } from './style'
 import { TbArrowLeft, TbDeviceFloppy } from 'react-icons/tb'
 import { BackButton } from '../../../components/BackButton/index.jsx'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import loadingAnimation from "../../../assets/loading.json";
 
 
 const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
@@ -51,19 +56,19 @@ export const HospitalForm = ({ initialData }) => {
   const [form, setForm] = useState(
     isEditing
       ? {
-          image: initialData.image || '',
-          name: initialData.name || '',
-          cnpj: initialData.cnpj || '',
-          address: initialData.address || '',
-          city: initialData.city || '',
-          state: initialData.state || '',
-          cep: initialData.cep || '',
-          phone: initialData.phone || '',
-          email: initialData.email || '',
-          website: initialData.website || '',
-          openingHours: initialData.openingHours || '',
-          bloodStock: initialData.bloodStock || emptyForm.bloodStock,
-        }
+        image: initialData.image || '',
+        name: initialData.name || '',
+        cnpj: initialData.cnpj || '',
+        address: initialData.address || '',
+        city: initialData.city || '',
+        state: initialData.state || '',
+        cep: initialData.cep || '',
+        phone: initialData.phone || '',
+        email: initialData.email || '',
+        website: initialData.website || '',
+        openingHours: initialData.openingHours || '',
+        bloodStock: initialData.bloodStock || emptyForm.bloodStock,
+      }
       : emptyForm
   )
 
@@ -107,17 +112,22 @@ export const HospitalForm = ({ initialData }) => {
 
   return (
     <PageWrapperAdm>
-      <TopBar>
-            <BackButton location={"/adminDashboard"} />
-      </TopBar>
 
       <form onSubmit={handleSubmit}>
-        <SectionTitle>
-          {isEditing ? 'Editar Hospital' : 'Adicionar Hospital'}
-        </SectionTitle>
+        <AdmFormHeader >
+          <SectionTitle>
+            {isEditing ? 'Editar Hospital' : 'Adicionar Hospital'}
+          </SectionTitle>
+
+          <TopBar>
+            <BackButton location={"/adminDashboard"} />
+          </TopBar>
+
+        </AdmFormHeader>
+
 
         <FormCard>
-          <FormGrid>
+          <FormGridInfo>
             <FormColumn>
               <FormGroup>
                 <FormLabel>URL da Imagem</FormLabel>
@@ -218,7 +228,7 @@ export const HospitalForm = ({ initialData }) => {
                 />
               </FormGroup>
             </FormColumn>
-          </FormGrid>
+          </FormGridInfo>
         </FormCard>
 
         <SectionTitle>Estoque de Sangue</SectionTitle>
@@ -226,7 +236,7 @@ export const HospitalForm = ({ initialData }) => {
         <FormCard>
           <FormGrid>
             {bloodTypes.map((type) => (
-              <FormGroup key={type}>
+              <FormGroupBlood key={type}>
                 <FormLabel>{type}</FormLabel>
                 <FormInput
                   type="number"
@@ -236,7 +246,7 @@ export const HospitalForm = ({ initialData }) => {
                     handleBloodChange(type, e.target.value)
                   }
                 />
-              </FormGroup>
+              </FormGroupBlood>
             ))}
           </FormGrid>
         </FormCard>
@@ -278,9 +288,9 @@ export const EditHospital = () => {
     load()
   }, [id])
 
-  // INCLUIR LOADING AQUI
-  if (loading) return <p>Carregando...</p>
-  if (!hospital) return <p>Hospital não encontrado</p>
+
+  if (loading) return <PageWrapperAdm> <DotLottieReact data={loadingAnimation} loop autoplay /></PageWrapperAdm>
+  if (!hospital) return <PageWrapperAdm>Hospital não encontrado</PageWrapperAdm>
 
   return <HospitalForm initialData={hospital} />
 }
