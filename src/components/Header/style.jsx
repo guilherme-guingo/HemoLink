@@ -84,3 +84,15 @@ export const LogoutButton = styled.button`
     transform: translateY(-1px);
   }
 `;
+
+export const Greeting = styled.span`
+  color: ${(props) => props.theme.colors.textBase};
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
 import logoHemoLink from '../../assets/Marca/logo-hemolink.png';
 import { useAuth } from '../../contexts/AuthContext';
-import { Container, Logo, Nav, NavLink, ProfileLink, LogoutButton } from './style';
+import { Container, Logo, Nav, NavLink, ProfileLink, LogoutButton, Greeting } from './style';
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -35,6 +35,7 @@ export function Header() {
         <img src={logoHemoLink} alt="HemoLink Logo" />
       </Logo>
       <Nav>
+        <Greeting>Olá, {isAuthenticated ? user.nome : 'visitante'}</Greeting>
         <NavLink to="/catalogo" onClick={() => setIsMobileMenuOpen(false)}>
           Catálogo
         </NavLink>
