@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import api from '../../services/api/Api.jsx';
+import api from '../../services/Api/Api.jsx';
 import { Container, Titulo, Formulario,
          Label, Input, Select,
          Textarea, Botao, GrupoCampo,
