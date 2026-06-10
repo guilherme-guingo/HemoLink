@@ -4,26 +4,117 @@ import { theme } from "../../styles/theme";
 
 //=== Estilo da secao
 export const AdmContainer = styled.div`
-    padding-inline: 6rem;
+    margin-bottom: 2rem;
+    @media (min-width: 460px){
+    //padding-inline: 6rem;
+    }
 `
 
 export const AdmHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  background: #eaf0f6;
+`;
+
+export const AddHospitalBtn = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: ${theme.colors.primary};
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: ${theme.borderRadius.md};
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  width:18rem;
+
+  &:hover {
+    background: ${theme.colors.primaryHover};
+  }
+  @media (min-width: 768px){
+    width: 12rem;
+  }
+`;
+
 
 export const TitleWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 0.4rem;   
+    color: ${theme.colors.textTitle};
+    font-size:1.5rem;
+    @media (min-width:768px){
+      font-size:2rem;
+    }
+`
+export const AdmHeaderWrapper = styled.div`
+  display: flex;
+  justify-content:center;
+  width: 100%;
+  padding: 0.5rem 8%;
+  flex-direction: column; 
+  gap:1rem;
+  align-items: center;
+
+  @media (min-width: 768px){
+    flex-direction: row;
+     justify-content: space-between;
+  }
+  @media (max-width: 480px) {
+    padding: 0.5rem 4%;   
+  }
 `
 
 export const AdmTitle = styled.h2`
-    text-transform:uppercase;
-    font-size:1.5rem;
-    padding: 2rem 0;
+    text-transform:uppercase;    
+    padding: 3.5rem 0;
 `
+
+
+//==== CORPO
+
+export const BodyContainer = styled.div`
+    display: flex;
+    flex-Direction: column;
+    gap: 2rem;
+    align-Items: center;
+  padding:0 5%;
+
+`
+
+//====Filter
+
+export const AdmFilterBar = styled.div`
+    display:flex;
+     gap: 2rem; 
+     justify-Content: center;
+     align-items: center;
+     flex-wrap: wrap;       
+
+`
+
+export const Input = styled.input`
+  width: 18rem;
+  max-width: 100%;  
+  height: 40px;
+  border-radius: ${(props) => props.theme.borderRadius.md};
+  padding: 14px 16px;
+  font-size: 18px;
+  color: ${(props) => props.theme.colors.textMuted};
+  border: 1px solid ${(props) => props.theme.colors.border};
+
+  &::placeholder {
+    color: ${(props) => props.theme.colors.textMuted};
+    font-size: 18px;
+  }
+
+`;
+
 
 
 //==== Estilo tabela
@@ -35,7 +126,6 @@ export const Table = styled.table`
     border-radius: ${theme.borderRadius.sm};
     overflow: hidden;
     border-collapse: collapse;
-    margin-bottom: 2rem;
 `
 export const Tr = styled.tr`
     background-color: ${theme.colors.secondary};
@@ -61,19 +151,19 @@ export const TdBlood = styled.td`
   padding: 0.75rem 1rem;
   
   //COR
-  color: ${({ $percentage}) => {
-    const value = Number($percentage); 
-    if (value >= 30) {
-      return '#000000'; 
+  color: ${({ $percentage }) => {
+    const value = Number($percentage);
+    if (value > 30) {
+      return `${theme.colors.textTitle}`;
     }
-    
+
     return `${theme.colors.status.danger}`;
   }};
   //BOld[]
-  font-weight: ${({$percentage}) => {
+  font-weight: ${({ $percentage }) => {
     const value = Number($percentage);
-    if(value > 30){
-        return 400
+    if (value > 30) {
+      return 400
     }
     return 700
   }}
@@ -96,6 +186,7 @@ export const AdmCardContainer = styled.div`
     gap:2rem;
     flex-Wrap:wrap;
      justify-content: center;
+    
 `
 
 export const AdmCard = styled.div`
@@ -119,7 +210,7 @@ export const AdmCard = styled.div`
   }
 `;
 
-export const AdmCardInfo = styled.p`
+export const AdmCardInfo = styled.div`
     padding:  0.5rem 01rem;
     display: flex;
     flex-direction: column;
@@ -147,11 +238,47 @@ export const BloodBarFill = styled.div`
   height: 100%;
   width: ${({ $percentage }) => `${$percentage}%`};
   background: ${({ $percentage }) => {
-        if ($percentage >= 70) return "#466585";
-        if ($percentage >= 40) return `${theme.colors.status.warning}`;
-        return `${theme.colors.status.danger}`;
-    }};
+    if ($percentage >= 70) return `${theme.colors.status.neutral}`;
+    if ($percentage > 30) return `${theme.colors.status.warning}`;
+    return `${theme.colors.status.danger}`;
+  }};
 
   transition: width 0.4s ease;
 
+`;
+
+export const BloodPerc = styled.div`
+  color: ${({ $percentage }) => {
+    if ($percentage >= 70) return `${theme.colors.status.neutral}`;
+    if ($percentage > 30) return `${theme.colors.status.warning}`;
+    return `${theme.colors.status.danger}`;
+  }};
+`
+
+///============ 
+
+export const PaginationContainer = styled.div`
+  display:flex;
+  justify-Content:center;
+  align-Items:center;
+   gap:1rem;
+`
+
+export const PaginatedPage = styled.button`
+  background: none;
+  border: 1px solid gray;
+  padding: 0.5rem;
+  border-radius: 999px;
+  color: gray;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: ${theme.colors.secondary};
+    color: white;
+  }
 `;

@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { theme } from "../../../styles/theme";
 
 export const PageWrapperAdm = styled.div`
-  padding: 2rem 6rem;
+ padding: 2rem 5%;
+  @media (min-width:768px){
+    padding: 2rem 10%;
+
+  }
 `;
 
 export const TopBar = styled.div`
@@ -11,8 +15,6 @@ export const TopBar = styled.div`
   align-items: center;
   margin-bottom: 2rem;
 `;
-
-
 
 export const ActionButtons = styled.div`
   display: flex;
@@ -58,37 +60,61 @@ export const DeleteButton = styled.button`
   }
 `;
 
+export const BtnLabel = styled.p`
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+  }
+`
+
+
 export const HeroSection = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   background: ${theme.colors.surface};
   border-radius: ${theme.borderRadius.lg};
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin-bottom: 2rem;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+     gap: 2rem;
+  }
 `;
 
 export const HeroImage = styled.img`
-  width: 22rem;
-  min-height: 16rem;
   object-fit: cover;
   flex-shrink: 0;
+  width: 100%;
+  min-height: 16rem;
+
+  @media (min-width: 768px) {
+     width: 22rem;
+  }
 `;
 
 export const HeroInfo = styled.div`
-  padding: 1.5rem 2rem 1.5rem 0;
+  padding: 0 2rem 1rem 2rem ;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
   flex: 1;
+   @media (min-width: 768px) {
+     padding: 1.5rem 2rem 1.5rem 0;
+  }
 `;
 
 export const HospitalName = styled.h1`
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   color: ${theme.colors.textTitle};
   margin: 0;
+   @media (min-width: 768px) {
+     ont-size: 1.8rem;
+  }
 `;
 
 export const InfoRow = styled.div`
@@ -109,20 +135,26 @@ export const InfoLink = styled.a`
   }
 `;
 
-export const SectionTitle = styled.h2`
-  font-size: 1.3rem;
-  color: ${theme.colors.textTitle};
-  margin-bottom: 1rem;
+export const AdmFormHeader = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+`
+
+export const SectionTitle = styled.h3`
+  color: ${theme.colors.textTitle};
+  margin-bottom: 2rem;
 `;
 
 export const BloodGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
+   grid-template-columns: repeat(2, 1fr);
+
+  @media (min-width: 768px){
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
 export const BloodCard = styled.div`
@@ -131,9 +163,9 @@ export const BloodCard = styled.div`
   padding: 1.2rem;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-  border-left: 5px solid ${({ $level }) => {
-    if ($level >= 70) return theme.colors.status.success;
-    if ($level >= 40) return theme.colors.status.warning;
+  border-left: 5px solid ${({ $percente }) => {
+    if ($percente >= 70) return theme.colors.status.success;
+    if ($percente > 30) return theme.colors.status.warning;
     return theme.colors.status.danger;
   }};
 `;
@@ -148,9 +180,9 @@ export const BloodType = styled.p`
 export const BloodValue = styled.p`
   font-size: 1.6rem;
   font-weight: 800;
-  color: ${({ $level }) => {
-    if ($level >= 70) return theme.colors.status.success;
-    if ($level >= 40) return theme.colors.status.warning;
+  color: ${({ $percente }) => {
+    if ($percente >= 70) return theme.colors.status.success;
+    if ($percente > 30) return theme.colors.status.warning;
     return theme.colors.status.danger;
   }};
   margin: 0;
@@ -168,7 +200,10 @@ export const InfoCard = styled.div`
 export const InfoGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
+  gap:0.5rem;
+  @media (min-width:768px){
+    gap: 1.2rem;
+  }
 `;
 
 export const InfoItem = styled.div`
@@ -180,15 +215,22 @@ export const InfoItem = styled.div`
 export const InfoLabel = styled.span`
   font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.4px;
   color: ${theme.colors.textMuted};
   font-weight: 600;
+  font-size: 0.7rem;
+  @media (min-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 export const InfoValue = styled.span`
-  font-size: 1rem;
   color: ${theme.colors.textTitle};
   font-weight: 500;
+  font-size: 0.7rem;
+  @media (min-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 // === FORM STYLES ===
@@ -208,14 +250,34 @@ export const FormGrid = styled.div`
   gap: 1.5rem;
 `;
 
+export const FormGridInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  @media (min-width:768px){
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:1rem
+
+  }
+`
+
 export const FormColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 `;
 
+
 export const FormGroup = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+`;
+
+export const FormGroupBlood = styled.div`
+  display: flex;
+  flex:1;
   flex-direction: column;
   gap: 0.3rem;
 `;
@@ -243,6 +305,7 @@ export const FormInput = styled.input`
   background: ${theme.colors.terciary};
   transition: 0.2s;
   outline: none;
+  width: 100%;
 
   &:focus {
     border-color: ${theme.colors.primary};
