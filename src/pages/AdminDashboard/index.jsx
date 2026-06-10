@@ -40,28 +40,21 @@ import { FaHospital, FaPhoneAlt } from 'react-icons/fa'
 import { IoIosMail, IoMdArrowRoundBack, IoMdArrowRoundForward } from 'react-icons/io'
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import { toast, ToastContainer } from 'react-toastify';
+import { calculateBloodStock } from '../../util/bloodStock.jsx';
 
-//TODO
-//[x].Ser alem de uma tabela com CRUD
-//[x].Sistema automatico de cores de acordo com nivel do sangue
-//[ ].Sistema de avisos ou visual que mostre hospitais que estao em estado emergencial
-//[x]. trocar entre tabela e cards
-//[x]. APENAS cards estarao ativos mobile
-//[x]. Responsividade
-//[x] Acesso direto a pagina de cadatro individual de cada hospital[PUT & POST]
-//[x] Paginacao
-//[x] Filtro Digitavel
-//[ ] Ordenacao por estoque sangue
-//[x] LOADING
-
-//Remodelar tabela para ter mais controle de estilo
 
 export const AdminDashboard = () => {
     const [hospital, setHospital] = useState([])
-    const [card, setCard] = useState(false)
     const [loading, setLoading] = useState(true)
-    const [isMobile, setIsMobile] = useState(window.innerWidth <=864);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 864);
     const [search, setSearch] = useState('')
+
+
+    const [card, setCard] = useState(() => {
+        const saved = localStorage.getItem('admin_dashboard_view')
+        return saved ? JSON.parse(saved) : false
+    })
 
     //PAGINACAO
     const [currentPage, setCurrentPage] = useState(1)
@@ -77,7 +70,7 @@ export const AdminDashboard = () => {
     //Modo Mobile
     useEffect(() => {
         const handleMobile = () => {
-            setIsMobile(window.innerWidth <=864)
+            setIsMobile(window.innerWidth <= 864)
         }
         window.addEventListener('resize', handleMobile)
 
@@ -97,7 +90,11 @@ export const AdminDashboard = () => {
                     setHospital(response.data)
                 }
             } catch (err) {
-                console.error("erro ao carregar hospital", err)
+                toast.error("erro ao carregar hospital", err)
+                
+                if(status === 404){
+                    toast.error("Hspitais não encontrado" )
+                }
             } finally {
                 setLoading(false)
             }
@@ -105,6 +102,11 @@ export const AdminDashboard = () => {
         }
         listHospitals()
     }, [])
+
+    //Persistencia Estado
+    useEffect(() => {
+        localStorage.setItem('admin_dashboard_view', JSON.stringify(card))
+    }, [card])
 
     if (loading) return <AdmContainer> <DotLottieReact data={loadingAnimation} loop autoplay /></AdmContainer>
     if (!hospital) return <AdmContainer><p>Hospital não foi encontrado</p></AdmContainer>
@@ -124,19 +126,15 @@ export const AdminDashboard = () => {
 
     return (
         <AdmContainer>
+            <ToastContainer position="top-right" autoClose={2000} />
             <AdmHeader>
                 <TitleWrapper>
                     <RiAdminFill />
                     <AdmTitle>Dashboard</AdmTitle>
                 </TitleWrapper>
 
-
             </AdmHeader>
-
-
-
             <BodyContainer>
-
 
                 {/* ======  Header filtros e opcoes */}
                 <AdmHeaderWrapper >
@@ -208,13 +206,7 @@ export const AdminDashboard = () => {
                     :
                     <AdmCardContainer>
                         {paginateHospital.map((item) => {
-                            const totalBlood = Object.values(item.bloodStock)
-                                .reduce((acc, value) => acc + value, 0);
-
-                            const averageBlood =
-                                totalBlood / Object.values(item.bloodStock).length;
-
-                            const percentage = Math.min(averageBlood, 100);
+                            const{totalBlood,averageBlood,percentage} = calculateBloodStock(item.bloodStock)
 
                             return (
                                 <AdmCard
