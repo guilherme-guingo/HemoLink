@@ -1,3 +1,7 @@
+//[] comentario na linha 83 - sobre o professor;
+//[] comentario linha 66 - de outro State;
+//[] comentario linha 215 - acerca do ver mais;
+
 import { useEffect, useState } from "react";
 import {
   ContainerTitulo,
@@ -58,7 +62,7 @@ export const Catalogo = () => {
   //Funcionalidade loading e carregamento de dados da API
   const [hospitais, setHospitais] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isDados, setIsDados] = useState(false); 
+  const [isDados, setIsDados] = useState(false);
 
   //Funcionalidade favoritar card
   const { favoritar, isFavorito } = useFavoritos();
@@ -75,9 +79,8 @@ export const Catalogo = () => {
   async function carregarInformacoes() {
     setIsLoading(true);
 
-    const response = await getHospital(); 
+    const response = await getHospital();
     if (response.status !== 200) {
-      //Toast aqui
       console.log("Erro ao carregar as informações vinda da API");
       setIsLoading(false);
       return;
@@ -95,7 +98,7 @@ export const Catalogo = () => {
   }, []);
 
   const aplicarFiltro = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const hospitaisFiltrados = hospitais.filter((hospital) => {
       const filtroEndeOuInst =
         hospital.name
