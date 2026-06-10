@@ -1,141 +1,18 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { postSolicitacao } from '../../services/postSolicitacao.jsx';
-import { getHospital } from '../../services/getHospital';
-import axios from 'axios';
-import { Container, Titulo, Formulario,
-         Label, Input, Select,
-         Textarea, Botao, GrupoCampo,
-        } from './style';
-
-
+import { useSolicitarDoacao } from './hooks/useSolicitarDoacao';
+import { CamposLocalizacao } from './components/CamposLocalizacao';
+import { CamposSolicitacao } from './components/CamposSolicitacao';
+import { Container, Titulo, Formulario, Botao } from './Style';
 
 export function SolicitarDoacao() {
-
-  const [formData, setFormData] = useState({
-    nomePaciente: '',
-    nomeHospital: '',
-    tipoSanguineo: '',
-    urgencia: '',
-    estado: '',
-    cidade: '',
-    descricao: '',
-  });
-
-  const [estados, setEstados] = useState([]);
-  const [loadingEstados, setLoadingEstados] = useState(false);
-  const [estadoSelecionado, setEstadoSelecionado] = useState('');
-  const [cidades, setCidades] = useState([]);
-  const [loadingCidades, setLoadingCidades] = useState(false);
-  const [hospitais, setHospitais] = useState([]);
-  const [loadingHospitais, setLoadingHospitais] = useState(false);
-  const [cidadeSelecionada, setCidadeSelecionada] = useState('');
-  const navigate = useNavigate()
-
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  }
-
-  async function handleSubmit() {
-    try {
-      await postSolicitacao(formData);
-      toast.success('Solicitação enviada com sucesso!');
-      setFormData({
-        nomePaciente: '',
-        nomeHospital: '',
-        tipoSanguineo: '',
-        urgencia: '',
-        estado: '',
-        cidade: '',
-        descricao: '',
-      });
-      setEstadoSelecionado('');
-      setCidades([]);
-      setTimeout(() => navigate('/'), 3000);
-    } 
-    catch (error) {
-      console.error('Erro ao enviar solicitação:', error);
-      toast.error('Erro ao enviar solicitação. Tente novamente.');
-    }
-  }
-
-  async function buscarEstados() {
-    setLoadingEstados(true);
-    try {
-        const response = await axios.get(
-        'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
-        setEstados(response.data);
-    } 
-    
-    catch (error) {
-    console.error('Erro ao buscar estados:', error);
-    } 
-    
-    finally {setLoadingEstados(false);
-    }    
-  }
-  
-  async function buscarCidades(sigla) {
-    setCidades([]);
-    setLoadingCidades(true);
-    try {
-      const response = await axios.get(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${sigla}/municipios`
-      );
-      setCidades(response.data);
-    } 
-    catch (error) {
-      console.error('Erro ao buscar cidades:', error);
-    } 
-    finally {
-      setLoadingCidades(false);
-    }
-  }
-
-  async function buscarHospitais(cidade) {
-    setHospitais([]);
-    setLoadingHospitais(true);
-    try {
-      const response = await getHospital();
-      const filtrados = response.data.filter(
-        (hospital) => hospital.city === cidade
-      );
-      setHospitais(filtrados);
-    } 
-    catch (error) {
-      console.error('Erro ao buscar hospitais:', error);
-    } 
-    finally {
-      setLoadingHospitais(false);
-    }
-  }
-
-  useEffect(() => {buscarEstados();}, []);
-  
-  useEffect(() => {
-    if (!estadoSelecionado) return;
-    buscarCidades(estadoSelecionado);
-  }, [estadoSelecionado]);
-
-  useEffect(() => {
-    if (!cidadeSelecionada) return;
-    buscarHospitais(cidadeSelecionada);
-  }, [cidadeSelecionada]);
-
-  function handleEstadoChange(event) {
-    const sigla = event.target.value;
-    setEstadoSelecionado(sigla);
-    setFormData({ ...formData, estado: sigla, cidade: '' });
-  }
-
-  function handleCidadeChange(event) {
-    const cidade = event.target.value;
-    setCidadeSelecionada(cidade);
-    setFormData({ ...formData, cidade: cidade });
-  }
+  const {
+    formData,
+    estados, loadingEstados, estadoSelecionado,
+    cidades, loadingCidades,
+    hospitais, loadingHospitais, cidadeSelecionada,
+    handleChange, handleEstadoChange, handleCidadeChange, handleSubmit,
+  } = useSolicitarDoacao();
 
   return (
     <Container>
@@ -143,130 +20,17 @@ export function SolicitarDoacao() {
       <Titulo>Solicitar Doação de Sangue</Titulo>
       <Formulario>
 
-        <GrupoCampo>
-          <Label htmlFor="nomePaciente">Nome do Paciente</Label>
-          <Input
-            id="nomePaciente"
-            name="nomePaciente"
-            type="text"
-            placeholder="Nome completo do paciente"
-            value={formData.nomePaciente}
-            onChange={handleChange}
-          />
-        </GrupoCampo>
+        <CamposSolicitacao
+          formData={formData}
+          handleChange={handleChange}
+        />
 
-        <GrupoCampo>
-          <Label htmlFor="tipoSanguineo">Tipo Sanguíneo Necessário</Label>
-          <Select
-            id="tipoSanguineo"
-            name="tipoSanguineo"
-            value={formData.tipoSanguineo}
-            onChange={handleChange}
-          >
-            <option value="">Selecione o tipo sanguíneo</option>
-            <option value="A+">A+</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B-">B-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
-            <option value="O+">O+</option>
-            <option value="O-">O-</option>
-          </Select>
-        </GrupoCampo>
-
-        <GrupoCampo>
-          <Label htmlFor="urgencia">Nível de Urgência</Label>
-          <Select
-            id="urgencia"
-            name="urgencia"
-            value={formData.urgencia}
-            onChange={handleChange}
-          >
-            <option value="">Selecione o nível de urgência</option>
-            <option value="Crítico">Crítico</option>
-            <option value="Moderado">Moderado</option>
-            <option value="Baixo">Baixo</option>
-          </Select>
-        </GrupoCampo>
-
-        <GrupoCampo>
-            <Label htmlFor="estado">Estado</Label>
-            <Select
-                id="estado"
-                name="estado"
-                value={estadoSelecionado}
-                onChange={handleEstadoChange}
-                disabled={loadingEstados}
-            >
-                <option value="">
-                    {loadingEstados ? 'Carregando estados...' : 'Selecione o estado'}
-                </option>
-                {estados.map((estado) => (
-                    <option key={estado.id} value={estado.sigla}>{estado.nome}
-                    </option>
-                ))}
-            </Select>
-        </GrupoCampo>
-
-        <GrupoCampo>
-          <Label htmlFor="cidade">Cidade</Label>
-          <Select
-            id="cidade"
-            name="cidade"
-            disabled={loadingCidades || !estadoSelecionado}
-            value={formData.cidade}
-            onChange={handleCidadeChange}
-          >
-            <option value="">
-              {loadingCidades
-                ? 'Carregando cidades...'
-                : !estadoSelecionado
-                ? 'Selecione primeiro um estado'
-                : 'Selecione a cidade'}
-            </option>
-            {cidades.map((cidade) => (
-              <option key={cidade.id} value={cidade.nome}>
-                {cidade.nome}
-              </option>
-            ))}
-          </Select>
-        </GrupoCampo>
-        
-        <GrupoCampo>
-          <Label htmlFor="hospital">Hospital</Label>
-          <Select
-            id="hospital"
-            name="nomeHospital"
-            disabled={loadingHospitais || !cidadeSelecionada}
-            value={formData.nomeHospital}
-            onChange={handleChange}
-          >
-            <option value="">
-              {loadingHospitais
-                ? 'Carregando hospitais...'
-                : !cidadeSelecionada
-                ? 'Selecione primeiro uma cidade'
-                : 'Selecione o hospital'}
-            </option>
-            {hospitais.map((hospital) => (
-              <option key={hospital.id} value={hospital.name}>
-                {hospital.name}
-              </option>
-            ))}
-          </Select>
-        </GrupoCampo>
-
-        <GrupoCampo>
-          <Label htmlFor="descricao">Descrição Adicional</Label>
-          <Textarea
-            id="descricao"
-            name="descricao"
-            placeholder="Descreva detalhes adicionais sobre o caso"
-            value={formData.descricao}
-            onChange={handleChange}
-          />
-        </GrupoCampo>
+        <CamposLocalizacao
+          estados={estados} loadingEstados={loadingEstados} estadoSelecionado={estadoSelecionado} handleEstadoChange={handleEstadoChange}
+          cidades={cidades} loadingCidades={loadingCidades} handleCidadeChange={handleCidadeChange}
+          hospitais={hospitais} loadingHospitais={loadingHospitais} cidadeSelecionada={cidadeSelecionada}
+          formData={formData} handleChange={handleChange}
+        />
 
         <Botao onClick={handleSubmit}>
           Enviar Solicitação
