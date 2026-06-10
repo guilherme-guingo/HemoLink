@@ -145,6 +145,12 @@ export const CardDiv = styled.div`
       0 12px 24px rgba(36, 75, 126, 0.08),
       0 4px 8px rgba(0, 0, 0, 0.04);
   }
+
+    a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
 `;
 
 export const ImagemDiv = styled.div`

@@ -34,7 +34,7 @@ export default function Home() {
           </HeroDescription>
           <HeroActions>
             <ActionButton to="/catalogo">Ver hospitais</ActionButton>
-            <SecondaryButton to="/adminDashboard">Entrar no painel</SecondaryButton>
+            <SecondaryButton to="/perfil">Meus favoritos</SecondaryButton>
           </HeroActions>
 
           <Stats>
