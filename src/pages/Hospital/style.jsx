@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  max-width: 900px;
+  width: 70%;
   margin: 40px auto;
   padding: 0 20px;
   font-family: 'Inter', sans-serif;
@@ -18,6 +18,10 @@ export const VoltarLink = styled.div`
     align-items: center;
     transition: color 0.2s;
 
+    svg {
+      margin-right: 8px;
+    }
+
     &:hover {
       color: ${(props) => props.theme.colors?.primary || '#C8102E'};
     }
@@ -32,10 +36,33 @@ export const Card = styled.div`
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 `;
 
+export const ErrorCard = styled(Card)`
+  border-color: #C8102E;
+  text-align: center;
+  padding: 40px;
+`;
+
+export const ErrorTitle = styled.h2`
+  color: #C8102E;
+  margin-bottom: 16px;
+`;
+
+export const ErrorText = styled.p`
+  color: #50606F;
+`;
+
+export const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+`;
+
 export const HeaderCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap; 
   gap: 20px;
   margin-bottom: 24px;
 
@@ -49,11 +76,6 @@ export const HeaderCard = styled.div`
     margin: 0;
     color: ${(props) => props.theme.colors?.textSecondary || '#50606F'};
     font-size: 0.95rem;
-  }
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: flex-start;
   }
 `;
 
@@ -101,12 +123,12 @@ export const ActionButton = styled.button`
   }
 `;
 
-export const CarouselSection = styled.section`
+export const ImageSection = styled.section`
   margin-bottom: 24px;
   width: 100%;
 `;
 
-export const CarouselWrapper = styled.div`
+export const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 380px;
@@ -114,61 +136,19 @@ export const CarouselWrapper = styled.div`
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   background-color: #E5E9ED;
+  margin-bottom: 24px;
 `;
 
-export const CarouselImage = styled.img`
+export const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: all 0.4s ease-in-out;
 `;
 
-export const CarouselNavButton = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.4);
-  color: #FFFFFF;
-  border: none;
-  font-size: 2.5rem;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  transition: background-color 0.2s;
-  border-radius: 50%;
-  user-select: none;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.7);
-  }
-
-  &.left { left: 16px; }
-  &.right { right: 16px; }
-`;
-
-export const CarouselDots = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 12px;
-`;
-
-export const Dot = styled.span`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: ${(props) => props.$active ? (props.theme.colors?.primary || '#C8102E') : '#D2DBE4'};
-  cursor: pointer;
-  transition: background-color 0.2s;
-`;
-
 export const DetailsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  flex-wrap: wrap; /* Substituído grid por flex dinâmico */
   gap: 24px;
   margin-top: 24px;
   border-top: 1px solid ${(props) => props.theme.colors?.border || '#D2DBE4'};
@@ -180,6 +160,7 @@ export const InfoBlock = styled.div`
   padding: 24px;
   border-radius: ${(props) => props.theme.borderRadius?.md || '8px'};
   border: 1px solid ${(props) => props.theme.colors?.border || '#E5E9ED'};
+  flex: 1 1 300px; 
 
   h3 {
     margin-top: 0;
@@ -200,16 +181,11 @@ export const InfoBlock = styled.div`
 `;
 
 export const StockGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  display: flex;
+  flex-wrap: wrap; 
   gap: 8px; 
   margin-top: 12px;
   width: 100%;
-
-  @media (max-width: 650px) {
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 8px;
-  }
 `;
 
 export const StockItem = styled.div`
@@ -222,7 +198,7 @@ export const StockItem = styled.div`
   font-weight: 700;
   text-align: center;
   transition: transform 0.2s;
-  
+  flex: 1 1 70px; 
   background-color: ${(props) => 
     props.status === 'critico' ? '#FFD4D4' : 
     props.status === 'alerta' ? '#FFEAA7' : '#D4EDDA'};

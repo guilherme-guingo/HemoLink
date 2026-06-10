@@ -10,9 +10,12 @@ import { HospitalCard } from './components/HospitalCard';
 import {
   Container,
   VoltarLink,
-  Card,
-  CarouselWrapper, 
-  CarouselImage    
+  ImageWrapper, 
+  Image,
+  LoadingWrapper,
+  ErrorCard,
+  ErrorTitle,
+  ErrorText
 } from './style';
 
 export function Hospital() {
@@ -59,9 +62,11 @@ export function Hospital() {
   if (loading) {
     return (
       <Container>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '40vh' }}>
-          <h2>Buscando dados completos do hospital...</h2>
-        </div>
+        <LoadingWrapper>
+          <h2>
+            Buscando dados completos do hospital...
+          </h2>
+        </LoadingWrapper>
       </Container>
     );
   }
@@ -70,40 +75,53 @@ export function Hospital() {
     return (
       <Container>
         <VoltarLink>
-          <Link to="/catalogo">
-            <FiArrowLeft style={{ marginRight: '8px' }} /> Voltar para o Catálogo
+          <Link 
+          to="/catalogo">
+            <FiArrowLeft /> 
+            Voltar para o Catálogo
           </Link>
         </VoltarLink>
-        <Card style={{ borderColor: '#C8102E', textAlign: 'center', padding: '40px' }}>
-          <h2 style={{ color: '#C8102E', marginBottom: '16px' }}>Ops! Algo deu errado.</h2>
-          <p style={{ color: '#50606F' }}>{erro || "Hospital não encontrado."}</p>
-        </Card>
-        <ToastContainer position="bottom-right" autoClose={3000} />
+        
+        <ErrorCard>
+          <ErrorTitle>
+            Ops! Algo deu errado.
+          </ErrorTitle>
+          <ErrorText>
+            {erro || "Hospital não encontrado."}
+          </ErrorText>
+        </ErrorCard>
+        <ToastContainer 
+        position="bottom-right" 
+        autoClose={3000} />
       </Container>
     );
   }
-
-  const imagemHospital = hospital.image || hospital.imagens?.[0] || hospital.fotos?.[0] || null;
 
   return (
     <Container>
       <VoltarLink>
         <Link to="/catalogo">
-          <FiArrowLeft style={{ marginRight: '8px' }} /> Catálogo
+          <FiArrowLeft /> 
+          Catálogo
         </Link>
       </VoltarLink>
 
-      {imagemHospital && (
-        <div style={{ marginBottom: '24px' }}>
-          <CarouselWrapper>
-            <CarouselImage src={imagemHospital} alt={`Foto de fachada do ${hospital.name}`} />
-          </CarouselWrapper>
-        </div>
+      {hospital.image && (
+        <ImageWrapper>
+          <Image
+            src={hospital.image}
+            alt={`Foto de fachada do ${hospital.name}`}
+          />
+        </ImageWrapper>
       )}
 
-      <HospitalCard hospital={hospital} onAgendar={handleAgendar} />
+      <HospitalCard 
+      hospital={hospital} 
+      onAgendar={handleAgendar} />
       
-      <ToastContainer position="bottom-right" autoClose={3000} />
+      <ToastContainer 
+      position="bottom-right" 
+      autoClose={3000} />
     </Container>
   );
 }

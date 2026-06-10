@@ -14,6 +14,8 @@ export const HeaderCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
   border-bottom: 1px solid #f1f5f9;
   padding-bottom: 16px;
 
@@ -106,16 +108,12 @@ export const MapContainer = styled.div`
 `;
 
 export const StockGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  display: flex;
+  flex-wrap: wrap; 
   gap: 6px; 
   margin-top: 12px;
   width: 100%;
   box-sizing: border-box;
-
-  @media (max-width: 650px) {
-    grid-template-columns: repeat(4, 1fr); 
-  }
 `;
 
 export const StockItem = styled.div`
@@ -127,7 +125,7 @@ export const StockItem = styled.div`
   border-radius: 6px;
   text-align: center;
   font-weight: 600;
-  min-width: 0; 
+  flex: 1 1 75px; 
 
   background: ${props => 
     props.status === 'critico' ? '#fff5f5' : 
