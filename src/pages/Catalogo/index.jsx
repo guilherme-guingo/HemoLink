@@ -42,6 +42,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 import { RiContactsLine } from "react-icons/ri";
 import { FaRegAddressCard } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 import { useFavoritos } from "../../contexts/FavoritesContext";
 import { getHospital } from "../../services/getHospital";
@@ -226,12 +227,12 @@ export const Catalogo = () => {
                     </BotaoFavoritar>
                   </FavoritarDiv>
                   <div>
-                    <a href={`/hospital/${dados.id}`}>
+                    <Link to={`/hospital/${dados.id}`}>
                       <BotaoConhecer>
                         <RiContactsLine />
                         Conhecer esta Unidade
                       </BotaoConhecer>
-                    </a>
+                    </Link>
                   </div>
                 </CardDiv>
               );
