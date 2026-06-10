@@ -1,7 +1,3 @@
-//[] comentario na linha 83 - sobre o professor;
-//[] comentario linha 66 - de outro State;
-//[] comentario linha 215 - acerca do ver mais;
-
 import { useEffect, useState } from "react";
 import {
   ContainerTitulo,
@@ -13,15 +9,6 @@ import {
   BuscaDiv,
   Input,
   ContainerCard,
-  CardDiv,
-  ImagemDiv,
-  ImagemHospital,
-  ConteudoDiv,
-  Necessidade,
-  InfoEstoqueDiv,
-  ProgressoDiv,
-  PorcentagemDiv,
-  Situacao,
   ContainerVerMais,
   BotaoVerMais,
   ContainerBack,
@@ -29,26 +16,19 @@ import {
   SubTexto,
   BotaoBuscar,
   TextoFiltro,
-  FavoritarDiv,
-  BotaoFavoritar,
-  BotaoConhecer,
   BotaoFalarConosco,
   LoadingContainer,
   NaoEncontouFilhoDiv,
   TituloTexto,
 } from "./style";
 import { IoFilter } from "react-icons/io5";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa6";
-import { RiContactsLine } from "react-icons/ri";
-import { FaRegAddressCard } from "react-icons/fa6";
-import { Link } from "react-router-dom";
 
 import { useFavoritos } from "../../contexts/FavoritesContext";
 import { getHospital } from "../../services/getHospital";
 
 import loadingAnimation from "../../assets/loading.json";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { CardHospital } from "../../components/CardHospital";
 
 //Funcao para retornar os tipos sanguineos mais baixos
 export const obterTiposSanguineosCriticos = (bloodStock) => {
@@ -184,57 +164,9 @@ export const Catalogo = () => {
               const percentage = Math.min(averageBlood, 100);
 
               return (
-                <CardDiv key={dados.id}>
-                  <ImagemDiv>
-                    {dados.image && (
-                      <ImagemHospital
-                        src={dados.image}
-                        alt="Imagem de um Hospital"
-                      />
-                    )}
-                    <Necessidade porcentagem={percentage}>
-                      {percentage <= 30
-                        ? `Urgência: ${obterTiposSanguineosCriticos(dados.bloodStock)}`
-                        : `Necessita: ${obterTiposSanguineosCriticos(dados.bloodStock)}`}
-                    </Necessidade>
-                  </ImagemDiv>
-                  <ConteudoDiv>
-                    <h3 style={{ marginBottom: 10 }}>{dados.name}</h3>
-                    <p style={{ marginBottom: 15 }}>
-                      📍 ​{dados.city} - {dados.state}
-                    </p>
-                    <InfoEstoqueDiv>
-                      <span style={{ fontSize: 12 }}>Estoque Geral</span>
-                      <Situacao
-                        style={{ fontSize: 12, fontWeight: 600 }}
-                        porcentagem={percentage}
-                      >
-                        {percentage <= 30
-                          ? `Critico (${percentage}%)`
-                          : `${percentage}` <= 50
-                            ? `Alerta (${percentage}%)`
-                            : `Regular (${percentage}%)`}
-                      </Situacao>
-                    </InfoEstoqueDiv>
-
-                    <ProgressoDiv>
-                      <PorcentagemDiv porcentagem={percentage} />
-                    </ProgressoDiv>
-                  </ConteudoDiv>
-                  <FavoritarDiv>
-                    <BotaoFavoritar onClick={() => favoritar(dados)}>
-                      {isFavorito(dados.id) ? <FaHeart /> : <FaRegHeart />}
-                    </BotaoFavoritar>
-                  </FavoritarDiv>
-                  <div>
-                    <Link to={`/hospital/${dados.id}`}>
-                      <BotaoConhecer>
-                        <RiContactsLine />
-                        Conhecer esta Unidade
-                      </BotaoConhecer>
-                    </Link>
-                  </div>
-                </CardDiv>
+                <div key={dados.id}>
+                  <CardHospital dados = {dados} percentage = {percentage} obterTiposSanguineosCriticos ={obterTiposSanguineosCriticos }/>
+                </div>
               );
             })}
           </ContainerCard>
