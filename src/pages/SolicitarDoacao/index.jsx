@@ -1,5 +1,3 @@
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useSolicitarDoacao } from './hooks/useSolicitarDoacao';
 import { CamposLocalizacao } from './components/CamposLocalizacao';
 import { CamposSolicitacao } from './components/CamposSolicitacao';
@@ -16,7 +14,6 @@ export function SolicitarDoacao() {
 
   return (
     <Container>
-      <ToastContainer position="top-right" autoClose={2000} />
       <Titulo>Solicitar Doação de Sangue</Titulo>
       <Formulario>
 
