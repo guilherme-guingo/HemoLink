@@ -6,7 +6,7 @@ import api from '../../services/api/Api.jsx';
 import { Container, Titulo, Formulario,
          Label, Input, Select,
          Textarea, Botao, GrupoCampo,
-        } from './style';
+        } from './Style';
 import axios from 'axios';
 
 
