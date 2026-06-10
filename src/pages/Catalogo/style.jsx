@@ -31,8 +31,6 @@ export const TituloDiv = styled.div`
 export const Titulo = styled.h1`
   color: ${(props) => props.theme.colors.textTitle};
   font-size: 3rem;
-  // ver sobre a cor qual preferem
-  // color: #c8102e;
 
   @media (min-width: 1500px) {
     font-size: 4rem;
@@ -44,7 +42,7 @@ export const Subtitulo = styled.h2`
   text-align: center;
   min-width: 200px;
   max-width: 900px;
-  margin: 0 auto; //possibilita a centralizacao
+  margin: 0 auto;
   line-height: 1.5;
   font-size: 1.2rem;
 
@@ -63,9 +61,6 @@ export const ContainerFiltro = styled.div`
   gap: 24px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   margin-top: -30px;
-
-  @media (min-width: 1100px) {
-  }
 `;
 
 export const FiltroDiv = styled.div`
@@ -113,9 +108,6 @@ export const ContainerCard = styled.div`
   gap: 15px;
   margin: 100px auto 40px auto;
   max-width: 1500px;
-
-  @media (min-width: 660px) {
-  }
 `;
 
 export const CardDiv = styled.div`
@@ -123,11 +115,7 @@ export const CardDiv = styled.div`
   width: 320px;
   display: flex;
   flex-direction: column;
-
-  // Pedro: nota: essa propriedade acaba afetando o desenvolvimento dos outros cards. Necessita analisar com base em cada imagem vinda da api para ajustar adequadamente
   min-height: 430px;
-
-  // Pedro: nota: propriedade que recorta qualquer conteúdo que se estenda além da caixa de preenchimento do seu elemento
   overflow: hidden;
 
   background: ${(props) => props.theme.colors.surface};
@@ -145,7 +133,7 @@ export const CardDiv = styled.div`
       0 12px 24px rgba(36, 75, 126, 0.08),
       0 4px 8px rgba(0, 0, 0, 0.04);
   }
-
+    //ver sobre, pois precisa tirar o a-herf
     a {
     text-decoration: none;
     color: inherit;
@@ -156,18 +144,12 @@ export const CardDiv = styled.div`
 export const ImagemDiv = styled.div`
   width: 100%;
   position: relative;
-  // overflow: hidden;
 `;
 
 export const ImagemHospital = styled.img`
   width: 100%;
   height: 12.5rem;
   object-fit: cover;
-  // transition: transform 0.5s ease;
-
-  // &:hover {
-  //   transform: scale(1.1); /* imagem em 10% maior*/
-  // }
 `;
 
 export const ConteudoDiv = styled.div`
@@ -207,7 +189,6 @@ export const ProgressoDiv = styled.div`
 `;
 
 export const PorcentagemDiv = styled.div`
-  // Nota: essa porcentagem é recebida via props, e ela se adapta conforme ao que é passado pela API
   width: ${({ porcentagem }) => porcentagem}%;
   height: 100%;
   background-color: ${({ porcentagem }) => {
@@ -239,8 +220,8 @@ export const BotaoVerMais = styled.button`
   padding: 13px 25px;
   border-radius: ${(props) => props.theme.borderRadius.full};
   font-size: 12px;
-  color: #c8102e;
-  border: 1px solid #c8102e;
+  color: ${(props) => props.theme.colors.primary};
+  border: 1px solid ${(props) => props.theme.colors.primary};
   cursor: pointer;
   background: transparent;
 
@@ -248,16 +229,15 @@ export const BotaoVerMais = styled.button`
   transition: all 0.5s ease;
 
   &:hover {
-    background: #c8102e;
+    background: ${(props) => props.theme.colors.primary};
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 1px 10px #a50d24;
+    box-shadow: 0 1px 10px ${(props) => props.theme.colors.primaryHover};
   }
 `;
 
 export const ContainerBack = styled.div`
   background: #eaf0f6;
-  // background: #ECF5FE;
   height: 400px;
   display: flex;
   justify-content: center;
@@ -380,14 +360,14 @@ export const BotaoFavoritar = styled.button`
     box-shadow 0.2s ease;
 
   &:hover {
-    background-color: #ffffff;
+    background-color: ${(props) => props.theme.colors.surface};
     color: #e53e3e;
     transform: scale(1.08);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
   }
   &.favoritado {
     color: #c5112e;
-    background-color: #ffffff;
+    background-color: ${(props) => props.theme.colors.surface};
   }
 `;
 
@@ -440,7 +420,7 @@ export const BotaoFalarConosco = styled.button`
   padding: 13px 30px;
   border-radius: ${(props) => props.theme.borderRadius.full};
   font-size: 0.9rem;
-  color: #c8102e;
+  color: ${(props) => props.theme.colors.status.danger};
   cursor: pointer;
   background: ${(props) => props.theme.colors.surface};
   transition: all 0.5s ease;

@@ -1,7 +1,3 @@
-//[] comentario na linha 83 - sobre o professor;
-//[] comentario linha 66 - de outro State;
-//[] comentario linha 215 - acerca do ver mais;
-
 import { useEffect, useState } from "react";
 import {
   ContainerTitulo,
@@ -52,13 +48,9 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 //Funcao para retornar os tipos sanguineos mais baixos
 export const obterTiposSanguineosCriticos = (bloodStock) => {
   if (!bloodStock || Object.keys(bloodStock).length === 0) return "Nenhum";
-
-  //Funcionalidade: Converte o objeto em array, ordena do menor para o maior estoque e pega os 2 primeiros
   const menoresEstoques = Object.entries(bloodStock)
-    .sort((a, b) => a[1] - b[1]) // Ordenação crescente pelo valor numérico
-    .slice(0, 2); // Pega os dois primeiros (os mais baixos)
-
-  //Extrai apenas as chaves e junta com uma vírgula
+    .sort((a, b) => a[1] - b[1])
+    .slice(0, 2);
   return menoresEstoques.map((item) => item[0]).join(", ");
 };
 
@@ -66,7 +58,7 @@ export const Catalogo = () => {
   //Funcionalidade loading e carregamento de dados da API
   const [hospitais, setHospitais] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isDataFetched, setIsDataFetched] = useState(false); // ver mais sobre
+  const [isDados, setIsDados] = useState(false); 
 
   //Funcionalidade favoritar card
   const { favoritar, isFavorito } = useFavoritos();
@@ -83,8 +75,9 @@ export const Catalogo = () => {
   async function carregarInformacoes() {
     setIsLoading(true);
 
-    const response = await getHospital(); //Perguntar ao professor sobre(quando apago fica em loop)
+    const response = await getHospital(); 
     if (response.status !== 200) {
+      //Toast aqui
       console.log("Erro ao carregar as informações vinda da API");
       setIsLoading(false);
       return;
@@ -94,15 +87,15 @@ export const Catalogo = () => {
       setHospitais(response.data);
       setResultadoFiltro(response.data);
       setIsLoading(false);
-      setIsDataFetched(true);
-    }, 2000);
+      setIsDados(true);
+    }, 1500);
   }
   useEffect(() => {
     carregarInformacoes();
   }, []);
 
   const aplicarFiltro = (e) => {
-    e.preventDefault(); //util para evitar que a pagina recarregue ao apertar(enter)
+    e.preventDefault(); 
     const hospitaisFiltrados = hospitais.filter((hospital) => {
       const filtroEndeOuInst =
         hospital.name
@@ -125,17 +118,11 @@ export const Catalogo = () => {
   };
   return (
     <main>
-      {/* {!isLoading && hospitais.length === 0 && (
-        <>
-          <h1>Sem hospitais para exibir no momento!</h1>
-        </>
-      )} */}
-
       {isLoading ? (
         <LoadingContainer>
           <DotLottieReact data={loadingAnimation} loop autoplay />
         </LoadingContainer>
-      ) : isDataFetched && hospitais.length === 0 ? (
+      ) : isDados && hospitais.length === 0 ? (
         <>
           <h1>Sem hospitais para exibir no momento!</h1>
         </>
@@ -277,7 +264,6 @@ export const Catalogo = () => {
                 </SubTexto>
               </NaoEncontouFilhoDiv>
               <div>
-                {/* Obs: provavelmente cabe um componente de botão aqui */}
                 <BotaoFalarConosco>Falar Conosco</BotaoFalarConosco>
               </div>
             </NaoEncontrouDiv>
