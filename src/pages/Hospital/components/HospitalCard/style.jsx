@@ -24,6 +24,7 @@ export const HeaderCard = styled.div`
     color: #0f172a;
     font-weight: 700;
     margin-bottom: 4px;
+    word-break: break-word; 
   }
 
   p {
@@ -65,20 +66,26 @@ export const InfoBlockBox = styled.div`
 `;
 
 export const InfoRow = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: #334155;
   font-size: 0.95rem;
   line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
 
   strong {
     color: #0f172a;
     font-weight: 600;
+    margin-right: 5px; 
+    display: inline-block;
   }
 
   a {
     color: #C8102E;
     text-decoration: none;
     font-weight: 500;
+    word-break: break-all; 
+    
     &:hover {
       text-decoration: underline;
     }

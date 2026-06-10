@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 70%;
+  width: calc(40% + 200px);
   margin: 40px auto;
   padding: 0 20px;
   font-family: 'Inter', sans-serif;
@@ -148,7 +148,7 @@ export const Image = styled.img`
 
 export const DetailsGrid = styled.div`
   display: flex;
-  flex-wrap: wrap; /* Substituído grid por flex dinâmico */
+  flex-wrap: wrap; 
   gap: 24px;
   margin-top: 24px;
   border-top: 1px solid ${(props) => props.theme.colors?.border || '#D2DBE4'};

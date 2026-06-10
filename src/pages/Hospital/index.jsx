@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { FiArrowLeft } from 'react-icons/fi';
+import { useToast } from '../../components/Toast'; 
 
 import { getHospital } from '../../services/getHospital'; 
 import { HospitalCard } from './components/HospitalCard'; 
@@ -21,7 +20,7 @@ import {
 export function Hospital() {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const { notifyError } = useToast();
   const [hospital, setHospital] = useState(null);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(null);
@@ -44,7 +43,8 @@ export function Hospital() {
       } catch (error) {
         console.error("Erro ao buscar hospital:", error);
         setErro("Não foi possível carregar as informações do servidor.");
-        toast.error("Erro de conexão com o banco de dados.");
+        notifyError("Erro de conexão com o banco de dados.");
+        
       } finally {
         setLoading(false);
       }
@@ -53,7 +53,7 @@ export function Hospital() {
     if (id) {
       loadHospital();
     }
-  }, [id]);
+  }, [id]); 
 
   const handleAgendar = () => {
     navigate('/solicitar');
@@ -90,9 +90,6 @@ export function Hospital() {
             {erro || "Hospital não encontrado."}
           </ErrorText>
         </ErrorCard>
-        <ToastContainer 
-        position="bottom-right" 
-        autoClose={3000} />
       </Container>
     );
   }
@@ -100,7 +97,8 @@ export function Hospital() {
   return (
     <Container>
       <VoltarLink>
-        <Link to="/catalogo">
+        <Link 
+        to="/catalogo">
           <FiArrowLeft /> 
           Catálogo
         </Link>
@@ -115,13 +113,7 @@ export function Hospital() {
         </ImageWrapper>
       )}
 
-      <HospitalCard 
-      hospital={hospital} 
-      onAgendar={handleAgendar} />
-      
-      <ToastContainer 
-      position="bottom-right" 
-      autoClose={3000} />
+      <HospitalCard hospital={hospital} onAgendar={handleAgendar} />
     </Container>
   );
 }
