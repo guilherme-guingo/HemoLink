@@ -14,6 +14,8 @@ export const HeaderCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
   border-bottom: 1px solid #f1f5f9;
   padding-bottom: 16px;
 
@@ -22,6 +24,7 @@ export const HeaderCard = styled.div`
     color: #0f172a;
     font-weight: 700;
     margin-bottom: 4px;
+    word-break: break-word; 
   }
 
   p {
@@ -63,20 +66,26 @@ export const InfoBlockBox = styled.div`
 `;
 
 export const InfoRow = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: #334155;
   font-size: 0.95rem;
   line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
 
   strong {
     color: #0f172a;
     font-weight: 600;
+    margin-right: 5px; 
+    display: inline-block;
   }
 
   a {
     color: #C8102E;
     text-decoration: none;
     font-weight: 500;
+    word-break: break-all; 
+    
     &:hover {
       text-decoration: underline;
     }
@@ -106,16 +115,12 @@ export const MapContainer = styled.div`
 `;
 
 export const StockGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  display: flex;
+  flex-wrap: wrap; 
   gap: 6px; 
   margin-top: 12px;
   width: 100%;
   box-sizing: border-box;
-
-  @media (max-width: 650px) {
-    grid-template-columns: repeat(4, 1fr); 
-  }
 `;
 
 export const StockItem = styled.div`
@@ -127,7 +132,7 @@ export const StockItem = styled.div`
   border-radius: 6px;
   text-align: center;
   font-weight: 600;
-  min-width: 0; 
+  flex: 1 1 75px; 
 
   background: ${props => 
     props.status === 'critico' ? '#fff5f5' : 
