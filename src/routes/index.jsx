@@ -9,6 +9,8 @@ import { SolicitarDoacao } from '../pages/SolicitarDoacao';
 import { HospitalDetail } from "../pages/AdminDashboard/HospitalDetail";
 import { AddHospital, EditHospital } from "../pages/AdminDashboard/HospitalDetail/HospitalForm";
 import { Hospital } from "../pages/Hospital"
+import Login from "../pages/Login";
+import Cadastro from "../pages/Cadastro";
 
 export function AppRoutes() {
   return (
@@ -26,6 +28,8 @@ export function AppRoutes() {
           <Route path="adminDashboard/:id" element={<HospitalDetail />} />
           <Route path="hospital/:id" element={<Hospital />} />
         </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/cadastro" element={<Cadastro />} />
       </Routes>
     </BrowserRouter>
   );

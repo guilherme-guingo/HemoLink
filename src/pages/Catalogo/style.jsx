@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const LoadingContainer = styled.div`
   width: 100%;
-  min-height: 70vh;
+  height: 70vh;
   display: flex !important;
   flex-direction: column;
   justify-content: center;
@@ -11,8 +11,8 @@ export const LoadingContainer = styled.div`
   text-align: center;
   canvas,
   svg {
-    width: 400px !important;
-    height: 400px !important;
+    width: 200px;
+    height: 200px;
     display: block;
     margin: 0 auto;
   }
@@ -33,14 +33,24 @@ export const Titulo = styled.h1`
   font-size: 3rem;
   // ver sobre a cor qual preferem
   // color: #c8102e;
+
+  @media (min-width: 1500px) {
+    font-size: 4rem;
+  }
 `;
 
 export const Subtitulo = styled.h2`
   color: ${(props) => props.theme.colors.textBase};
   text-align: center;
-  width: 820px;
+  min-width: 200px;
+  max-width: 900px;
   margin: 0 auto; //possibilita a centralizacao
   line-height: 1.5;
+  font-size: 1.2rem;
+
+  @media (min-width: 1500px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const ContainerFiltro = styled.div`
@@ -51,25 +61,34 @@ export const ContainerFiltro = styled.div`
   background: ${(props) => props.theme.colors.surface};
   border-radius: ${(props) => props.theme.borderRadius.lg};
   gap: 24px;
-  align-items: end;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   margin-top: -30px;
+
+  @media (min-width: 1100px) {
+  }
 `;
 
 export const FiltroDiv = styled.div`
   display: flex;
   justify-content: space-around;
   width: 100%;
+  flex-direction: column;
+
+  @media (min-width: 1100px) {
+    flex-direction: row;
+  }
 `;
 
 export const BuscaDiv = styled.div`
-  width: 40%;
+  @media (min-width: 1100px) {
+    width: 40%;
+  }
 `;
 
 export const Input = styled.input`
   width: 100%;
   height: 40px;
-  margin-top: 10px;
+  margin: 5px auto 20px auto;
   border-radius: ${(props) => props.theme.borderRadius.md};
   padding: 14px 16px;
   font-size: 18px;
@@ -79,6 +98,10 @@ export const Input = styled.input`
   &::placeholder {
     color: ${(props) => props.theme.colors.textMuted};
     font-size: 18px;
+  }
+
+  @media (min-width: 1100px) {
+    margin: 10px auto 0px auto;
   }
 `;
 
@@ -90,6 +113,9 @@ export const ContainerCard = styled.div`
   gap: 15px;
   margin: 100px auto 40px auto;
   max-width: 1500px;
+
+  @media (min-width: 660px) {
+  }
 `;
 
 export const CardDiv = styled.div`
@@ -99,7 +125,7 @@ export const CardDiv = styled.div`
   flex-direction: column;
 
   // Pedro: nota: essa propriedade acaba afetando o desenvolvimento dos outros cards. Necessita analisar com base em cada imagem vinda da api para ajustar adequadamente
-  min-height: 450px;
+  min-height: 430px;
 
   // Pedro: nota: propriedade que recorta qualquer conteúdo que se estenda além da caixa de preenchimento do seu elemento
   overflow: hidden;
@@ -240,23 +266,63 @@ export const ContainerBack = styled.div`
 
 export const NaoEncontrouDiv = styled.div`
   background: ${(props) => props.theme.colors.primary};
-  width: 80%;
-  height: 50%;
+  width: 90%;
+  height: 80%;
   border-radius: ${(props) => props.theme.borderRadius.lg};
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  gap: 40px;
+
+  @media (min-width: 700px) {
+    padding: 30px;
+  }
+
+  @media (min-width: 1000px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 50%;
+    width: 80%;
+    padding: 0px;
+  }
+`;
+
+export const NaoEncontouFilhoDiv = styled.div`
+  @media (min-width: 1000px) {
+    margin-left: 70px;
+  }
 `;
 
 export const SubTexto = styled.p`
-  margin-top: 5px;
+  margin-top: 10px;
   color: ${(props) => props.theme.colors.textInverseBase};
+  text-align: center;
+  line-height: 1.5;
+  font-size: 0.8rem;
+
+  @media (min-width: 450px) {
+    margin-top: 5px;
+    font-size: 1rem;
+  }
+  @media (min-width: 700px) {
+    margin-top: 5px;
+    font-size: 1.2rem;
+  }
+
+  @media (min-width: 1000px) {
+    text-align: start;
+    font-size: 1rem;
+  }
 `;
 
 export const BotaoBuscar = styled.button`
   padding: 15px 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 15px;
   border-radius: ${(props) => props.theme.borderRadius.md};
   cursor: pointer;
@@ -267,6 +333,16 @@ export const BotaoBuscar = styled.button`
   transition: all 0.5s ease;
   &:hover {
     background: #3d5875;
+  }
+
+  @media (min-width: 1100px) {
+    padding: 10px 20px;
+  }
+  @media (min-width: 1300px) {
+    padding: 15px 30px;
+  }
+  @media (min-width: 1500px) {
+    padding: 15px 40px;
   }
 `;
 
@@ -340,13 +416,32 @@ export const BotaoConhecer = styled.button`
   }
 `;
 
+export const TituloTexto = styled.h1`
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: ${(props) => props.theme.colors.surface};
+  text-align: center;
+
+  @media (min-width: 450px) {
+    font-size: 2rem;
+  }
+
+  @media (min-width: 700px) {
+    font-size: 2.3rem;
+  }
+
+  @media (min-width: 1000px) {
+    font-size: 2.3rem;
+    text-align: start;
+  }
+`;
+
 export const BotaoFalarConosco = styled.button`
   padding: 13px 30px;
   border-radius: ${(props) => props.theme.borderRadius.full};
   font-size: 0.9rem;
   color: #c8102e;
   cursor: pointer;
-  margin-right: 70px;
   background: ${(props) => props.theme.colors.surface};
   transition: all 0.5s ease;
   font-weight: 550;
@@ -357,6 +452,10 @@ export const BotaoFalarConosco = styled.button`
     color 0.25s ease,
     transform 0.2s ease;
   &:hover {
-    border: 1px solid #ffffff;
+    border: 1px solid ${(props) => props.theme.colors.surface};
+  }
+
+  @media (min-width: 1000px) {
+    margin-right: 70px;
   }
 `;

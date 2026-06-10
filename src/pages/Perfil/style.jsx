@@ -55,6 +55,22 @@ export const EnderecoHospital = styled.p`
     margin-bottom: 15px;
 `;
 
+export const TiposNecessarios = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    border: 1px dashed ${(props) => props.theme.colors.border};
+    border-radius: ${(props) => props.theme.borderRadius.sm};
+    font-size: 14px;
+    color: ${(props) => props.theme.colors.textBase};
+
+    strong {
+        color: ${(props) => props.theme.colors.primary};
+    }
+`;
+
 export const TipoSanguineo = styled.span`
     align-self: flex-start;
     padding: 6px 12px;
