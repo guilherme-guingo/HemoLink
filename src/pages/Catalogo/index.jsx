@@ -236,10 +236,12 @@ export const Catalogo = () => {
                     </BotaoFavoritar>
                   </FavoritarDiv>
                   <div>
-                    <BotaoConhecer>
-                      <RiContactsLine />
-                      Conhecer esta Unidade
-                    </BotaoConhecer>
+                    <a href={`/hospital/${dados.id}`}>
+                      <BotaoConhecer>
+                        <RiContactsLine />
+                        Conhecer esta Unidade
+                      </BotaoConhecer>
+                    </a>
                   </div>
                 </CardDiv>
               );
