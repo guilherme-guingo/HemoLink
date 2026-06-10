@@ -8,6 +8,7 @@ import { AdminDashboard } from "../pages/AdminDashboard";
 import { SolicitarDoacao } from '../pages/SolicitarDoacao';
 import { HospitalDetail } from "../pages/AdminDashboard/HospitalDetail";
 import { AddHospital, EditHospital } from "../pages/AdminDashboard/HospitalDetail/HospitalForm";
+import { Hospital } from "../pages/Hospital"
 
 export function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ export function AppRoutes() {
           <Route path="adminDashboard/new" element={<AddHospital />} />
           <Route path="adminDashboard/:id/edit" element={<EditHospital />} />
           <Route path="adminDashboard/:id" element={<HospitalDetail />} />
+          <Route path="hospital/:id" element={<Hospital />} />
         </Route>
       </Routes>
     </BrowserRouter>
