@@ -165,6 +165,14 @@ export const AdmFormHeader = styled.div`
 export const SectionTitle = styled.h3`
   color: ${theme.colors.textTitle};
   margin-bottom: 2rem;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  @media (min-width: 768px){
+    justify-content: start;
+  }
 `;
 
 export const BloodGrid = styled.div`
