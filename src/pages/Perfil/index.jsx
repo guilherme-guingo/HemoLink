@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import { useFavoritos } from "../../contexts/FavoritesContext";
-import { obterTiposSanguineosCriticos } from "../Catalogo";
+// import { obterTiposSanguineosCriticos } from "../Catalogo";
+import { obterTiposSanguineosCriticos } from "../../util/obterTiposSanguineosCriticos";
+import { calculateBloodStock } from "../../util/bloodStock";
 import {
   ContainerPerfil,
   TituloPerfil,
@@ -24,30 +26,30 @@ export const Perfil = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/login')
+      navigate("/login");
     }
-  }, [navigate, user])
+  }, [navigate, user]);
 
   return (
     <ContainerPerfil>
       <TituloPerfil>Perfil do Doador</TituloPerfil>
-      <SubtituloPerfil>Hospitais que você marcou como favoritos</SubtituloPerfil>
+      <SubtituloPerfil>
+        Hospitais que você marcou como favoritos
+      </SubtituloPerfil>
 
       {favoritos.length === 0 ? (
         <MensagemVazia>Você ainda não favoritou nenhum hospital.</MensagemVazia>
       ) : (
         <ListaFavoritos>
           {favoritos.map((hospital) => {
-            const totalBlood = Object.values(hospital.bloodStock).reduce(
-              (acc, value) => acc + value,
-              0,
-            );
-            const averageBlood =
-              totalBlood / Object.values(hospital.bloodStock).length;
-            const percentage = Math.min(averageBlood, 100);
-
+            const { totalBlood, averageBlood, percentage } =
+              calculateBloodStock(hospital.bloodStock);
             const urgencia =
-              percentage <= 30 ? "Critico" : percentage <= 50 ? "Alerta" : "Regular";
+              percentage <= 30
+                ? "Critico"
+                : percentage <= 50
+                  ? "Alerta"
+                  : "Regular";
 
             return (
               <CardFavorito key={hospital.id}>
@@ -59,7 +61,10 @@ export const Perfil = () => {
                   {urgencia} ({percentage}%)
                 </TipoSanguineo>
                 <TiposNecessarios>
-                  Precisa de: <strong>{obterTiposSanguineosCriticos(hospital.bloodStock)}</strong>
+                  Precisa de:{" "}
+                  <strong>
+                    {obterTiposSanguineosCriticos(hospital.bloodStock)}
+                  </strong>
                 </TiposNecessarios>
                 <BotaoRemover onClick={() => favoritar(hospital)}>
                   Remover dos favoritos

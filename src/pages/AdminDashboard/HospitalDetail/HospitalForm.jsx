@@ -27,6 +27,8 @@ import { TbArrowLeft, TbDeviceFloppy } from 'react-icons/tb'
 import { BackButton } from '../../../components/BackButton/index.jsx'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import loadingAnimation from "../../../assets/loading.json";
+import { listaEstado } from '../helper/helper.jsx'
+import { toast, ToastContainer } from 'react-toastify'
 
 
 const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
@@ -76,7 +78,47 @@ export const HospitalForm = ({ initialData }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
+    let formatValue = value
+
+    //formatcaoCep
+    if (name === 'cep') {
+      formatValue = value.replace(/\D/g, "")
+
+      formatValue = formatValue
+        .replace(/(\d{5})(\d)/, "$1-$2")
+        .slice(0, 9);
+    }
+    if (name === "cnpj") {
+      let v = value.replace(/\D/g, "").slice(0, 14);
+
+      v = v
+        .replace(/^(\d{2})(\d)/, "$1.$2")
+        .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+        .replace(/\.(\d{3})(\d)/, ".$1/$2")
+        .replace(/(\d{4})(\d)/, "$1-$2");
+
+      formatValue = v;
+    }
+    if (name === "phone") {
+      let v = value.replace(/\D/g, "").slice(0, 11);
+
+      if (v.length <= 10) {
+        // telefone fixo: (00) 0000-0000
+        v = v
+          .replace(/^(\d{2})(\d)/, "($1) $2")
+          .replace(/(\d{4})(\d)/, "$1-$2");
+      } else {
+        // celular: (00) 00000-0000
+        v = v
+          .replace(/^(\d{2})(\d)/, "($1) $2")
+          .replace(/(\d{5})(\d)/, "$1-$2");
+      }
+
+      formatValue = v;
+    }
+
+
+    setForm((prev) => ({ ...prev, [name]: formatValue }))
   }
 
   const handleBloodChange = (type, value) => {
@@ -98,13 +140,21 @@ export const HospitalForm = ({ initialData }) => {
 
       if (isEditing) {
         await updateHospital(initialData.id, payload)
+        toast.success("Hospital atualizado com sucesso!")
       } else {
         await createHospital(payload)
+        toast.success("Hospital cadastrado com sucesso!")
       }
+      setTimeout(() => {
+        navigate('/adminDashboard')
+      }, 1000);
 
-      navigate('/adminDashboard')
     } catch (error) {
-      console.error('Erro ao salvar hospital:', error)
+      toast.error("Erro ao carregar hospital", err)
+
+      if (status === 404) {
+        toast.error("404 - Não encontrado")
+      }
     } finally {
       setSaving(false)
     }
@@ -112,7 +162,6 @@ export const HospitalForm = ({ initialData }) => {
 
   return (
     <PageWrapperAdm>
-
       <form onSubmit={handleSubmit}>
         <AdmFormHeader >
           <SectionTitle>
@@ -204,8 +253,11 @@ export const HospitalForm = ({ initialData }) => {
                     onChange={handleChange}
                   >
                     <option value="">Selecione</option>
-                    <option value="RJ">RJ</option>
-                    <option value="SP">SP</option>
+                    {listaEstado.map(((estado, index) => (
+                      <option key={index} value={estado.sigla}>{estado.sigla}</option>
+
+                    )))}
+
                   </FormSelect>
                 </FormGroup>
               </FormRow>
@@ -216,6 +268,7 @@ export const HospitalForm = ({ initialData }) => {
                   name="cep"
                   value={form.cep}
                   onChange={handleChange}
+                  maxLength={9}
                 />
               </FormGroup>
 

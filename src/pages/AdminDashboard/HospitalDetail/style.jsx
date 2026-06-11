@@ -3,10 +3,31 @@ import { theme } from "../../../styles/theme";
 
 export const PageWrapperAdm = styled.div`
  padding: 2rem 5%;
+ min-height: 60vh;
   @media (min-width:768px){
     padding: 2rem 10%;
 
   }
+`;
+
+export const DeleteOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  z-index: 9999;
+
+  color: white;
+  font-size: 1.1rem;
+
+  backdrop-filter: blur(3px);
 `;
 
 export const TopBar = styled.div`
@@ -144,6 +165,14 @@ export const AdmFormHeader = styled.div`
 export const SectionTitle = styled.h3`
   color: ${theme.colors.textTitle};
   margin-bottom: 2rem;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  @media (min-width: 768px){
+    justify-content: start;
+  }
 `;
 
 export const BloodGrid = styled.div`

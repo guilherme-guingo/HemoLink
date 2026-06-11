@@ -13,6 +13,8 @@ import { MdBloodtype } from 'react-icons/md'
 import { BackButton } from '../../../components/BackButton/index.jsx'
 import loadingAnimation from "../../../assets/loading.json";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import { toast, ToastContainer } from 'react-toastify'
+
 export const HospitalDetail = () => {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -27,14 +29,37 @@ export const HospitalDetail = () => {
         if (response && response.status === 200) {
           setHospital(response.data)
         }
-      } catch (error) {
-        console.error("Erro ao buscar hospital:", error)
+      } catch (err) {
+        toast.error("Erro ao carregar hospital")
+        console.log(err)
+
+        if (status === 404) {
+          toast.error("Hospital Não encontrado")
+        }
       } finally {
         setLoading(false)
       }
     }
     loadHospital()
   }, [id])
+
+  //DELEE
+  const handleDelete = async () => {
+    if (!window.confirm(`Excluir ${hospital.name}?`)) return
+
+    try {
+      toast.success("Hospital Deletado com sucesso")
+      
+      setTimeout(async () => {
+        await deleteHospital(id)
+        navigate('/adminDashboard')
+      }, 1000)
+      
+    } catch (err) {
+      toast.error("Erro ao excluir o hospital")
+      console.error(err)
+    }
+  }
 
   if (loading) return <PageWrapperAdm> <DotLottieReact data={loadingAnimation} loop autoplay /></PageWrapperAdm>
   if (!hospital) return <PageWrapperAdm><p>Hospital não foi encontrado</p></PageWrapperAdm>
@@ -43,6 +68,7 @@ export const HospitalDetail = () => {
 
   return (
     <PageWrapperAdm>
+      <ToastContainer position="top-right" autoClose={2000} />
       <TopBar>
 
         <BackButton location={'/adminDashboard'} />
@@ -54,12 +80,7 @@ export const HospitalDetail = () => {
             </BtnLabel>
           </EditButton>
 
-          <DeleteButton onClick={async () => {
-            if (window.confirm(`Excluir ${hospital.name}?`)) {
-              await deleteHospital(id)
-              navigate('/adminDashboard')
-            }
-          }}>
+          <DeleteButton  onClick={handleDelete}>
             <TbTrash size={18} />
             <BtnLabel>Excluir</BtnLabel>
           </DeleteButton>

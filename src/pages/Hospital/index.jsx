@@ -1,25 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { FiArrowLeft } from 'react-icons/fi';
+import { useToast } from '../../components/Toast'; 
 
 import { getHospital } from '../../services/getHospital'; 
-import { HospitalCard } from './components/HospitalCard'; 
 
 import {
   Container,
   VoltarLink,
-  Card,
-  CarouselWrapper, 
-  CarouselImage    
+  ImageWrapper, 
+  Image,
+  LoadingWrapper,
+  ErrorCard,
+  ErrorTitle,
+  ErrorText
 } from './style';
+import { HospitalDetalheCard } from './HospitalDetalheCard';
 
 export function Hospital() {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const [hospital, setHospital] = useState(null);
+  const { notifyError } = useToast();
+  const [hospital, setHospital] = useState([]);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(null);
 
@@ -41,7 +43,8 @@ export function Hospital() {
       } catch (error) {
         console.error("Erro ao buscar hospital:", error);
         setErro("Não foi possível carregar as informações do servidor.");
-        toast.error("Erro de conexão com o banco de dados.");
+        notifyError("Erro de conexão com o banco de dados.");
+        
       } finally {
         setLoading(false);
       }
@@ -50,7 +53,7 @@ export function Hospital() {
     if (id) {
       loadHospital();
     }
-  }, [id]);
+  }, [id]); 
 
   const handleAgendar = () => {
     navigate('/solicitar');
@@ -59,9 +62,11 @@ export function Hospital() {
   if (loading) {
     return (
       <Container>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '40vh' }}>
-          <h2>Buscando dados completos do hospital...</h2>
-        </div>
+        <LoadingWrapper>
+          <h2>
+            Buscando dados completos do hospital...
+          </h2>
+        </LoadingWrapper>
       </Container>
     );
   }
@@ -70,40 +75,45 @@ export function Hospital() {
     return (
       <Container>
         <VoltarLink>
-          <Link to="/catalogo">
-            <FiArrowLeft style={{ marginRight: '8px' }} /> Voltar para o Catálogo
+          <Link 
+          to="/catalogo">
+            <FiArrowLeft /> 
+            Voltar para o Catálogo
           </Link>
         </VoltarLink>
-        <Card style={{ borderColor: '#C8102E', textAlign: 'center', padding: '40px' }}>
-          <h2 style={{ color: '#C8102E', marginBottom: '16px' }}>Ops! Algo deu errado.</h2>
-          <p style={{ color: '#50606F' }}>{erro || "Hospital não encontrado."}</p>
-        </Card>
-        <ToastContainer position="bottom-right" autoClose={3000} />
+        
+        <ErrorCard>
+          <ErrorTitle>
+            Ops! Algo deu errado.
+          </ErrorTitle>
+          <ErrorText>
+            {erro || "Hospital não encontrado."}
+          </ErrorText>
+        </ErrorCard>
       </Container>
     );
   }
 
-  const imagemHospital = hospital.image || hospital.imagens?.[0] || hospital.fotos?.[0] || null;
-
   return (
     <Container>
       <VoltarLink>
-        <Link to="/catalogo">
-          <FiArrowLeft style={{ marginRight: '8px' }} /> Catálogo
+        <Link 
+        to="/catalogo">
+          <FiArrowLeft /> 
+          Catálogo
         </Link>
       </VoltarLink>
 
-      {imagemHospital && (
-        <div style={{ marginBottom: '24px' }}>
-          <CarouselWrapper>
-            <CarouselImage src={imagemHospital} alt={`Foto de fachada do ${hospital.name}`} />
-          </CarouselWrapper>
-        </div>
+      {hospital.image && (
+        <ImageWrapper>
+          <Image
+            src={hospital.image}
+            alt={`Foto de fachada do ${hospital.name}`}
+          />
+        </ImageWrapper>
       )}
 
-      <HospitalCard hospital={hospital} onAgendar={handleAgendar} />
-      
-      <ToastContainer position="bottom-right" autoClose={3000} />
+      <HospitalDetalheCard hospital={hospital} onAgendar={handleAgendar} />
     </Container>
   );
 }
