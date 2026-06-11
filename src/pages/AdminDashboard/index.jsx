@@ -4,7 +4,6 @@ import { headerColumns } from './helper/helper.jsx'
 import { getHospital, deleteHospital } from '../../services/getHospital.jsx'
 import loadingAnimation from "../../assets/loading.json";
 import {
-    AddHospitalBtn,
     AdmCard,
     AdmCardContainer,
     AdmCardInfo,
@@ -18,7 +17,6 @@ import {
     BloodPerc,
     BodyContainer,
     CardTitle,
-    Input,
     PaginatedPage,
     PaginationContainer,
     Table,
@@ -30,6 +28,8 @@ import {
     Tr,
     TrBody
 } from './style'
+import { Input } from '../../components/Input'
+import { MainButton } from '../../components/MainButton'
 
 import { TbEdit } from 'react-icons/tb'
 import { RiAdminFill, RiDeleteBin5Fill } from 'react-icons/ri'
@@ -134,32 +134,35 @@ export const AdminDashboard = () => {
             <BodyContainer>
 
                 {/* ======  Header filtros e opcoes */}
-                <AdmHeaderWrapper >
-                    <AdmFilterBar>
-                        {!isMobile && (
+                <AdmHeaderWrapper>
+                    {!isMobile && (
+                        <div style={{ width: '100%', display: 'flex' }}>
                             <ToggleBtn
                                 isActive={card}
                                 onToggle={handleCard}
                                 leftLabel="Tabela"
                                 rightLabel="Card"
-
-                            />)}
-
+                            />
+                        </div>
+                    )}
+                    <AdmFilterBar>
                         <Input
-                            placeholder='buscar por nome'
+                            margin="0"
+                            placeholder="buscar por nome"
                             value={search}
                             onChange={(e) => {
                                 setSearch(e.target.value)
                                 setCurrentPage(1)
                             }}
                         />
-
+                        <MainButton 
+                            onClick={() => navigate('/adminDashboard/new')}
+                            width={isMobile ? '100%' : '12rem'}
+                        >
+                            + Novo Hospital
+                        </MainButton>
                     </AdmFilterBar>
-
-                    <AddHospitalBtn onClick={() => navigate('/adminDashboard/new')}>
-                        + Novo Hospital
-                    </AddHospitalBtn>
-                </AdmHeaderWrapper >
+                </AdmHeaderWrapper>
 
 
                 {!card ?

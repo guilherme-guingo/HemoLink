@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: ${(props) => (props.$margin !== undefined ? props.$margin : '16px')};
 `;
 
 export const Label = styled.label`

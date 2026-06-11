@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Container, InputWrapper, StyledInput, StyledSelect, StyledTextarea, Label, ErrorMessage, ToggleButton } from './style';
 
-export function Input({ label, error, id, type, children, ...rest }) {
+export function Input({ label, error, id, type, children, margin, ...rest }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   
   const isPasswordType = type === 'password';
@@ -11,7 +11,7 @@ export function Input({ label, error, id, type, children, ...rest }) {
   const inputType = isPasswordType && isPasswordVisible ? 'text' : type;
 
   return (
-    <Container>
+    <Container $margin={margin}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <InputWrapper>
         {isSelectType ? (
