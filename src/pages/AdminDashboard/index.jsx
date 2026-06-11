@@ -40,7 +40,7 @@ import { FaHospital, FaPhoneAlt } from 'react-icons/fa'
 import { IoIosMail, IoMdArrowRoundBack, IoMdArrowRoundForward } from 'react-icons/io'
 import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { calculateBloodStock } from '../../util/bloodStock.jsx';
 
 
@@ -90,11 +90,9 @@ export const AdminDashboard = () => {
                     setHospital(response.data)
                 }
             } catch (err) {
-                toast.error("erro ao carregar hospital", err)
-                
-                if(status === 404){
-                    toast.error("Hspitais não encontrado" )
-                }
+                toast.error("erro ao carregar hospital" )
+                console.log(err)
+            
             } finally {
                 setLoading(false)
             }
@@ -126,7 +124,6 @@ export const AdminDashboard = () => {
 
     return (
         <AdmContainer>
-            <ToastContainer position="top-right" autoClose={2000} />
             <AdmHeader>
                 <TitleWrapper>
                     <RiAdminFill />

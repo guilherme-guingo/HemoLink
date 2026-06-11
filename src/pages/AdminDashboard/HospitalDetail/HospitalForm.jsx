@@ -145,8 +145,10 @@ export const HospitalForm = ({ initialData }) => {
         await createHospital(payload)
         toast.success("Hospital cadastrado com sucesso!")
       }
+      setTimeout(() => {
+        navigate('/adminDashboard')
+      }, 1000);
 
-      navigate('/adminDashboard')
     } catch (error) {
       toast.error("Erro ao carregar hospital", err)
 
@@ -160,7 +162,6 @@ export const HospitalForm = ({ initialData }) => {
 
   return (
     <PageWrapperAdm>
-      <ToastContainer position="top-right" autoClose={2000} />
       <form onSubmit={handleSubmit}>
         <AdmFormHeader >
           <SectionTitle>
@@ -252,7 +253,7 @@ export const HospitalForm = ({ initialData }) => {
                     onChange={handleChange}
                   >
                     <option value="">Selecione</option>
-                    {listaEstado.map(((estado,index) => (
+                    {listaEstado.map(((estado, index) => (
                       <option key={index} value={estado.sigla}>{estado.sigla}</option>
 
                     )))}
