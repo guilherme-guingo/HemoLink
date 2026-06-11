@@ -33,9 +33,6 @@ export const HospitalDetail = () => {
       } catch (err) {
         toast.error("Erro ao carregar hospital")
 
-        if (status === 404) {
-          toast.error("Hospital Não encontrado")
-        }
       } finally {
         setLoading(false)
       }
