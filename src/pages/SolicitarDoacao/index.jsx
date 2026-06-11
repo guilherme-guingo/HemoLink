@@ -1,6 +1,6 @@
 import { useSolicitarDoacao } from './hooks/useSolicitarDoacao';
-import { CamposLocalizacao } from './components/CamposLocalizacao';
-import { CamposSolicitacao } from './components/CamposSolicitacao';
+import { CamposLocalizacao } from './campoForms/CamposLocalizacao';
+import { CamposSolicitacao } from './campoForms/CamposSolicitacao';
 import { Container } from './Style';
 import { FormCard } from '../../components/FormCard';
 import { MainButton } from '../../components/MainButton';
