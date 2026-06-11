@@ -21,7 +21,7 @@ export const Doar = () => {
     e.preventDefault();
 
     if (!nome || !tipoSanguineo || !data || !horario) {
-      toast.warning("Preencha todos os campos!");
+      toast.error("Preencha todos os campos!");
       return;
     }
 
@@ -42,7 +42,6 @@ export const Doar = () => {
       setHorario("");
       setTimeout(() => navigate("/"), 3000);
     } catch (error) {
-      console.error("Erro ao confirmar doação:", error);
       toast.error("Erro ao confirmar. Tente novamente.");
       setEnviando(false);
     }
@@ -50,14 +49,12 @@ export const Doar = () => {
 
   return (
     <Container>
-      <ToastContainer position="top-right" autoClose={2000} />
-      
-      <div style={{ marginBottom: '24px' }}>
+      <div style={{ marginBottom: "24px" }}>
         <BackButton location={-1} />
       </div>
 
-      <FormCard 
-        title="Quero doar" 
+      <FormCard
+        title="Quero doar"
         subtitle="Preencha seus dados para confirmar sua doação."
         onSubmit={handleSubmit}
       >
@@ -72,22 +69,22 @@ export const Doar = () => {
         />
 
         <Input
-            label="Tipo sanguíneo"
-            id="tipoSanguineo"
-            type="select"
-            value={tipoSanguineo}
-            onChange={(e) => setTipoSanguineo(e.target.value)}
-            disabled={enviando}
-            >
-            <option value="">Selecione</option>
-            <option value="A+">A+</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B-">B-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
-            <option value="O+">O+</option>
-            <option value="O-">O-</option>
+          label="Tipo sanguíneo"
+          id="tipoSanguineo"
+          type="select"
+          value={tipoSanguineo}
+          onChange={(e) => setTipoSanguineo(e.target.value)}
+          disabled={enviando}
+        >
+          <option value="">Selecione</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
         </Input>
 
         <Input
@@ -108,7 +105,12 @@ export const Doar = () => {
           disabled={enviando}
         />
 
-        <MainButton type="submit" disabled={enviando} width="100%" style={{ marginTop: '16px' }}>
+        <MainButton
+          type="submit"
+          disabled={enviando}
+          width="100%"
+          style={{ marginTop: "16px" }}
+        >
           {enviando ? "Enviando..." : "Confirmar doação"}
         </MainButton>
       </FormCard>
