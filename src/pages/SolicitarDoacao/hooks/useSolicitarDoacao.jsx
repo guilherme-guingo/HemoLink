@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useToast } from "../../../components/Toast";
 import { postSolicitacao } from "../../../services/postSolicitacao.jsx";
 import { getHospital } from "../../../services/getHospital.jsx";
 import axios from "axios";
 
 export function useSolicitarDoacao() {
+  const location = useLocation();
+  const preenchido = location.state?.hospitalPreenchido;
   const FORM_INICIAL = {
     nomePaciente: "",
     nomeHospital: "",
@@ -16,15 +18,18 @@ export function useSolicitarDoacao() {
     descricao: "",
   };
   const { notifySuccess, notifyError } = useToast();
-  const [formData, setFormData] = useState(FORM_INICIAL);
+  const [formData, setFormData] = useState(preenchido ? { ... FORM_INICIAL, 
+    estado: preenchido.estado, 
+    cidade: preenchido.cidade, 
+    nomeHospital: preenchido.nomeHospital } : FORM_INICIAL);
   const [estados, setEstados] = useState([]);
   const [loadingEstados, setLoadingEstados] = useState(false);
-  const [estadoSelecionado, setEstadoSelecionado] = useState("");
+  const [estadoSelecionado, setEstadoSelecionado] = useState(preenchido?.estado || "");
   const [cidades, setCidades] = useState([]);
   const [loadingCidades, setLoadingCidades] = useState(false);
   const [hospitais, setHospitais] = useState([]);
   const [loadingHospitais, setLoadingHospitais] = useState(false);
-  const [cidadeSelecionada, setCidadeSelecionada] = useState("");
+  const [cidadeSelecionada, setCidadeSelecionada] = useState(preenchido?.cidade || "");
   const navigate = useNavigate();
 
   function handleChange(event) {
