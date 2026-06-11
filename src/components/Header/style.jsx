@@ -4,14 +4,25 @@ import { Link } from "react-router-dom";
 export const Container = styled.header`
   background-color: ${(props) => props.theme.colors.surface};
   border-bottom: 1px solid ${(props) => props.theme.colors.border};
-  padding: 20px 40px;
+  padding: 20px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
-  height: 90px;
+  height: 70px;
+
+  @media (min-width: 768px) {
+    padding: 20px 40px;
+    height: 90px;
+  }
+`;
+
+export const NavRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 24px;
 `;
 
 export const Logo = styled(Link)`
@@ -35,7 +46,7 @@ export const Logo = styled(Link)`
 `;
 
 export const MenuHamburguer = styled.button`
-  display: none;
+  display: flex;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -44,29 +55,35 @@ export const MenuHamburguer = styled.button`
   justify-content: center;
   padding: 4px;
 
-  @media (max-width: 700px) {
-    display: flex;
+  @media (min-width: 701px) {
+    display: none;
   }
 `;
 
 export const Nav = styled.nav`
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: ${(props) => props.theme.colors.surface};
+  padding: 2rem;
+  gap: 2rem;
+  z-index: 99;
+  border-bottom: ${(props) =>
+    props.$isOpen ? `1px solid ${props.theme.colors.border}` : "none"};
+  visibility: ${(props) => (props.$isOpen ? "visible" : "hidden")};
   display: flex;
-  align-items: center;
-  gap: 24px;
 
-  @media (max-width: 700px) {
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: ${(props) => props.theme.colors.surface};
-    padding: 2rem;
-    gap: 2rem;
-    z-index: 99;
-    border-bottom: ${(props) =>
-      props.$isOpen ? `1px solid ${props.theme.colors.border}` : "none"};
-    visibility: ${(props) => (props.$isOpen ? "visible" : "hidden")};
+  @media (min-width: 701px) {
+    flex-direction: row;
+    position: static;
+    width: auto;
+    padding: 0;
+    gap: 24px;
+    background: transparent;
+    border-bottom: none;
+    visibility: visible;
   }
 `;
 
@@ -121,10 +138,10 @@ export const Greeting = styled.span`
   color: ${(props) => props.theme.colors.textBase};
   font-weight: 500;
   font-size: 16px;
-  display: flex;
-  align-items: center;
+  display: none;
 
-  @media (max-width: 768px) {
-    display: none;
+  @media (min-width: 769px) {
+    display: flex;
+    align-items: center;
   }
 `;

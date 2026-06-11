@@ -12,12 +12,12 @@ export const Container = styled.div`
 
 export const Hero = styled.section`
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1fr; 
   gap: 32px;
   align-items: center;
 
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
+  @media (min-width: 900px) {
+    grid-template-columns: 1.2fr 0.8fr;
   }
 `;
 
@@ -28,7 +28,7 @@ export const HeroCol = styled.div`
 `;
 
 export const HeroTitle = styled.h1`
-  font-size: clamp(2.5rem, 3.4vw, 4rem);
+  font-size: clamp(2rem, 8vw, 4rem); 
   line-height: 1.05;
   color: ${(props) => props.theme.colors.textTitle};
   margin: 0;
@@ -45,12 +45,11 @@ export const HeroDescription = styled.p`
 export const HeroActions = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center; 
   gap: 16px;
 
   @media (min-width: 768px) {
-    justify-content: flex-start;
-
+    justify-content: flex-start; 
   }
 `;
 
@@ -98,8 +97,10 @@ export const HeroIllustration = styled.div`
   background: linear-gradient(180deg, rgba(200, 16, 46, 0.08), rgba(248, 250, 252, 0.98));
   border: 1px solid rgba(200, 16, 46, 0.12);
   display: flex;
+  flex-direction: column; 
   align-items: center;
   justify-content: center;
+  text-align: center;
   color: ${(props) => props.theme.colors.textTitle};
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
 
@@ -112,17 +113,16 @@ export const HeroIllustration = styled.div`
     margin: 0;
     color: ${(props) => props.theme.colors.textBase};
     line-height: 1.8;
-    max-width: 380px;
   }
 `;
 
 export const Stats = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  grid-template-columns: 1fr; 
   gap: 16px;
 
-  @media (max-width: 700px) {
-    grid-template-columns: 1fr;
+  @media (min-width: 700px) {
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
   }
 `;
 
@@ -149,11 +149,11 @@ export const StatLabel = styled.span`
 
 export const Features = styled.section`
   display: grid;
-  grid-template-columns: repeat(3, minmax(240px, 1fr));
+  grid-template-columns: 1fr; 
   gap: 24px;
 
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(3, minmax(240px, 1fr)); 
   }
 `;
 
