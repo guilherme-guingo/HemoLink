@@ -119,7 +119,6 @@ export const Catalogo = () => {
           <ContainerFiltro>
             <FiltroDiv>
               <BuscaDiv>
-                <p style={{ fontWeight: 600 }}>Cidade ou Instituição</p>
                 <form onSubmit={aplicarFiltro}>
                   <Input
                     id="cidade"
