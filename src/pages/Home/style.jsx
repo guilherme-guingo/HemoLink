@@ -48,16 +48,9 @@ export const HeroActions = styled.div`
   justify-content: center;
   gap: 16px;
 
-  & > :last-child {
-    width: 100%;
-  }
-
   @media (min-width: 768px) {
     justify-content: flex-start;
 
-    & > :last-child {
-      width: auto;
-    }
   }
 `;
 

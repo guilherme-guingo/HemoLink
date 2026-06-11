@@ -153,6 +153,7 @@ export const NaoEncontrouDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
   padding: 20px;
   gap: 40px;
 
@@ -167,13 +168,13 @@ export const NaoEncontrouDiv = styled.div`
     align-items: center;
     height: 50%;
     width: 80%;
-    padding: 0px;
+    padding-inline: 40px;
   }
 `;
 
 export const NaoEncontouFilhoDiv = styled.div`
   @media (min-width: 1000px) {
-    margin-left: 70px;
+   // margin-left: 70px;
   }
 `;
 
