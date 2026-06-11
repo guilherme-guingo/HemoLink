@@ -5,17 +5,16 @@ import { postSolicitacao } from "../../../services/postSolicitacao.jsx";
 import { getHospital } from "../../../services/getHospital.jsx";
 import axios from "axios";
 
-const FORM_INICIAL = {
-  nomePaciente: "",
-  nomeHospital: "",
-  tipoSanguineo: "",
-  urgencia: "",
-  estado: "",
-  cidade: "",
-  descricao: "",
-};
-
 export function useSolicitarDoacao() {
+  const FORM_INICIAL = {
+    nomePaciente: "",
+    nomeHospital: "",
+    tipoSanguineo: "",
+    urgencia: "",
+    estado: "",
+    cidade: "",
+    descricao: "",
+  };
   const { notifySuccess, notifyError } = useToast();
   const [formData, setFormData] = useState(FORM_INICIAL);
   const [estados, setEstados] = useState([]);
@@ -76,7 +75,6 @@ export function useSolicitarDoacao() {
       setHospitais([]);
       setTimeout(() => navigate("/"), 3000);
     } catch (error) {
-      console.error("Erro ao enviar solicitação:", error);
       notifyError("Erro ao enviar solicitação. Tente novamente.");
     }
   }
@@ -89,7 +87,7 @@ export function useSolicitarDoacao() {
       );
       setEstados(response.data);
     } catch (error) {
-      console.error("Erro ao buscar estados:", error);
+      notifyError("Erro ao buscar estados. Tente novamente.");
     } finally {
       setLoadingEstados(false);
     }
@@ -104,7 +102,7 @@ export function useSolicitarDoacao() {
       );
       setCidades(response.data);
     } catch (error) {
-      console.error("Erro ao buscar cidades:", error);
+      notifyError("Erro ao buscar cidades. Tente novamente.");
     } finally {
       setLoadingCidades(false);
     }
@@ -120,7 +118,7 @@ export function useSolicitarDoacao() {
       );
       setHospitais(filtrados);
     } catch (error) {
-      console.error("Erro ao buscar hospitais:", error);
+      notifyError("Erro ao buscar hospitais. Tente novamente.");
     } finally {
       setLoadingHospitais(false);
     }
