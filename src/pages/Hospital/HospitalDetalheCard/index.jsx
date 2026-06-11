@@ -1,4 +1,5 @@
 import { FiMapPin, FiClock, FiBell, FiBarChart2 } from "react-icons/fi";
+import { MainButton } from "../../../components/MainButton";
 
 import {
   CardContainer,
@@ -156,12 +157,20 @@ export function HospitalDetalheCard({ hospital, onAgendar, onConfirmarDoacao }) 
             })}
         </StockGrid>
       </InfoBlockBox>
-      <ActionButton onClick={onAgendar}>
-        Solicitar Doação de Sangue
-      </ActionButton>
-      <ActionButton onClick={onConfirmarDoacao}>
-        Confirmar Doação
-      </ActionButton>
+      <div style={{ display: 'flex', gap: '16px', marginTop: '16px' }}>
+        <MainButton width="100%" onClick={onAgendar}>
+          Solicitar Doação de Sangue
+        </MainButton>
+        <MainButton 
+          width="100%" 
+          background="transparent" 
+          color="#C8102E" 
+          border="1px solid #C8102E" 
+          onClick={onConfirmarDoacao}
+        >
+          Confirmar Doação
+        </MainButton>
+      </div>
     </CardContainer>
   );
 }
