@@ -1,4 +1,5 @@
 import { FiMapPin, FiClock, FiBell, FiBarChart2 } from 'react-icons/fi';
+import { MainButton } from '../../../../components/MainButton';
 
 import {
   CardContainer,
@@ -10,7 +11,6 @@ import {
   MapContainer,
   StockGrid,
   StockItem,
-  ActionButton
 } from './style'; 
 
 const formatarTelefone = (tel) => {
@@ -122,9 +122,13 @@ export function HospitalCard({ hospital, onAgendar }) {
         </StockGrid>
       </InfoBlockBox>
 
-      <ActionButton onClick={onAgendar}>
-        Solicitar Doação de Sangue
-      </ActionButton>
+      <MainButton
+        text="Solicitar Doação de Sangue"
+        onClick={onAgendar}
+        background="#C8102E"
+        color="#FFFFFF"
+        radius="8px"
+      />
     </CardContainer>
   );
 }
