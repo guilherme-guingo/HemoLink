@@ -1,14 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useAuth } from '../../contexts/AuthContext'
+import { UserApi } from '../../services/Api/Api'
 import { Input } from '../../components/Input'
 import { MainButton } from '../../components/MainButton'
 import { FormCard } from '../../components/FormCard'
 import { Container, FooterMessage, SwitchLink, FixedBackButton } from './style'
-
-const BASE_URL = 'https://6a2879f44e1e783349a58ef3.mockapi.io/user'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -22,7 +20,7 @@ export default function Login() {
     setIsLoading(true)
 
     try {
-      const response = await axios.get(BASE_URL)
+      const response = await UserApi.get('/user')
       const usuario = response.data.find((item) => item.email === email && item.senha === senha)
       
       if (!usuario) {
@@ -33,8 +31,8 @@ export default function Login() {
       
       login(usuario)
       toast.success(`Bem-vindo, ${usuario.nome}!`)
-      
-      if (usuario.email === 'admin@hemolink.com') {
+
+      if (usuario.tipo === 'admin') {
         navigate('/adminDashboard')
       } else {
         navigate('/perfil')

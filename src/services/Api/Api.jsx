@@ -10,4 +10,8 @@ export const HospitalApi = axios.create({
   baseURL: hospital_url,
 });
 
+export const UserApi = axios.create({
+  baseURL:'https://6a2879f44e1e783349a58ef3.mockapi.io',
+});
+
 export default api;
