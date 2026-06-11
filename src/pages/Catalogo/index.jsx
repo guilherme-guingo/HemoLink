@@ -155,7 +155,7 @@ export const Catalogo = () => {
 
               return (
                 <div key={dados.id}>
-                  <CardHospital dados={dados} $percentage={percentage} />
+                  <CardHospital dados={dados} percentage={percentage} />
                 </div>
               );
             })}
@@ -165,7 +165,9 @@ export const Catalogo = () => {
               ""
             ) : (
               <MainButton
-                text={todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
+                text={
+                  todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"
+                }
                 background="transparent"
                 color="#C8102E"
                 border="1px solid #C8102E"
