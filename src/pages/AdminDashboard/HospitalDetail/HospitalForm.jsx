@@ -6,11 +6,14 @@ import {
   updateHospital
 } from '../../../services/getHospital.jsx'
 import {
+  AdmFormHeader,
   FormActions,
   FormCard,
   FormColumn,
   FormGrid,
+  FormGridInfo,
   FormGroup,
+  FormGroupBlood,
   FormInput,
   FormLabel,
   FormRow,
@@ -22,6 +25,10 @@ import {
 } from './style'
 import { TbArrowLeft, TbDeviceFloppy } from 'react-icons/tb'
 import { BackButton } from '../../../components/BackButton/index.jsx'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import loadingAnimation from "../../../assets/loading.json";
+import { listaEstado } from '../helper/helper.jsx'
+import { toast, ToastContainer } from 'react-toastify'
 
 
 const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
@@ -51,19 +58,19 @@ export const HospitalForm = ({ initialData }) => {
   const [form, setForm] = useState(
     isEditing
       ? {
-          image: initialData.image || '',
-          name: initialData.name || '',
-          cnpj: initialData.cnpj || '',
-          address: initialData.address || '',
-          city: initialData.city || '',
-          state: initialData.state || '',
-          cep: initialData.cep || '',
-          phone: initialData.phone || '',
-          email: initialData.email || '',
-          website: initialData.website || '',
-          openingHours: initialData.openingHours || '',
-          bloodStock: initialData.bloodStock || emptyForm.bloodStock,
-        }
+        image: initialData.image || '',
+        name: initialData.name || '',
+        cnpj: initialData.cnpj || '',
+        address: initialData.address || '',
+        city: initialData.city || '',
+        state: initialData.state || '',
+        cep: initialData.cep || '',
+        phone: initialData.phone || '',
+        email: initialData.email || '',
+        website: initialData.website || '',
+        openingHours: initialData.openingHours || '',
+        bloodStock: initialData.bloodStock || emptyForm.bloodStock,
+      }
       : emptyForm
   )
 
@@ -71,7 +78,47 @@ export const HospitalForm = ({ initialData }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
+    let formatValue = value
+
+    //formatcaoCep
+    if (name === 'cep') {
+      formatValue = value.replace(/\D/g, "")
+
+      formatValue = formatValue
+        .replace(/(\d{5})(\d)/, "$1-$2")
+        .slice(0, 9);
+    }
+    if (name === "cnpj") {
+      let v = value.replace(/\D/g, "").slice(0, 14);
+
+      v = v
+        .replace(/^(\d{2})(\d)/, "$1.$2")
+        .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+        .replace(/\.(\d{3})(\d)/, ".$1/$2")
+        .replace(/(\d{4})(\d)/, "$1-$2");
+
+      formatValue = v;
+    }
+    if (name === "phone") {
+      let v = value.replace(/\D/g, "").slice(0, 11);
+
+      if (v.length <= 10) {
+        // telefone fixo: (00) 0000-0000
+        v = v
+          .replace(/^(\d{2})(\d)/, "($1) $2")
+          .replace(/(\d{4})(\d)/, "$1-$2");
+      } else {
+        // celular: (00) 00000-0000
+        v = v
+          .replace(/^(\d{2})(\d)/, "($1) $2")
+          .replace(/(\d{5})(\d)/, "$1-$2");
+      }
+
+      formatValue = v;
+    }
+
+
+    setForm((prev) => ({ ...prev, [name]: formatValue }))
   }
 
   const handleBloodChange = (type, value) => {
@@ -93,13 +140,21 @@ export const HospitalForm = ({ initialData }) => {
 
       if (isEditing) {
         await updateHospital(initialData.id, payload)
+        toast.success("Hospital atualizado com sucesso!")
       } else {
         await createHospital(payload)
+        toast.success("Hospital cadastrado com sucesso!")
       }
+      setTimeout(() => {
+        navigate('/adminDashboard')
+      }, 1000);
 
-      navigate('/adminDashboard')
     } catch (error) {
-      console.error('Erro ao salvar hospital:', error)
+      toast.error("Erro ao carregar hospital", err)
+
+      if (status === 404) {
+        toast.error("404 - Não encontrado")
+      }
     } finally {
       setSaving(false)
     }
@@ -107,17 +162,21 @@ export const HospitalForm = ({ initialData }) => {
 
   return (
     <PageWrapperAdm>
-      <TopBar>
-            <BackButton location={"/adminDashboard"} />
-      </TopBar>
-
       <form onSubmit={handleSubmit}>
-        <SectionTitle>
-          {isEditing ? 'Editar Hospital' : 'Adicionar Hospital'}
-        </SectionTitle>
+        <AdmFormHeader >
+          <SectionTitle>
+            {isEditing ? 'Editar Hospital' : 'Adicionar Hospital'}
+          </SectionTitle>
+
+          <TopBar>
+            <BackButton location={"/adminDashboard"} />
+          </TopBar>
+
+        </AdmFormHeader>
+
 
         <FormCard>
-          <FormGrid>
+          <FormGridInfo>
             <FormColumn>
               <FormGroup>
                 <FormLabel>URL da Imagem</FormLabel>
@@ -194,8 +253,11 @@ export const HospitalForm = ({ initialData }) => {
                     onChange={handleChange}
                   >
                     <option value="">Selecione</option>
-                    <option value="RJ">RJ</option>
-                    <option value="SP">SP</option>
+                    {listaEstado.map(((estado, index) => (
+                      <option key={index} value={estado.sigla}>{estado.sigla}</option>
+
+                    )))}
+
                   </FormSelect>
                 </FormGroup>
               </FormRow>
@@ -206,6 +268,7 @@ export const HospitalForm = ({ initialData }) => {
                   name="cep"
                   value={form.cep}
                   onChange={handleChange}
+                  maxLength={9}
                 />
               </FormGroup>
 
@@ -218,7 +281,7 @@ export const HospitalForm = ({ initialData }) => {
                 />
               </FormGroup>
             </FormColumn>
-          </FormGrid>
+          </FormGridInfo>
         </FormCard>
 
         <SectionTitle>Estoque de Sangue</SectionTitle>
@@ -226,7 +289,7 @@ export const HospitalForm = ({ initialData }) => {
         <FormCard>
           <FormGrid>
             {bloodTypes.map((type) => (
-              <FormGroup key={type}>
+              <FormGroupBlood key={type}>
                 <FormLabel>{type}</FormLabel>
                 <FormInput
                   type="number"
@@ -236,7 +299,7 @@ export const HospitalForm = ({ initialData }) => {
                     handleBloodChange(type, e.target.value)
                   }
                 />
-              </FormGroup>
+              </FormGroupBlood>
             ))}
           </FormGrid>
         </FormCard>
@@ -278,9 +341,9 @@ export const EditHospital = () => {
     load()
   }, [id])
 
-  // INCLUIR LOADING AQUI
-  if (loading) return <p>Carregando...</p>
-  if (!hospital) return <p>Hospital não encontrado</p>
+
+  if (loading) return <PageWrapperAdm> <DotLottieReact data={loadingAnimation} loop autoplay /></PageWrapperAdm>
+  if (!hospital) return <PageWrapperAdm>Hospital não encontrado</PageWrapperAdm>
 
   return <HospitalForm initialData={hospital} />
 }

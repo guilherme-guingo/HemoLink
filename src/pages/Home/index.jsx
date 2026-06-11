@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { FiSearch, FiHeart, FiShield } from 'react-icons/fi';
+import { MainButton } from '../../components/MainButton';
 import {
   Container,
   Hero,
@@ -7,8 +7,6 @@ import {
   HeroTitle,
   HeroDescription,
   HeroActions,
-  ActionButton,
-  SecondaryButton,
   HeroIllustration,
   Stats,
   StatCard,
@@ -33,8 +31,14 @@ export default function Home() {
             HemoLink facilita a busca por estoque de sangue, organização de doações e comunicação direta com instituições de saúde.
           </HeroDescription>
           <HeroActions>
-            <ActionButton to="/catalogo">Ver hospitais</ActionButton>
-            <SecondaryButton to="/perfil">Meus favoritos</SecondaryButton>
+            <MainButton text="Ver hospitais" to="/catalogo" />
+            <MainButton
+              text="Meus favoritos"
+              to="/perfil"
+              background="#FFFFFF"
+              color="#C8102E"
+              border="1px solid #C8102E"
+            />
           </HeroActions>
 
           <Stats>

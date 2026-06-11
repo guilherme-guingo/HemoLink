@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getHospitalById, deleteHospital } from '../../../services/getHospital.jsx'
-import {ActionButtons,BloodCard,BloodGrid,BloodType,BloodValue,DeleteButton,EditButton,HeroImage,HeroInfo,HeroSection,HospitalName,InfoCard,InfoGrid,InfoItem,InfoLabel,InfoLink,InfoRow,InfoValue,PageWrapperAdm,SectionTitle,TopBar,
+import {
+  ActionButtons, BloodCard, BloodGrid, BloodType, BloodValue, BtnLabel, DeleteButton, EditButton, HeroImage, HeroInfo, HeroSection, HospitalName, InfoCard, InfoGrid, InfoItem, InfoLabel, InfoLink, InfoRow, InfoValue, PageWrapperAdm, SectionTitle, TopBar,
 } from './style'
 import { TbArrowLeft, TbEdit, TbTrash } from 'react-icons/tb'
 import { FaPhoneAlt } from 'react-icons/fa'
@@ -10,6 +11,9 @@ import { HiOutlineClock } from 'react-icons/hi'
 import { PiGlobe } from 'react-icons/pi'
 import { MdBloodtype } from 'react-icons/md'
 import { BackButton } from '../../../components/BackButton/index.jsx'
+import loadingAnimation from "../../../assets/loading.json";
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import { toast, ToastContainer } from 'react-toastify'
 
 export const HospitalDetail = () => {
   const { id } = useParams()
@@ -25,8 +29,13 @@ export const HospitalDetail = () => {
         if (response && response.status === 200) {
           setHospital(response.data)
         }
-      } catch (error) {
-        console.error("Erro ao buscar hospital:", error)
+      } catch (err) {
+        toast.error("Erro ao carregar hospital")
+        console.log(err)
+
+        if (status === 404) {
+          toast.error("Hospital Não encontrado")
+        }
       } finally {
         setLoading(false)
       }
@@ -34,30 +43,46 @@ export const HospitalDetail = () => {
     loadHospital()
   }, [id])
 
-  if (loading) return <PageWrapperAdm><p>Carregando...</p></PageWrapperAdm>
+  //DELEE
+  const handleDelete = async () => {
+    if (!window.confirm(`Excluir ${hospital.name}?`)) return
+
+    try {
+      toast.success("Hospital Deletado com sucesso")
+      
+      setTimeout(async () => {
+        await deleteHospital(id)
+        navigate('/adminDashboard')
+      }, 1000)
+      
+    } catch (err) {
+      toast.error("Erro ao excluir o hospital")
+      console.error(err)
+    }
+  }
+
+  if (loading) return <PageWrapperAdm> <DotLottieReact data={loadingAnimation} loop autoplay /></PageWrapperAdm>
   if (!hospital) return <PageWrapperAdm><p>Hospital não foi encontrado</p></PageWrapperAdm>
 
   const bloodTypes = Object.entries(hospital.bloodStock || {})
 
   return (
     <PageWrapperAdm>
+      <ToastContainer position="top-right" autoClose={2000} />
       <TopBar>
 
         <BackButton location={'/adminDashboard'} />
         <ActionButtons>
           <EditButton onClick={() => navigate(`/adminDashboard/${id}/edit`)}>
             <TbEdit size={18} />
-            Editar
+            <BtnLabel>
+              Editar
+            </BtnLabel>
           </EditButton>
-      
-          <DeleteButton onClick={async () => {
-            if (window.confirm(`Excluir ${hospital.name}?`)) {
-              await deleteHospital(id)
-              navigate('/adminDashboard')
-            }
-          }}>
+
+          <DeleteButton  onClick={handleDelete}>
             <TbTrash size={18} />
-            Excluir
+            <BtnLabel>Excluir</BtnLabel>
           </DeleteButton>
         </ActionButtons>
       </TopBar>
@@ -92,10 +117,12 @@ export const HospitalDetail = () => {
         Estoque de Sangue
       </SectionTitle>
       <BloodGrid>
-        {bloodTypes.map(([type, value]) => (
-          <BloodCard key={type} $level={value}>
+        {bloodTypes.map(([type, percente]) => (
+          <BloodCard key={type} $percente={percente}>
             <BloodType>{type}</BloodType>
-            <BloodValue $level={value}>{value}</BloodValue>
+            <BloodValue $percente={percente}>
+              {percente}
+            </BloodValue>
           </BloodCard>
         ))}
       </BloodGrid>
@@ -142,4 +169,3 @@ export const HospitalDetail = () => {
     </PageWrapperAdm>
   )
 }
-  

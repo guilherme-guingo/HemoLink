@@ -17,12 +17,18 @@ export function Header() {
   };
 
   const handleProfileClick = () => {
-    if (user) {
-      navigate('/perfil')
-      return
+    if (!user) {
+      navigate('/login');
+      return;
     }
-    navigate('/login')
-  }
+
+    if (user.tipo === 'admin') {
+      navigate('/adminDashboard');
+      return;
+    }
+
+    navigate('/perfil');
+  };
 
   const handleLogout = () => {
     logout()

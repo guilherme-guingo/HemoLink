@@ -1,55 +1,83 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { toast } from 'react-toastify'
 import { useAuth } from '../../contexts/AuthContext'
-import { Container, Form, Title, InputGroup, Label, Input, Button, ErrorMessage, FooterMessage, SwitchLink, BackButton } from './style'
-
-const BASE_URL = 'https://6a2879f44e1e783349a58ef3.mockapi.io/user'
+import { UserApi } from '../../services/Api/Api'
+import { Input } from '../../components/Input'
+import { MainButton } from '../../components/MainButton'
+import { FormCard } from '../../components/FormCard'
+import { Container, FooterMessage, SwitchLink, FixedBackButton } from './style'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
-  const [erro, setErro] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const { login } = useAuth()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    setErro('')
+    setIsLoading(true)
+
     try {
-      const response = await axios.get(BASE_URL)
+      const response = await UserApi.get('/user')
       const usuario = response.data.find((item) => item.email === email && item.senha === senha)
+      
       if (!usuario) {
-        setErro('Email ou senha inválidos')
+        toast.error('Email ou senha inválidos')
+        setIsLoading(false)
         return
       }
+      
       login(usuario)
-      navigate('/perfil')
+      toast.success(`Bem-vindo, ${usuario.nome}!`)
+
+      if (usuario.tipo === 'admin') {
+        navigate('/adminDashboard')
+      } else {
+        navigate('/perfil')
+      }
     } catch (error) {
-      setErro('Não foi possível fazer login')
+      toast.error('Não foi possível fazer login')
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <Container>
-      <BackButton to="/">Voltar</BackButton>
-      <Form onSubmit={handleSubmit}>
-        <Title>Login</Title>
-        <InputGroup>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
-        </InputGroup>
-        <InputGroup>
-          <Label htmlFor="senha">Senha</Label>
-          <Input id="senha" type="password" value={senha} onChange={(event) => setSenha(event.target.value)} required />
-        </InputGroup>
-        {erro && <ErrorMessage>{erro}</ErrorMessage>}
-        <Button type="submit">Entrar</Button>
+      <FixedBackButton location="/">Voltar</FixedBackButton>
+      
+      <FormCard title="Login" onSubmit={handleSubmit}>
+        <Input 
+          id="email" 
+          label="Email" 
+          type="email" 
+          value={email} 
+          onChange={(event) => setEmail(event.target.value)} 
+          disabled={isLoading}
+          required 
+        />
+        
+        <Input 
+          id="senha" 
+          label="Senha" 
+          type="password" 
+          value={senha} 
+          onChange={(event) => setSenha(event.target.value)} 
+          disabled={isLoading}
+          required 
+        />
+        
+        <MainButton type="submit" disabled={isLoading}>
+          {isLoading ? 'Carregando...' : 'Entrar'}
+        </MainButton>
+        
         <FooterMessage>
           Não tem uma conta?
           <SwitchLink to="/cadastro">Cadastre-se</SwitchLink>
         </FooterMessage>
-      </Form>
+      </FormCard>
     </Container>
   )
 }
