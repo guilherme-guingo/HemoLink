@@ -31,15 +31,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { CardHospital } from "../../components/CardHospital";
 import { calculateBloodStock } from "../../util/bloodStock";
 import { obterTiposSanguineosCriticos } from "../../util/obterTiposSanguineosCriticos";
-
-//Funcao para retornar os tipos sanguineos mais baixos
-// export const obterTiposSanguineosCriticos = (bloodStock) => {
-//   if (!bloodStock || Object.keys(bloodStock).length === 0) return "Nenhum";
-//   const menoresEstoques = Object.entries(bloodStock)
-//     .sort((a, b) => a[1] - b[1])
-//     .slice(0, 2);
-//   return menoresEstoques.map((item) => item[0]).join(", ");
-// };
+import { toast } from "react-toastify";
 
 export const Catalogo = () => {
   //Funcionalidade loading e carregamento de dados da API
@@ -64,7 +56,7 @@ export const Catalogo = () => {
 
     const response = await getHospital();
     if (response.status !== 200) {
-      console.log("Erro ao carregar as informações vinda da API");
+      toast.error("Erro ao carregar as informações");
       setIsLoading(false);
       return;
     }
