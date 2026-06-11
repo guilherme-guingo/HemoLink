@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { postDoacao } from "../postDoacao";
+import { postDoacao } from "../../services/postDoacao";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { Container, Titulo, Subtitulo, Formulario, GrupoCampo, Label, Input, Select, Botao } from "./style";
+import { Container, Titulo, Subtitulo, Formulario, GrupoCampo, Label, Select, Botao } from "./style";
+import { Input } from "../../components/Input";
 import "react-toastify/dist/ReactToastify.css";
 
 export const Doar = () => {
@@ -51,15 +52,14 @@ export const Doar = () => {
             <Subtitulo>Preencha seus dados para confirmar sua doacao.</Subtitulo>
 
             <Formulario onSubmit={handleSubmit}>
-                <GrupoCampo>
-                    <Label>Nome completo</Label>
-                    <Input
-                        type="text"
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
-                        placeholder="Seu nome"
-                    />
-                </GrupoCampo>
+                <Input
+                    label="Nome completo"
+                    id="nome"
+                    type="text"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                    placeholder="Seu nome"
+                />  
 
                 <GrupoCampo>
                     <Label>Tipo sanguíneo</Label>
@@ -88,14 +88,21 @@ export const Doar = () => {
                     />
                 </GrupoCampo>
 
-                <GrupoCampo>
-                    <Label>Horário</Label>
-                    <Input
-                        type="time"
-                        value={horario}
-                        onChange={(e) => setHorario(e.target.value)}
-                    />
-                </GrupoCampo>
+                <Input
+                    label="Data da doação"
+                    id="data"
+                    type="date"
+                    value={data}
+                    onChange={(e) => setData(e.target.value)}
+                />
+
+                <Input
+                    label="Horário"
+                    id="horario"
+                    type="time"
+                    value={horario}
+                    onChange={(e) => setHorario(e.target.value)}
+                />
 
                 <Botao type="submit" disabled={enviando}>
                     {enviando ? "Enviando..." : "Confirmar doação"}
