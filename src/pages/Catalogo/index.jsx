@@ -7,10 +7,8 @@ import {
   ContainerFiltro,
   FiltroDiv,
   BuscaDiv,
-  Input,
   ContainerCard,
   ContainerVerMais,
-  BotaoVerMais,
   ContainerBack,
   NaoEncontrouDiv,
   SubTexto,
@@ -21,6 +19,8 @@ import {
   NaoEncontouFilhoDiv,
   TituloTexto,
 } from "./style";
+import { Input } from "../../components/Input";
+import { MainButton } from "../../components/MainButton";
 import { IoFilter } from "react-icons/io5";
 
 import { useFavoritos } from "../../contexts/FavoritesContext";
@@ -122,6 +122,8 @@ export const Catalogo = () => {
                 <p style={{ fontWeight: 600 }}>Cidade ou Instituição</p>
                 <form onSubmit={aplicarFiltro}>
                   <Input
+                    id="cidade"
+                    label="Cidade ou Instituição"
                     type="text"
                     placeholder="Todas as instituições"
                     value={enderecoOuInstituicao}
@@ -130,9 +132,10 @@ export const Catalogo = () => {
                 </form>
               </BuscaDiv>
               <BuscaDiv>
-                <p style={{ fontWeight: 600 }}>Tipo sanguíneo necessário</p>
                 <form onSubmit={aplicarFiltro}>
                   <Input
+                    id="tipoSanguineo"
+                    label="Tipo sanguíneo necessário"
                     type="text"
                     placeholder="Todas os tipos"
                     value={tipoSanguineo}
@@ -162,7 +165,12 @@ export const Catalogo = () => {
             {resultadoFiltro.length === 0 || resultadoFiltro.length < 5 ? (
               ""
             ) : (
-              <BotaoVerMais
+              <MainButton
+                text={todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
+                background="transparent"
+                color="#C8102E"
+                border="1px solid #C8102E"
+                radius="9999px"
                 onClick={() => {
                   if (todosVisiveis) {
                     setQuantidadeVisivel(4);
@@ -170,9 +178,7 @@ export const Catalogo = () => {
                     setQuantidadeVisivel(quantidadeVisivel + 4);
                   }
                 }}
-              >
-                {todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
-              </BotaoVerMais>
+              />
             )}
           </ContainerVerMais>
           <ContainerBack>
@@ -188,7 +194,12 @@ export const Catalogo = () => {
                 </SubTexto>
               </NaoEncontouFilhoDiv>
               <div>
-                <BotaoFalarConosco>Falar Conosco</BotaoFalarConosco>
+                <MainButton
+                  text="Falar Conosco"
+                  background="#FFFFFF"
+                  color="#C8102E"
+                  radius="9999px"
+                />
               </div>
             </NaoEncontrouDiv>
           </ContainerBack>

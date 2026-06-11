@@ -1,13 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { toast } from 'react-toastify'
+import { UserApi } from '../../services/Api/Api'
 import { Input } from '../../components/Input'
 import { MainButton } from '../../components/MainButton'
 import { FormCard } from '../../components/FormCard'
 import { Container, FooterMessage, SwitchLink, FixedBackButton } from './style'
-
-const BASE_URL = 'https://6a2879f44e1e783349a58ef3.mockapi.io/user'
 
 export default function Cadastro() {
   const [nome, setNome] = useState('')
@@ -22,7 +20,7 @@ export default function Cadastro() {
     setIsLoading(true)
 
     try {
-      await axios.post(BASE_URL, {
+      await UserApi.post('/user', {
         nome,
         email,
         senha,
