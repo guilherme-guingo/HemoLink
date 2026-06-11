@@ -72,8 +72,8 @@ export const Catalogo = () => {
     carregarInformacoes();
   }, []);
 
-  const aplicarFiltro = (e) => {
-    e.preventDefault();
+  const aplicarFiltro = (event) => {
+    event.preventDefault();
     const hospitaisFiltrados = hospitais.filter((hospital) => {
       const filtroEndeOuInst =
         hospital.name
@@ -126,7 +126,7 @@ export const Catalogo = () => {
                     type="text"
                     placeholder="Todas as instituições"
                     value={enderecoOuInstituicao}
-                    onChange={(e) => setEnderecoOuInstituicao(e.target.value)}
+                    onChange={(event) => setEnderecoOuInstituicao(event.target.value)}
                   />
                 </form>
               </BuscaDiv>
@@ -138,7 +138,7 @@ export const Catalogo = () => {
                     type="text"
                     placeholder="Todas os tipos"
                     value={tipoSanguineo}
-                    onChange={(e) => setTipoSanguineo(e.target.value)}
+                    onChange={(event) => setTipoSanguineo(event.target.value)}
                   />
                 </form>
               </BuscaDiv>

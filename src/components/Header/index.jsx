@@ -11,7 +11,8 @@ import {
   ProfileLink,
   LogoutButton,
   Greeting,
-  MenuHamburguer
+  MenuHamburguer,
+  NavRight,
 } from "./style";
 
 export function Header() {
@@ -59,16 +60,18 @@ export function Header() {
         )}
       </MenuHamburguer>
       <Nav $isOpen={isMobileMenuOpen}>
-        <Greeting>Olá, {isAuthenticated ? user.nome : "visitante"}</Greeting>
-        <NavLink to="/catalogo" onClick={() => setIsMobileMenuOpen(false)}>
-          Catálogo
-        </NavLink>
-        <ProfileLink onClick={handleProfileClick} aria-label="perfil">
-          <AiOutlineUser size={24} />
-        </ProfileLink>
-        {isAuthenticated && (
-          <LogoutButton onClick={handleLogout}>Sair</LogoutButton>
-        )}
+        <NavRight>
+          <Greeting>Olá, {isAuthenticated ? user.nome : "visitante"}</Greeting>
+          <NavLink to="/catalogo" onClick={() => setIsMobileMenuOpen(false)}>
+            Catálogo
+          </NavLink>
+          <ProfileLink onClick={handleProfileClick} aria-label="perfil">
+            <AiOutlineUser size={24} />
+          </ProfileLink>
+          {isAuthenticated && (
+            <LogoutButton onClick={handleLogout}>Sair</LogoutButton>
+          )}
+        </NavRight>
       </Nav>
     </Container>
   );

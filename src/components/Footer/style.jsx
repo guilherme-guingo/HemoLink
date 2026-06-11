@@ -1,25 +1,29 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.footer`
   background-color: ${(props) => props.theme.colors.secondary};
   color: ${(props) => props.theme.colors.textInverseBase};
-  padding: 64px 40px 24px;
+  padding: 64px 24px 24px;
   display: flex;
   flex-direction: column;
   gap: 48px;
   margin-top: auto;
+
+  @media (min-width: 768px) {
+    padding: 64px 40px 24px;
+  }
 `;
 
 export const FooterContent = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr; // Mobile First: 1 coluna
   gap: 40px;
   max-width: 1120px;
   margin: 0 auto;
   width: 100%;
 
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
+  @media (min-width: 900px) {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
   }
 `;
 
@@ -32,8 +36,14 @@ export const FooterBrand = styled.div`
   p {
     color: ${(props) => props.theme.colors.textInverseMuted};
     line-height: 1.6;
-    max-width: 320px;
+    max-width: 100%; 
     margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    p {
+      max-width: 320px;
+    }
   }
 `;
 
@@ -56,7 +66,7 @@ export const BloodBagContainer = styled.div`
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -10px;
     left: 50%;
@@ -69,7 +79,7 @@ export const BloodBagContainer = styled.div`
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -12px;
     left: 24px;
