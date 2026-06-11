@@ -326,7 +326,7 @@ export const EditHospital = () => {
           setHospital(res.data)
         }
       } catch (err) {
-        console.error(err)
+        toast.error("Um erro aconteceu")
       } finally {
         setLoading(false)
       }
