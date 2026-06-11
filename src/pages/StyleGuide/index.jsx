@@ -9,6 +9,10 @@ import {
   Button,
   gotaSangue
 } from './style';
+import { BackButton } from '../../components/BackButton';
+import { Input } from '../../components/Input';
+import { MainButton } from '../../components/MainButton';
+import { TbArrowRight } from 'react-icons/tb';
 
 export default function Styleguide() {
   return (
@@ -62,8 +66,59 @@ export default function Styleguide() {
 
       <Section>
         <h2>Componentes Personalizados</h2>
-        <p>Aqui você pode adicionar exemplos de outros componentes personalizados que criamos, como cards, modais, formulários, etc. Isso ajuda a manter a consistência visual e funcional em toda a aplicação.</p>
-      
+        
+        <div style={{ marginBottom: '2rem' }}>
+          <h3>BackButton</h3>
+          <p>Botão de navegação para voltar para a página anterior.</p>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <BackButton location="/" />
+          </div>
+        </div>
+
+        <div>
+          <h3>Input</h3>
+          <p>Campo de entrada com suporte a rótulo e mensagens de erro.</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '400px' }}>
+            <Input 
+              label="Email" 
+              placeholder="Digite seu email..."
+              type="email"
+            />
+            <Input 
+              label="Senha"
+              placeholder="Digite sua senha..."
+              type="password"
+            />
+            <Input 
+              label="Campo com Erro"
+              placeholder="Este campo tem um erro"
+              error="Este campo é obrigatório"
+            />
+            <Input 
+              placeholder="Sem rótulo"
+            />
+          </div>
+        </div>
+
+        <div style={{ marginTop: '2rem' }}>
+          <h3>MainButton</h3>
+          <p>Botão global altamente customizável com ícone opcional.</p>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            <MainButton text="Padrão" />
+            <MainButton
+              text="Personalizado"
+              background="#1E293B"
+              color="#FFFFFF"
+              radius="9999px"
+            />
+            <MainButton
+              text="Com ícone"
+              icon={TbArrowRight}
+              background="#C8102E"
+              color="#FFFFFF"
+            />
+          </div>
+        </div>
       </Section>
     </Container>
   );
