@@ -1,5 +1,4 @@
 - [ ] Conectar favoritos com página de detalhes
-
 - [ ] Ajeitar Width componente MainButton
 - [ ] Componentes Globais na pagina adminDashboard
 - [ ] Componentes Globais na pagina hospitalDetalhes (esse ja tinha ido, mas deu conflito ai joguei tudo pro ar) 
