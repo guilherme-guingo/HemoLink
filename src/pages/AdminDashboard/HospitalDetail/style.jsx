@@ -111,7 +111,7 @@ export const InfoLink = styled.a`
 
 export const AdmFormHeader = styled.div`
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
 `
 
@@ -122,10 +122,7 @@ export const SectionTitle = styled.h3`
   height: 100%;
   align-items: center;
   display: flex;
-  justify-content: center;
-  @media (min-width: 768px){
-    justify-content: start;
-  }
+  justify-content: start;
 `;
 
 export const BloodGrid = styled.div`

@@ -21,7 +21,7 @@ export const HospitalDetail = () => {
   const navigate = useNavigate()
   const [hospital, setHospital] = useState(null)
   const [loading, setLoading] = useState(true)
-
+  const [isMobile,setIsMobile] = useState(window.innerWidth <= 430)
 
   useEffect(() => {
     async function loadHospital() {
@@ -62,6 +62,18 @@ export const HospitalDetail = () => {
     }
   }
 
+  //efeito Controle da tela
+  useEffect(() => {
+    const handleSize = () => {
+      setIsMobile(window.innerWidth <= 430)
+    }
+    window.addEventListener('resize',handleSize)
+
+    return() => {
+      window.removeEventListener('resise',handleSize)
+    }
+  },[])
+
   if (loading) return <PageWrapperAdm> <DotLottieReact data={loadingAnimation} loop autoplay /></PageWrapperAdm>
   if (!hospital) return <PageWrapperAdm><p>Hospital não foi encontrado</p></PageWrapperAdm>
 
@@ -78,7 +90,7 @@ export const HospitalDetail = () => {
             onClick={() => navigate(`/adminDashboard/${id}/edit`)}
             icon={<TbEdit size={18} />}
           >
-            Editar
+            {!isMobile && 'Editar'}
           </MainButton>
 
           <MainButton 
@@ -88,7 +100,7 @@ export const HospitalDetail = () => {
             color="#C8102E"
             border="1px solid #C8102E"
           >
-            Excluir
+            {!isMobile && 'Excluir'}
           </MainButton>
         </ActionButtons>
       </TopBar>

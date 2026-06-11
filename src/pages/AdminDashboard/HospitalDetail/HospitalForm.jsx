@@ -182,6 +182,7 @@ export const HospitalForm = ({ initialData }) => {
                 value={form.image}
                 onChange={handleChange}
                 margin="0"
+                required
               />
               <Input
                 label="Nome"
@@ -197,6 +198,7 @@ export const HospitalForm = ({ initialData }) => {
                 value={form.cnpj}
                 onChange={handleChange}
                 margin="0"
+                required
               />
               <Input
                 label="Telefone"
@@ -204,6 +206,7 @@ export const HospitalForm = ({ initialData }) => {
                 value={form.phone}
                 onChange={handleChange}
                 margin="0"
+                required
               />
               <Input
                 label="E-mail"
@@ -211,6 +214,7 @@ export const HospitalForm = ({ initialData }) => {
                 value={form.email}
                 onChange={handleChange}
                 margin="0"
+                required
               />
             </FormColumn>
 
@@ -221,6 +225,7 @@ export const HospitalForm = ({ initialData }) => {
                 value={form.address}
                 onChange={handleChange}
                 margin="0"
+                required
               />
 
               <FormRow>
@@ -230,6 +235,7 @@ export const HospitalForm = ({ initialData }) => {
                   value={form.city}
                   onChange={handleChange}
                   margin="0"
+                  required
                 />
                 <Input
                   label="Estado"
@@ -238,6 +244,7 @@ export const HospitalForm = ({ initialData }) => {
                   value={form.state}
                   onChange={handleChange}
                   margin="0"
+                  required
                 >
                   <option value="">Selecione</option>
                   {listaEstado.map(((estado, index) => (
@@ -253,6 +260,7 @@ export const HospitalForm = ({ initialData }) => {
                 onChange={handleChange}
                 maxLength={9}
                 margin="0"
+                required
               />
               <Input
                 label="Horário"
@@ -260,6 +268,7 @@ export const HospitalForm = ({ initialData }) => {
                 value={form.openingHours}
                 onChange={handleChange}
                 margin="0"
+                required
               />
             </FormColumn>
           </FormGridInfo>
@@ -275,6 +284,7 @@ export const HospitalForm = ({ initialData }) => {
                 label={type}
                 type="number"
                 min="0"
+                max="100"
                 value={form.bloodStock[type]}
                 onChange={(e) =>
                   handleBloodChange(type, e.target.value)
