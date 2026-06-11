@@ -56,7 +56,15 @@ export function Hospital() {
   }, [id]); 
 
   const handleAgendar = () => {
-    navigate('/solicitar');
+    navigate('/solicitar', {
+      state: {
+        hospitalPreenchido: {
+          nomeHospital: hospital.name,
+          cidade: hospital.city,
+          estado: hospital.state,
+        },
+      },
+    });
   };
 
   const handleConfirmarDoacao = () => {
