@@ -119,7 +119,6 @@ export const Catalogo = () => {
           <ContainerFiltro>
             <FiltroDiv>
               <BuscaDiv>
-                <p style={{ fontWeight: 600 }}>Cidade ou Instituição</p>
                 <form onSubmit={aplicarFiltro}>
                   <Input
                     id="cidade"
@@ -166,7 +165,9 @@ export const Catalogo = () => {
               ""
             ) : (
               <MainButton
-                text={todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
+                text={
+                  todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"
+                }
                 background="transparent"
                 color="#C8102E"
                 border="1px solid #C8102E"

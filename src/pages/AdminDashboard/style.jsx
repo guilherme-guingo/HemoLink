@@ -18,30 +18,6 @@ export const AdmHeader = styled.div`
   background: #eaf0f6;
 `;
 
-export const AddHospitalBtn = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: ${theme.colors.primary};
-  color: white;
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: ${theme.borderRadius.md};
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s ease;
-  width:18rem;
-
-  &:hover {
-    background: ${theme.colors.primaryHover};
-  }
-  @media (min-width: 768px){
-    width: 12rem;
-  }
-`;
-
-
 export const TitleWrapper = styled.div`
     display: flex;
     align-items: center;
@@ -54,19 +30,13 @@ export const TitleWrapper = styled.div`
 `
 export const AdmHeaderWrapper = styled.div`
   display: flex;
-  justify-content:center;
   width: 100%;
   padding: 0.5rem 8%;
-  flex-direction: column; 
-  gap:1rem;
+  gap: 1rem;
   align-items: center;
 
-  @media (min-width: 768px){
-    flex-direction: row;
-     justify-content: space-between;
-  }
   @media (max-width: 480px) {
-    padding: 0.5rem 4%;   
+    padding: 0.5rem 4%;
   }
 `
 
@@ -90,32 +60,16 @@ export const BodyContainer = styled.div`
 //====Filter
 
 export const AdmFilterBar = styled.div`
-    display:flex;
-     gap: 2rem; 
-     justify-Content: center;
-     align-items: center;
-     flex-wrap: wrap;       
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
 
-`
-
-export const Input = styled.input`
-  width: 18rem;
-  max-width: 100%;  
-  height: 40px;
-  border-radius: ${(props) => props.theme.borderRadius.md};
-  padding: 14px 16px;
-  font-size: 18px;
-  color: ${(props) => props.theme.colors.textMuted};
-  border: 1px solid ${(props) => props.theme.colors.border};
-
-  &::placeholder {
-    color: ${(props) => props.theme.colors.textMuted};
-    font-size: 18px;
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
-
-`;
-
-
+`
 
 //==== Estilo tabela
 export const Table = styled.table`

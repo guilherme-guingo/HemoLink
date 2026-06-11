@@ -1,11 +1,12 @@
-- [ ] Conectar favoritos com página de detalhes
-
-- [ ] Ajeitar Width componente MainButton
-- [ ] Componentes Globais na pagina adminDashboard
-- [ ] Componentes Globais na pagina hospitalDetalhes (esse ja tinha ido, mas deu conflito ai joguei tudo pro ar) 
-- [ ] Refatorar botão removerFavorito para MainButton
-- [ ] Validar CPF no cadastro
-- [ ] Validações forms solicitarDoacao
-- [ ] Analisar / testar forms ConfirmarDoacao e implementar rota no detalhes
+- [x] Conectar favoritos com página de detalhes
+- [x] Ajeitar Width componente MainButton
+- [x] Componentes Globais na pagina adminDashboard
+- [x] Componentes Globais na pagina hospitalDetalhes (esse ja tinha ido, mas deu conflito ai joguei tudo pro ar) 
+- [ ] Corrigir hospitalDetalhes para mobile
+- [x] Refatorar botão removerFavorito para MainButton
+- [ ] Mudar header com hamburgermenu para mobile
+- [x] Validar CPF no cadastro
+- [x] Validações forms solicitarDoacao
+- [x] Analisar / testar forms ConfirmarDoacao e implementar rota no detalhes
 - [ ] Preenchimento automático de informações em alguns dos forms
 - [ ] Verificar componentes que podem ser refatorados para componentes globais

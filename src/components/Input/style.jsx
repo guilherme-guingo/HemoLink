@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: ${(props) => (props.$margin !== undefined ? props.$margin : '16px')};
 `;
 
 export const Label = styled.label`
@@ -21,10 +21,9 @@ export const InputWrapper = styled.div`
   width: 100%;
 `;
 
-export const StyledInput = styled.input`
+const baseInputStyles = css`
   width: 100%;
   padding: 12px 16px;
-  padding-right: ${(props) => (props.type === 'password' || props.type === 'text' ? '40px' : '16px')};
   border-radius: 8px;
   border: 1px solid ${(props) => (props.$hasError ? props.theme.colors.error || '#dc3545' : props.theme.colors.secondary || '#94a3b8')};
   background-color: ${(props) => props.theme.colors.surface || '#ffffff'};
@@ -43,6 +42,11 @@ export const StyledInput = styled.input`
     color: #94a3b8;
     cursor: not-allowed;
   }
+`;
+
+export const StyledInput = styled.input`
+  ${baseInputStyles}
+  padding-right: ${(props) => (props.type === 'password' || props.type === 'text' ? '40px' : '16px')};
 
   &::-ms-reveal,
   &::-ms-clear {
@@ -54,6 +58,23 @@ export const StyledInput = styled.input`
     position: absolute;
     right: 0;
   }
+`;
+
+export const StyledSelect = styled.select`
+  ${baseInputStyles}
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  padding-right: 40px;
+  cursor: pointer;
+`;
+
+export const StyledTextarea = styled.textarea`
+  ${baseInputStyles}
+  min-height: 100px;
+  resize: vertical;
 `;
 
 export const ToggleButton = styled.button`

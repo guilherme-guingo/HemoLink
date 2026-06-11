@@ -1,7 +1,10 @@
 import { useSolicitarDoacao } from './hooks/useSolicitarDoacao';
-import { CamposLocalizacao } from './components/CamposLocalizacao';
-import { CamposSolicitacao } from './components/CamposSolicitacao';
-import { Container, Titulo, Formulario, Botao } from './Style';
+import { CamposLocalizacao } from './campoForms/CamposLocalizacao';
+import { CamposSolicitacao } from './campoForms/CamposSolicitacao';
+import { Container } from './Style';
+import { FormCard } from '../../components/FormCard';
+import { MainButton } from '../../components/MainButton';
+import { BackButton } from '../../components/BackButton';
 
 export function SolicitarDoacao() {
   const {
@@ -14,9 +17,15 @@ export function SolicitarDoacao() {
 
   return (
     <Container>
-      <Titulo>Solicitar Doação de Sangue</Titulo>
-      <Formulario>
+      <div style={{ marginBottom: '24px' }}>
+        <BackButton location={-1} />
+      </div>
 
+      <FormCard 
+        title="Solicitar Doação de Sangue"
+        onSubmit={handleSubmit}
+        maxWidth="100%"
+      >
         <CamposSolicitacao
           formData={formData}
           handleChange={handleChange}
@@ -29,11 +38,10 @@ export function SolicitarDoacao() {
           formData={formData} handleChange={handleChange}
         />
 
-        <Botao onClick={handleSubmit}>
+        <MainButton type="submit" width="100%" style={{ marginTop: '16px' }}>
           Enviar Solicitação
-        </Botao>
-
-      </Formulario>
+        </MainButton>
+      </FormCard>
     </Container>
   );
 }

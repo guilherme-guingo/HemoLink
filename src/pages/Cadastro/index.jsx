@@ -1,95 +1,100 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { UserApi } from '../../services/Api/Api'
-import { Input } from '../../components/Input'
-import { MainButton } from '../../components/MainButton'
-import { FormCard } from '../../components/FormCard'
-import { Container, FooterMessage, SwitchLink, FixedBackButton } from './style'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { UserApi } from "../../services/Api/Api";
+import { Input } from "../../components/Input";
+import { MainButton } from "../../components/MainButton";
+import { FormCard } from "../../components/FormCard";
+import { Container, FooterMessage, SwitchLink, FixedBackButton } from "./style";
 
 export default function Cadastro() {
-  const [nome, setNome] = useState('')
-  const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
-  const [cpf, setCpf] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const navigate = useNavigate()
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const cpfValido = /^\d{11}$/.test(cpf);
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    setIsLoading(true)
+    event.preventDefault();
+    setIsLoading(true);
 
+    if (!cpfValido) {
+      toast.error("CPF inválido. Digite 11 números.");
+      return;
+    }
     try {
-      await UserApi.post('/user', {
+      await UserApi.post("/user", {
         nome,
         email,
         senha,
-        tipo: 'doador',
-        cpf
-      })
-      toast.success('Cadastro realizado com sucesso!')
-      navigate('/login')
+        tipo: "doador",
+        cpf,
+      });
+      toast.success("Cadastro realizado com sucesso!");
+      navigate("/login");
     } catch (error) {
-      toast.error('Não foi possível concluir o cadastro.')
+      toast.error("Não foi possível concluir o cadastro.");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Container>
       <FixedBackButton location="/">Voltar</FixedBackButton>
-      
+
       <FormCard title="Cadastro" onSubmit={handleSubmit}>
-        <Input 
-          id="nome" 
-          label="Nome" 
-          type="text" 
-          value={nome} 
-          onChange={(event) => setNome(event.target.value)} 
+        <Input
+          id="nome"
+          label="Nome"
+          type="text"
+          value={nome}
+          onChange={(event) => setNome(event.target.value)}
           disabled={isLoading}
-          required 
+          required
         />
-        
-        <Input 
-          id="email" 
-          label="Email" 
-          type="email" 
-          value={email} 
-          onChange={(event) => setEmail(event.target.value)} 
+
+        <Input
+          id="email"
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
           disabled={isLoading}
-          required 
+          required
         />
-        
-        <Input 
-          id="senha" 
-          label="Senha" 
-          type="password" 
-          value={senha} 
-          onChange={(event) => setSenha(event.target.value)} 
+
+        <Input
+          id="senha"
+          label="Senha"
+          type="password"
+          value={senha}
+          onChange={(event) => setSenha(event.target.value)}
           disabled={isLoading}
-          required 
+          required
         />
-        
-        <Input 
-          id="cpf" 
-          label="CPF" 
-          type="text" 
-          value={cpf} 
-          onChange={(event) => setCpf(event.target.value)} 
+
+        <Input
+          id="cpf"
+          label="CPF"
+          type="text"
+          value={cpf}
+          onChange={(event) => setCpf(event.target.value)}
           disabled={isLoading}
-          required 
+          required
         />
-        
-        <MainButton type="submit" disabled={isLoading}>
-          {isLoading ? 'Cadastrando...' : 'Criar conta'}
+
+        <MainButton type="submit" disabled={isLoading || !cpfValido}>
+          {isLoading ? "Cadastrando..." : "Criar conta"}
         </MainButton>
-        
+
         <FooterMessage>
           Já tem uma conta?
           <SwitchLink to="/login">Entre</SwitchLink>
         </FooterMessage>
       </FormCard>
     </Container>
-  )
+  );
 }

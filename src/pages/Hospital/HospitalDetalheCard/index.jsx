@@ -1,4 +1,5 @@
 import { FiMapPin, FiClock, FiBell, FiBarChart2 } from "react-icons/fi";
+import { MainButton } from "../../../components/MainButton";
 
 import {
   CardContainer,
@@ -14,7 +15,7 @@ import {
 } from "./style";
 import { obterTiposSanguineosCriticos } from "../../../util/obterTiposSanguineosCriticos.jsx";
 
-export function HospitalDetalheCard({ hospital, onAgendar }) {
+export function HospitalDetalheCard({ hospital, onAgendar, onConfirmarDoacao }) {
   if (!hospital) return null;
 
   const queryMapa = `${hospital.name}, ${hospital.address}, ${hospital.city} - CEP ${hospital.cep}`;
@@ -156,9 +157,20 @@ export function HospitalDetalheCard({ hospital, onAgendar }) {
             })}
         </StockGrid>
       </InfoBlockBox>
-      <ActionButton onClick={onAgendar}>
-        Solicitar Doação de Sangue
-      </ActionButton>
+      <div style={{ display: 'flex',flexWrap: 'wrap', gap: '16px', marginTop: '16px' }}>
+        <MainButton width="100%" onClick={onAgendar}>
+          Solicitar Doação de Sangue
+        </MainButton>
+        <MainButton 
+          width="100%" 
+          background="transparent" 
+          color="#C8102E" 
+          border="1px solid #C8102E" 
+          onClick={onConfirmarDoacao}
+        >
+          Confirmar Doação
+        </MainButton>
+      </div>
     </CardContainer>
   );
 }
