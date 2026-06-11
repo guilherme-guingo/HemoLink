@@ -56,7 +56,7 @@ export function Hospital() {
   }, [id]); 
 
   const handleAgendar = () => {
-    navigate('/solicitar', {
+    navigate("/solicitar", {
       state: {
         hospitalPreenchido: {
           nomeHospital: hospital.name,
