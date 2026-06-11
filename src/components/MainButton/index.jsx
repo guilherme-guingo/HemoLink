@@ -9,6 +9,7 @@ export function MainButton({
   border,
   to,
   children,
+  width,
   ...rest
 }) {
   const iconNode = icon
@@ -23,6 +24,7 @@ export function MainButton({
     $color: color,
     $radius: radius,
     $border: border,
+    $width: width,
     ...rest,
   };
 

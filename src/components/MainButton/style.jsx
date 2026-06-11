@@ -6,7 +6,7 @@ const buttonStyles = css`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  width: fit-content;
+  width: ${(props) => props.$width || 'fit-content'};
   min-height: 44px;
   padding: 14px 26px;
   border-radius: ${(props) => props.$radius || props.theme.borderRadius.lg};

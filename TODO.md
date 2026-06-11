@@ -1,0 +1,9 @@
+- [ ] Conectar favoritos com página de detalhes
+- [ ] Ajeitar Width componente MainButton
+- [ ] Componentes Globais na pagina adminDashboard
+- [ ] Refatorar botão removerFavorito para MainButton
+- [ ] Validar CPF no cadastro
+- [ ] Validações forms solicitarDoacao
+- [ ] Analisar / testar forms ConfirmarDoacao e implementar rota no detalhes
+- [ ] Preenchimento automático de informações em alguns dos forms
+- [ ] Verificar componentes que podem ser refatorados para componentes globais
