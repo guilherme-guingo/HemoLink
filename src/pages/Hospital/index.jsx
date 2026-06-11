@@ -4,7 +4,6 @@ import { FiArrowLeft } from 'react-icons/fi';
 import { useToast } from '../../components/Toast'; 
 
 import { getHospital } from '../../services/getHospital'; 
-import { HospitalCard } from './components/HospitalCard'; 
 
 import {
   Container,
@@ -16,12 +15,13 @@ import {
   ErrorTitle,
   ErrorText
 } from './style';
+import { HospitalDetalheCard } from './HospitalDetalheCard';
 
 export function Hospital() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { notifyError } = useToast();
-  const [hospital, setHospital] = useState(null);
+  const [hospital, setHospital] = useState([]);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(null);
 
@@ -113,7 +113,7 @@ export function Hospital() {
         </ImageWrapper>
       )}
 
-      <HospitalCard hospital={hospital} onAgendar={handleAgendar} />
+      <HospitalDetalheCard hospital={hospital} onAgendar={handleAgendar} />
     </Container>
   );
 }

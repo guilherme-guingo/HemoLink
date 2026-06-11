@@ -19,12 +19,9 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 import { RiContactsLine } from "react-icons/ri";
 import { FaRegAddressCard } from "react-icons/fa6";
+import { obterTiposSanguineosCriticos } from "../../util/obterTiposSanguineosCriticos";
 
-export const CardHospital = ({
-  dados,
-  percentage,
-  obterTiposSanguineosCriticos,
-}) => {
+export const CardHospital = ({ dados, percentage }) => {
   const { favoritar, isFavorito } = useFavoritos();
   return (
     <CardDiv key={dados.id}>

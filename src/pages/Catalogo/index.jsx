@@ -29,15 +29,17 @@ import { getHospital } from "../../services/getHospital";
 import loadingAnimation from "../../assets/loading.json";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { CardHospital } from "../../components/CardHospital";
+import { calculateBloodStock } from "../../util/bloodStock";
+import { obterTiposSanguineosCriticos } from "../../util/obterTiposSanguineosCriticos";
 
 //Funcao para retornar os tipos sanguineos mais baixos
-export const obterTiposSanguineosCriticos = (bloodStock) => {
-  if (!bloodStock || Object.keys(bloodStock).length === 0) return "Nenhum";
-  const menoresEstoques = Object.entries(bloodStock)
-    .sort((a, b) => a[1] - b[1])
-    .slice(0, 2);
-  return menoresEstoques.map((item) => item[0]).join(", ");
-};
+// export const obterTiposSanguineosCriticos = (bloodStock) => {
+//   if (!bloodStock || Object.keys(bloodStock).length === 0) return "Nenhum";
+//   const menoresEstoques = Object.entries(bloodStock)
+//     .sort((a, b) => a[1] - b[1])
+//     .slice(0, 2);
+//   return menoresEstoques.map((item) => item[0]).join(", ");
+// };
 
 export const Catalogo = () => {
   //Funcionalidade loading e carregamento de dados da API
@@ -126,7 +128,6 @@ export const Catalogo = () => {
             <FiltroDiv>
               <BuscaDiv>
                 <p style={{ fontWeight: 600 }}>Cidade ou Instituição</p>
-                {/* Obs: talvez um componente de input aqui */}
                 <form onSubmit={aplicarFiltro}>
                   <Input
                     type="text"
@@ -155,17 +156,12 @@ export const Catalogo = () => {
           </ContainerFiltro>
           <ContainerCard>
             {resultadoFiltro.slice(0, quantidadeVisivel).map((dados) => {
-              const totalBlood = Object.values(dados.bloodStock).reduce(
-                (acc, value) => acc + value,
-                0,
-              );
-              const averageBlood =
-                totalBlood / Object.values(dados.bloodStock).length;
-              const percentage = Math.min(averageBlood, 100);
+              const { totalBlood, averageBlood, percentage } =
+                calculateBloodStock(dados.bloodStock);
 
               return (
                 <div key={dados.id}>
-                  <CardHospital dados = {dados} percentage = {percentage} obterTiposSanguineosCriticos ={obterTiposSanguineosCriticos }/>
+                  <CardHospital dados={dados} percentage={percentage} />
                 </div>
               );
             })}
