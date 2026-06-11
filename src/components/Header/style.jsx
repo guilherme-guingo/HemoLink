@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Container = styled.header`
   background-color: ${(props) => props.theme.colors.surface};
@@ -12,7 +12,6 @@ export const Container = styled.header`
   top: 0;
   z-index: 100;
   height: 90px;
-  overflow: hidden;
 `;
 
 export const Logo = styled(Link)`
@@ -35,10 +34,40 @@ export const Logo = styled(Link)`
   }
 `;
 
+export const MenuHamburguer = styled.button`
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: ${(props) => props.theme.colors.textBase};
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+
+  @media (max-width: 700px) {
+    display: flex;
+  }
+`;
+
 export const Nav = styled.nav`
   display: flex;
   align-items: center;
   gap: 24px;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: ${(props) => props.theme.colors.surface};
+    padding: 2rem;
+    gap: 2rem;
+    z-index: 99;
+    border-bottom: ${(props) =>
+      props.$isOpen ? `1px solid ${props.theme.colors.border}` : "none"};
+    visibility: ${(props) => (props.$isOpen ? "visible" : "hidden")};
+  }
 `;
 
 export const NavLink = styled(Link)`
@@ -76,7 +105,10 @@ export const LogoutButton = styled.button`
   border-radius: ${(props) => props.theme.borderRadius.md};
   cursor: pointer;
   font-weight: 700;
-  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
 
   &:hover {
     background: ${(props) => props.theme.colors.primary};
@@ -91,7 +123,7 @@ export const Greeting = styled.span`
   font-size: 16px;
   display: flex;
   align-items: center;
-  
+
   @media (max-width: 768px) {
     display: none;
   }
