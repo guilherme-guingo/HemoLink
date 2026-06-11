@@ -31,12 +31,12 @@ export const TitleWrapper = styled.div`
 export const AdmHeaderWrapper = styled.div`
   display: flex;
   width: 100%;
-  padding: 0.5rem 8%;
+  
   gap: 1rem;
   align-items: center;
-
-  @media (max-width: 480px) {
-    padding: 0.5rem 4%;
+padding: 0.5rem 4%;
+  @media (min-width: 480px) {
+    padding: 0.5rem 8%;
   }
 `
 
@@ -66,8 +66,9 @@ export const AdmFilterBar = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
+  flex-direction: column;
+  @media (min-width: 768px) {
+  flex-direction: row;
   }
 `
 
