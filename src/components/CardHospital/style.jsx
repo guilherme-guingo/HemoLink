@@ -10,8 +10,8 @@ export const CardDiv = styled.div`
 
   background: ${(props) => props.theme.colors.surface};
   border-radius: ${(props) => props.theme.borderRadius.md};
-  border: 1px solid #E8D8D8;
-  box-shadow: 
+  border: 1px solid #e8d8d8;
+  box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.02),
     0 4px 16px rgba(36, 75, 126, 0.04);
 
@@ -19,16 +19,13 @@ export const CardDiv = styled.div`
   &:hover {
     transform: translateY(-2px);
     box-shadow:
-     box-shadow: 
       0 12px 24px rgba(36, 75, 126, 0.08),
       0 4px 8px rgba(0, 0, 0, 0.04);
   }
-    //ver sobre, pois precisa tirar o a-herf
-    a {
+  a {
     text-decoration: none;
     color: inherit;
   }
-  
 `;
 
 export const ImagemDiv = styled.div`
@@ -46,10 +43,9 @@ export const Necessidade = styled.span`
   position: absolute;
   font-size: 12px;
 
-  background-color: ${({ porcentagem }) => {
-    //Obs: nao estou conseguindo puxar o cor global de danger
-    if (porcentagem <= 30) return "#dc2626";
-    if (porcentagem <= 50) return " #FF8C00";
+  background-color: ${({ $porcentagem }) => {
+    if ($porcentagem <= 30) return "#dc2626";
+    if ($porcentagem <= 50) return " #FF8C00";
     return "#466585";
   }};
   color: ${(props) => props.theme.colors.surface};
@@ -71,9 +67,9 @@ export const InfoEstoqueDiv = styled.div`
 `;
 
 export const Situacao = styled.span`
-  color: ${({ porcentagem }) => {
-    if (porcentagem <= 30) return "#dc2626";
-    if (porcentagem <= 50) return "#FF8C00";
+  color: ${({ $porcentagem }) => {
+    if ($porcentagem <= 30) return "#dc2626";
+    if ($porcentagem <= 50) return "#FF8C00";
     return "#466585";
   }};
 `;
@@ -87,11 +83,11 @@ export const ProgressoDiv = styled.div`
 `;
 
 export const PorcentagemDiv = styled.div`
-  width: ${({ porcentagem }) => porcentagem}%;
+  width: ${({ $porcentagem }) => $porcentagem}%;
   height: 100%;
-  background-color: ${({ porcentagem }) => {
-    if (porcentagem <= 30) return "#dc2626";
-    if (porcentagem <= 50) return " #FF8C00";
+  background-color: ${({ $porcentagem }) => {
+    if ($porcentagem <= 30) return "#dc2626";
+    if ($porcentagem <= 50) return " #FF8C00";
     return "#466585";
   }};
 

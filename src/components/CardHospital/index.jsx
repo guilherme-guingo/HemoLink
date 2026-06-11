@@ -29,7 +29,7 @@ export const CardHospital = ({ dados, percentage }) => {
         {dados.image && (
           <ImagemHospital src={dados.image} alt="Imagem de um Hospital" />
         )}
-        <Necessidade porcentagem={percentage}>
+        <Necessidade $porcentagem={percentage}>
           {percentage <= 30
             ? `Urgência: ${obterTiposSanguineosCriticos(dados.bloodStock)}`
             : `Necessita: ${obterTiposSanguineosCriticos(dados.bloodStock)}`}
@@ -44,7 +44,7 @@ export const CardHospital = ({ dados, percentage }) => {
           <span style={{ fontSize: 12 }}>Estoque Geral</span>
           <Situacao
             style={{ fontSize: 12, fontWeight: 600 }}
-            porcentagem={percentage}
+            $porcentagem={percentage}
           >
             {percentage <= 30
               ? `Critico (${percentage}%)`
@@ -55,7 +55,7 @@ export const CardHospital = ({ dados, percentage }) => {
         </InfoEstoqueDiv>
 
         <ProgressoDiv>
-          <PorcentagemDiv porcentagem={percentage} />
+          <PorcentagemDiv $porcentagem={percentage} />
         </ProgressoDiv>
       </ConteudoDiv>
       <FavoritarDiv>
