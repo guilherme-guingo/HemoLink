@@ -155,7 +155,7 @@ export const Catalogo = () => {
 
               return (
                 <div key={dados.id}>
-                  <CardHospital dados={dados} percentage={percentage} />
+                  <CardHospital dados={dados} $percentage={percentage} />
                 </div>
               );
             })}
