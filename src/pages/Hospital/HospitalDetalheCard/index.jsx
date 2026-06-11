@@ -157,7 +157,7 @@ export function HospitalDetalheCard({ hospital, onAgendar, onConfirmarDoacao }) 
             })}
         </StockGrid>
       </InfoBlockBox>
-      <div style={{ display: 'flex', gap: '16px', marginTop: '16px' }}>
+      <div style={{ display: 'flex',flexWrap: 'wrap', gap: '16px', marginTop: '16px' }}>
         <MainButton width="100%" onClick={onAgendar}>
           Solicitar Doação de Sangue
         </MainButton>

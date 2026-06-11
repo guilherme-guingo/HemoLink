@@ -165,7 +165,9 @@ export const Catalogo = () => {
               ""
             ) : (
               <MainButton
-                text={todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"}
+                text={
+                  todosVisiveis ? "Ver Menos Unidades" : "Ver Mais Unidades"
+                }
                 background="transparent"
                 color="#C8102E"
                 border="1px solid #C8102E"

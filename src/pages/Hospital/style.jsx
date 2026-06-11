@@ -7,26 +7,6 @@ export const Container = styled.div`
   font-family: 'Inter', sans-serif;
 `;
 
-export const VoltarLink = styled.div`
-  margin-bottom: 20px;
-  
-  a {
-    color: ${(props) => props.theme.colors?.textSecondary || '#50606F'};
-    text-decoration: none;
-    font-size: 0.95rem;
-    display: inline-flex;
-    align-items: center;
-    transition: color 0.2s;
-
-    svg {
-      margin-right: 8px;
-    }
-
-    &:hover {
-      color: ${(props) => props.theme.colors?.primary || '#C8102E'};
-    }
-  }
-`;
 
 export const Card = styled.div`
   background: ${(props) => props.theme.colors?.surface || '#FFFFFF'};

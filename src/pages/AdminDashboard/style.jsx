@@ -32,7 +32,6 @@ export const AdmHeaderWrapper = styled.div`
   display: flex;
   width: 100%;
   padding: 0.5rem 8%;
-  flex-direction: column;
   gap: 1rem;
   align-items: center;
 

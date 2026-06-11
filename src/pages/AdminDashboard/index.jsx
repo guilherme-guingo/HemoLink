@@ -90,9 +90,8 @@ export const AdminDashboard = () => {
                     setHospital(response.data)
                 }
             } catch (err) {
-                toast.error("erro ao carregar hospital" )
-                console.log(err)
-            
+                toast.error("erro ao carregar hospital")
+
             } finally {
                 setLoading(false)
             }
@@ -136,7 +135,7 @@ export const AdminDashboard = () => {
                 {/* ======  Header filtros e opcoes */}
                 <AdmHeaderWrapper>
                     {!isMobile && (
-                        <div style={{ width: '100%', display: 'flex' }}>
+                        <div style={{ padding: '1rem', display: 'flex' }}>
                             <ToggleBtn
                                 isActive={card}
                                 onToggle={handleCard}
@@ -146,6 +145,8 @@ export const AdminDashboard = () => {
                         </div>
                     )}
                     <AdmFilterBar>
+
+
                         <Input
                             margin="0"
                             placeholder="buscar por nome"
@@ -155,7 +156,10 @@ export const AdminDashboard = () => {
                                 setCurrentPage(1)
                             }}
                         />
-                        <MainButton 
+
+
+
+                        <MainButton
                             onClick={() => navigate('/adminDashboard/new')}
                             width={isMobile ? '100%' : '12rem'}
                         >
@@ -206,7 +210,7 @@ export const AdminDashboard = () => {
                     :
                     <AdmCardContainer>
                         {paginateHospital.map((item) => {
-                            const{totalBlood,averageBlood,percentage} = calculateBloodStock(item.bloodStock)
+                            const { totalBlood, averageBlood, percentage } = calculateBloodStock(item.bloodStock)
 
                             return (
                                 <AdmCard

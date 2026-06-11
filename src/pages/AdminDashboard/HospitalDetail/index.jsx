@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getHospitalById, deleteHospital } from '../../../services/getHospital.jsx'
 import {
-  ActionButtons, BloodCard, BloodGrid, BloodType, BloodValue, BtnLabel, DeleteButton, EditButton, HeroImage, HeroInfo, HeroSection, HospitalName, InfoCard, InfoGrid, InfoItem, InfoLabel, InfoLink, InfoRow, InfoValue, PageWrapperAdm, SectionTitle, TopBar,
+  ActionButtons, BloodCard, BloodGrid, BloodType, BloodValue, HeroImage, HeroInfo, HeroSection, HospitalName, InfoCard, InfoGrid, InfoItem, InfoLabel, InfoLink, InfoRow, InfoValue, PageWrapperAdm, SectionTitle, TopBar,
 } from './style'
+import { MainButton } from '../../../components/MainButton'
 import { TbArrowLeft, TbEdit, TbTrash } from 'react-icons/tb'
 import { FaPhoneAlt } from 'react-icons/fa'
 import { IoIosMail } from 'react-icons/io'
@@ -20,7 +21,7 @@ export const HospitalDetail = () => {
   const navigate = useNavigate()
   const [hospital, setHospital] = useState(null)
   const [loading, setLoading] = useState(true)
-
+  const [isMobile,setIsMobile] = useState(window.innerWidth <= 430)
 
   useEffect(() => {
     async function loadHospital() {
@@ -31,7 +32,6 @@ export const HospitalDetail = () => {
         }
       } catch (err) {
         toast.error("Erro ao carregar hospital")
-        console.log(err)
 
         if (status === 404) {
           toast.error("Hospital Não encontrado")
@@ -57,9 +57,20 @@ export const HospitalDetail = () => {
       
     } catch (err) {
       toast.error("Erro ao excluir o hospital")
-      console.error(err)
     }
   }
+
+  //efeito Controle da tela
+  useEffect(() => {
+    const handleSize = () => {
+      setIsMobile(window.innerWidth <= 430)
+    }
+    window.addEventListener('resize',handleSize)
+
+    return() => {
+      window.removeEventListener('resise',handleSize)
+    }
+  },[])
 
   if (loading) return <PageWrapperAdm> <DotLottieReact data={loadingAnimation} loop autoplay /></PageWrapperAdm>
   if (!hospital) return <PageWrapperAdm><p>Hospital não foi encontrado</p></PageWrapperAdm>
@@ -73,17 +84,22 @@ export const HospitalDetail = () => {
 
         <BackButton location={'/adminDashboard'} />
         <ActionButtons>
-          <EditButton onClick={() => navigate(`/adminDashboard/${id}/edit`)}>
-            <TbEdit size={18} />
-            <BtnLabel>
-              Editar
-            </BtnLabel>
-          </EditButton>
+          <MainButton 
+            onClick={() => navigate(`/adminDashboard/${id}/edit`)}
+            icon={<TbEdit size={18} />}
+          >
+            {!isMobile && 'Editar'}
+          </MainButton>
 
-          <DeleteButton  onClick={handleDelete}>
-            <TbTrash size={18} />
-            <BtnLabel>Excluir</BtnLabel>
-          </DeleteButton>
+          <MainButton 
+            onClick={handleDelete}
+            icon={<TbTrash size={18} />}
+            background="transparent"
+            color="#C8102E"
+            border="1px solid #C8102E"
+          >
+            {!isMobile && 'Excluir'}
+          </MainButton>
         </ActionButtons>
       </TopBar>
 

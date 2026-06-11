@@ -1,21 +1,20 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { FiArrowLeft } from 'react-icons/fi';
-import { useToast } from '../../components/Toast'; 
+import { useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
+import { useToast } from "../../components/Toast";
 
-import { getHospital } from '../../services/getHospital'; 
-
+import { getHospital } from "../../services/getHospital";
+import { BackButton } from "../../components/BackButton";
 import {
   Container,
-  VoltarLink,
-  ImageWrapper, 
+  ImageWrapper,
   Image,
   LoadingWrapper,
   ErrorCard,
   ErrorTitle,
-  ErrorText
-} from './style';
-import { HospitalDetalheCard } from './HospitalDetalheCard';
+  ErrorText,
+} from "./style";
+import { HospitalDetalheCard } from "./HospitalDetalheCard";
 
 export function Hospital() {
   const { id } = useParams();
@@ -31,7 +30,7 @@ export function Hospital() {
         setLoading(true);
         setErro(null);
         const response = await getHospital();
-        
+
         if (response && response.status === 200) {
           const found = response.data.find((h) => String(h.id) === String(id));
           if (found) {
@@ -41,10 +40,8 @@ export function Hospital() {
           }
         }
       } catch (error) {
-        console.error("Erro ao buscar hospital:", error);
         setErro("Não foi possível carregar as informações do servidor.");
         notifyError("Erro de conexão com o banco de dados.");
-        
       } finally {
         setLoading(false);
       }
@@ -53,7 +50,7 @@ export function Hospital() {
     if (id) {
       loadHospital();
     }
-  }, [id]); 
+  }, [id]);
 
   const handleAgendar = () => {
     navigate("/solicitar", {
@@ -68,16 +65,14 @@ export function Hospital() {
   };
 
   const handleConfirmarDoacao = () => {
-    navigate('/doar');
+    navigate("/doar");
   };
 
   if (loading) {
     return (
       <Container>
         <LoadingWrapper>
-          <h2>
-            Buscando dados completos do hospital...
-          </h2>
+          <h2>Buscando dados completos do hospital...</h2>
         </LoadingWrapper>
       </Container>
     );
@@ -86,21 +81,9 @@ export function Hospital() {
   if (erro || !hospital) {
     return (
       <Container>
-        <VoltarLink>
-          <Link 
-          to="/catalogo">
-            <FiArrowLeft /> 
-            Voltar para o Catálogo
-          </Link>
-        </VoltarLink>
-        
         <ErrorCard>
-          <ErrorTitle>
-            Ops! Algo deu errado.
-          </ErrorTitle>
-          <ErrorText>
-            {erro || "Hospital não encontrado."}
-          </ErrorText>
+          <ErrorTitle>Ops! Algo deu errado.</ErrorTitle>
+          <ErrorText>{erro || "Hospital não encontrado."}</ErrorText>
         </ErrorCard>
       </Container>
     );
@@ -108,13 +91,9 @@ export function Hospital() {
 
   return (
     <Container>
-      <VoltarLink>
-        <Link 
-        to="/catalogo">
-          <FiArrowLeft /> 
-          Catálogo
-        </Link>
-      </VoltarLink>
+      <div style={{ marginBottom: "24px" }}>
+        <BackButton location={-1} />
+      </div>
 
       {hospital.image && (
         <ImageWrapper>
@@ -125,10 +104,10 @@ export function Hospital() {
         </ImageWrapper>
       )}
 
-      <HospitalDetalheCard 
-      hospital={hospital} 
-      onAgendar={handleAgendar}
-      onConfirmarDoacao={handleConfirmarDoacao}
+      <HospitalDetalheCard
+        hospital={hospital}
+        onAgendar={handleAgendar}
+        onConfirmarDoacao={handleConfirmarDoacao}
       />
     </Container>
   );
