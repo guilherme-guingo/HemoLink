@@ -1,5 +1,5 @@
-import { FiSearch, FiHeart, FiShield } from 'react-icons/fi';
-import { MainButton } from '../../components/MainButton';
+import { FiSearch, FiHeart, FiShield } from "react-icons/fi";
+import { MainButton } from "../../components/MainButton";
 import {
   Container,
   Hero,
@@ -17,7 +17,7 @@ import {
   FeatureIcon,
   FeatureTitle,
   FeatureText,
-} from './style';
+} from "./style";
 
 export default function Home() {
   return (
@@ -28,14 +28,12 @@ export default function Home() {
             A maneira mais rápida de conectar doadores e hospitais.
           </HeroTitle>
           <HeroDescription>
-            HemoLink facilita a busca por estoque de sangue, organização de doações e comunicação direta com instituições de saúde.
+            HemoLink facilita a busca por estoque de sangue, organização de
+            doações e comunicação direta com instituições de saúde.
           </HeroDescription>
           <HeroActions>
-            <HeroActions>
-            <MainButton to="/catalogo">
-              Ver hospitais
-            </MainButton>
-            
+            <MainButton to="/catalogo">Ver hospitais</MainButton>
+
             <MainButton
               to="/perfil"
               background="#FFFFFF"
@@ -44,11 +42,8 @@ export default function Home() {
             >
               Meus favoritos
             </MainButton>
-            
-            <MainButton to="/solicitar">
-              Solicitar doação
-            </MainButton>
-          </HeroActions>
+
+            <MainButton to="/solicitar">Solicitar doação</MainButton>
           </HeroActions>
 
           <Stats>
@@ -70,7 +65,10 @@ export default function Home() {
         <HeroIllustration>
           <div>
             <h3>Busque por estoque sob demanda</h3>
-            <p>Filtre por tipo sanguíneo, local e urgência para encontrar o suporte certo de forma rápida.</p>
+            <p>
+              Filtre por tipo sanguíneo, local e urgência para encontrar o
+              suporte certo de forma rápida.
+            </p>
           </div>
         </HeroIllustration>
       </Hero>
@@ -81,7 +79,9 @@ export default function Home() {
             <FiSearch size={22} />
           </FeatureIcon>
           <FeatureTitle>Pesquisa rápida</FeatureTitle>
-          <FeatureText>Encontre hospitais precisando do seu apoio de forma rápida.</FeatureText>
+          <FeatureText>
+            Encontre hospitais precisando do seu apoio de forma rápida.
+          </FeatureText>
         </FeatureCard>
 
         <FeatureCard>
@@ -89,7 +89,9 @@ export default function Home() {
             <FiHeart size={22} />
           </FeatureIcon>
           <FeatureTitle>Sistema de favoritar</FeatureTitle>
-          <FeatureText>Salve hospitais e acompanhe doações que importam para você.</FeatureText>
+          <FeatureText>
+            Salve hospitais e acompanhe doações que importam para você.
+          </FeatureText>
         </FeatureCard>
 
         <FeatureCard>
@@ -97,7 +99,9 @@ export default function Home() {
             <FiShield size={22} />
           </FeatureIcon>
           <FeatureTitle>Segurança e confiança</FeatureTitle>
-          <FeatureText>Informações protegidas e envio confiável de solicitações de sangue.</FeatureText>
+          <FeatureText>
+            Informações protegidas e envio confiável de solicitações de sangue.
+          </FeatureText>
         </FeatureCard>
       </Features>
     </Container>
