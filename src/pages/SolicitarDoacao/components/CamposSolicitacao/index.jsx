@@ -1,65 +1,60 @@
-import { GrupoCampo, Label, Input, Select, Textarea } from '../../Style';
+import { Input } from '../../../../components/Input';
 
 export function CamposSolicitacao({ formData, handleChange }) {
   return (
     <>
-      <GrupoCampo>
-        <Label htmlFor="nomePaciente">Nome do Paciente</Label>
-        <Input
-          id="nomePaciente"
-          name="nomePaciente"
-          type="text"
-          placeholder="Nome completo do paciente"
-          value={formData.nomePaciente}
-          onChange={handleChange}
-        />
-      </GrupoCampo>
+      <Input
+        label="Nome do Paciente"
+        id="nomePaciente"
+        name="nomePaciente"
+        type="text"
+        placeholder="Nome completo do paciente"
+        value={formData.nomePaciente}
+        onChange={handleChange}
+      />
 
-      <GrupoCampo>
-        <Label htmlFor="tipoSanguineo">Tipo Sanguíneo Necessário</Label>
-        <Select
-          id="tipoSanguineo"
-          name="tipoSanguineo"
-          value={formData.tipoSanguineo}
-          onChange={handleChange}
-        >
-          <option value="">Selecione o tipo sanguíneo</option>
-          <option value="A+">A+</option>
-          <option value="A-">A-</option>
-          <option value="B+">B+</option>
-          <option value="B-">B-</option>
-          <option value="AB+">AB+</option>
-          <option value="AB-">AB-</option>
-          <option value="O+">O+</option>
-          <option value="O-">O-</option>
-        </Select>
-      </GrupoCampo>
+      <Input
+        label="Tipo Sanguíneo Necessário"
+        id="tipoSanguineo"
+        name="tipoSanguineo"
+        type="select"
+        value={formData.tipoSanguineo}
+        onChange={handleChange}
+      >
+        <option value="">Selecione o tipo sanguíneo</option>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+      </Input>
 
-      <GrupoCampo>
-        <Label htmlFor="urgencia">Nível de Urgência</Label>
-        <Select
-          id="urgencia"
-          name="urgencia"
-          value={formData.urgencia}
-          onChange={handleChange}
-        >
-          <option value="">Selecione o nível de urgência</option>
-          <option value="Crítico">Crítico</option>
-          <option value="Moderado">Moderado</option>
-          <option value="Baixo">Baixo</option>
-        </Select>
-      </GrupoCampo>
+      <Input
+        label="Nível de Urgência"
+        id="urgencia"
+        name="urgencia"
+        type="select"
+        value={formData.urgencia}
+        onChange={handleChange}
+      >
+        <option value="">Selecione o nível de urgência</option>
+        <option value="Crítico">Crítico</option>
+        <option value="Moderado">Moderado</option>
+        <option value="Baixo">Baixo</option>
+      </Input>
 
-      <GrupoCampo>
-        <Label htmlFor="descricao">Descrição Adicional</Label>
-        <Textarea
-          id="descricao"
-          name="descricao"
-          placeholder="Descreva detalhes adicionais sobre o caso"
-          value={formData.descricao}
-          onChange={handleChange}
-        />
-      </GrupoCampo>
+      <Input
+        label="Descrição Adicional"
+        id="descricao"
+        name="descricao"
+        type="textarea"
+        placeholder="Descreva detalhes adicionais sobre o caso"
+        value={formData.descricao}
+        onChange={handleChange}
+      />
     </>
   );
 }

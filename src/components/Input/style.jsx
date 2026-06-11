@@ -71,6 +71,12 @@ export const StyledSelect = styled.select`
   cursor: pointer;
 `;
 
+export const StyledTextarea = styled.textarea`
+  ${baseInputStyles}
+  min-height: 100px;
+  resize: vertical;
+`;
+
 export const ToggleButton = styled.button`
   position: absolute;
   right: 12px;
