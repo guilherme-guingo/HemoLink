@@ -31,14 +31,24 @@ export default function Home() {
             HemoLink facilita a busca por estoque de sangue, organização de doações e comunicação direta com instituições de saúde.
           </HeroDescription>
           <HeroActions>
-            <MainButton text="Ver hospitais" to="/catalogo" />
+            <HeroActions>
+            <MainButton to="/catalogo">
+              Ver hospitais
+            </MainButton>
+            
             <MainButton
-              text="Meus favoritos"
               to="/perfil"
               background="#FFFFFF"
               color="#C8102E"
               border="1px solid #C8102E"
-            />
+            >
+              Meus favoritos
+            </MainButton>
+            
+            <MainButton to="/solicitar">
+              Solicitar doação
+            </MainButton>
+          </HeroActions>
           </HeroActions>
 
           <Stats>

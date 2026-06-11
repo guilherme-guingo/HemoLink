@@ -45,7 +45,20 @@ export const HeroDescription = styled.p`
 export const HeroActions = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
+
+  & > :last-child {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    justify-content: flex-start;
+
+    & > :last-child {
+      width: auto;
+    }
+  }
 `;
 
 const buttonStyles = `

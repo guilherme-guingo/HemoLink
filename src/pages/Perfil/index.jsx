@@ -14,9 +14,9 @@ import {
   EnderecoHospital,
   TipoSanguineo,
   TiposNecessarios,
-  BotaoRemover,
   MensagemVazia,
 } from "./style";
+import { MainButton } from "../../components/MainButton";
 
 export const Perfil = () => {
   const { favoritos, favoritar } = useFavoritos();
@@ -65,12 +65,24 @@ export const Perfil = () => {
                     {obterTiposSanguineosCriticos(hospital.bloodStock)}
                   </strong>
                 </TiposNecessarios>
-                <BotaoRemover onClick={() => favoritar(hospital)}>
-                  Remover dos favoritos
-                </BotaoRemover>
-                <Link to={`/hospital/${hospital.id}`}>
-                  <button>Visualizar Hospital</button>
-                </Link>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px' }}>
+                  <MainButton 
+                    to={`/hospital/${hospital.id}`} 
+                    width="100%"
+                  >
+                    Visualizar Hospital
+                  </MainButton>
+                  
+                  <MainButton 
+                    onClick={() => favoritar(hospital)}
+                    background="transparent"
+                    color="#C8102E"
+                    border="1px solid #C8102E"
+                    width="100%"
+                  >
+                    Remover dos favoritos
+                  </MainButton>
+                </div>
               </CardFavorito>
             );
           })}
