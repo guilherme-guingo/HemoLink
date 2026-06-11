@@ -148,11 +148,8 @@ export const HospitalForm = ({ initialData }) => {
       }, 1000);
 
     } catch (error) {
-      toast.error("Erro ao carregar hospital", err)
+      toast.error("Erro ao carregar hospital")
 
-      if (status === 404) {
-        toast.error("404 - Não encontrado")
-      }
     } finally {
       setSaving(false)
     }
@@ -160,6 +157,7 @@ export const HospitalForm = ({ initialData }) => {
 
   return (
     <PageWrapperAdm>
+      <ToastContainer />
       <form onSubmit={handleSubmit}>
         <AdmFormHeader >
           <SectionTitle>
