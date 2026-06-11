@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useFavoritos } from "../../contexts/FavoritesContext";
-// import { obterTiposSanguineosCriticos } from "../Catalogo";
 import { obterTiposSanguineosCriticos } from "../../util/obterTiposSanguineosCriticos";
 import { calculateBloodStock } from "../../util/bloodStock";
 import {
@@ -69,6 +68,9 @@ export const Perfil = () => {
                 <BotaoRemover onClick={() => favoritar(hospital)}>
                   Remover dos favoritos
                 </BotaoRemover>
+                <Link to={`/hospital/${hospital.id}`}>
+                  <button>Visualizar Hospital</button>
+                </Link>
               </CardFavorito>
             );
           })}

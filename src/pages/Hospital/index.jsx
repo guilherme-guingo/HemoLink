@@ -41,7 +41,6 @@ export function Hospital() {
           }
         }
       } catch (error) {
-        console.error("Erro ao buscar hospital:", error);
         setErro("Não foi possível carregar as informações do servidor.");
         notifyError("Erro de conexão com o banco de dados.");
         
