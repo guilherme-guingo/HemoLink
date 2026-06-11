@@ -14,7 +14,7 @@ import {
 } from "./style";
 import { obterTiposSanguineosCriticos } from "../../../util/obterTiposSanguineosCriticos.jsx";
 
-export function HospitalDetalheCard({ hospital, onAgendar }) {
+export function HospitalDetalheCard({ hospital, onAgendar, onConfirmarDoacao }) {
   if (!hospital) return null;
 
   const queryMapa = `${hospital.name}, ${hospital.address}, ${hospital.city} - CEP ${hospital.cep}`;
@@ -158,6 +158,9 @@ export function HospitalDetalheCard({ hospital, onAgendar }) {
       </InfoBlockBox>
       <ActionButton onClick={onAgendar}>
         Solicitar Doação de Sangue
+      </ActionButton>
+      <ActionButton onClick={onConfirmarDoacao}>
+        Confirmar Doação
       </ActionButton>
     </CardContainer>
   );

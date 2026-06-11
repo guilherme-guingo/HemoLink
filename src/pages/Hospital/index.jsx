@@ -59,6 +59,10 @@ export function Hospital() {
     navigate('/solicitar');
   };
 
+  const handleConfirmarDoacao = () => {
+    navigate('/doar');
+  };
+
   if (loading) {
     return (
       <Container>
@@ -113,7 +117,11 @@ export function Hospital() {
         </ImageWrapper>
       )}
 
-      <HospitalDetalheCard hospital={hospital} onAgendar={handleAgendar} />
+      <HospitalDetalheCard 
+      hospital={hospital} 
+      onAgendar={handleAgendar}
+      onConfirmarDoacao={handleConfirmarDoacao}
+      />
     </Container>
   );
 }
