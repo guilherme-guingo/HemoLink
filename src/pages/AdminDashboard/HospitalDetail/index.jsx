@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getHospitalById, deleteHospital } from '../../../services/getHospital.jsx'
 import {
-  ActionButtons, BloodCard, BloodGrid, BloodType, BloodValue, BtnLabel, DeleteButton, EditButton, HeroImage, HeroInfo, HeroSection, HospitalName, InfoCard, InfoGrid, InfoItem, InfoLabel, InfoLink, InfoRow, InfoValue, PageWrapperAdm, SectionTitle, TopBar,
+  ActionButtons, BloodCard, BloodGrid, BloodType, BloodValue, HeroImage, HeroInfo, HeroSection, HospitalName, InfoCard, InfoGrid, InfoItem, InfoLabel, InfoLink, InfoRow, InfoValue, PageWrapperAdm, SectionTitle, TopBar,
 } from './style'
+import { MainButton } from '../../../components/MainButton'
 import { TbArrowLeft, TbEdit, TbTrash } from 'react-icons/tb'
 import { FaPhoneAlt } from 'react-icons/fa'
 import { IoIosMail } from 'react-icons/io'
@@ -73,17 +74,22 @@ export const HospitalDetail = () => {
 
         <BackButton location={'/adminDashboard'} />
         <ActionButtons>
-          <EditButton onClick={() => navigate(`/adminDashboard/${id}/edit`)}>
-            <TbEdit size={18} />
-            <BtnLabel>
-              Editar
-            </BtnLabel>
-          </EditButton>
+          <MainButton 
+            onClick={() => navigate(`/adminDashboard/${id}/edit`)}
+            icon={<TbEdit size={18} />}
+          >
+            Editar
+          </MainButton>
 
-          <DeleteButton  onClick={handleDelete}>
-            <TbTrash size={18} />
-            <BtnLabel>Excluir</BtnLabel>
-          </DeleteButton>
+          <MainButton 
+            onClick={handleDelete}
+            icon={<TbTrash size={18} />}
+            background="transparent"
+            color="#C8102E"
+            border="1px solid #C8102E"
+          >
+            Excluir
+          </MainButton>
         </ActionButtons>
       </TopBar>
 

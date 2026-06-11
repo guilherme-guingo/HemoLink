@@ -14,16 +14,14 @@ import {
   FormGridInfo,
   FormGroup,
   FormGroupBlood,
-  FormInput,
-  FormLabel,
   FormRow,
-  FormSelect,
-  FormSubmitButton,
   PageWrapperAdm,
   SectionTitle,
   TopBar,
 } from './style'
-import { TbArrowLeft, TbDeviceFloppy } from 'react-icons/tb'
+import { Input } from '../../../components/Input'
+import { MainButton } from '../../../components/MainButton'
+import { TbDeviceFloppy } from 'react-icons/tb'
 import { BackButton } from '../../../components/BackButton/index.jsx'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import loadingAnimation from "../../../assets/loading.json";
@@ -178,108 +176,91 @@ export const HospitalForm = ({ initialData }) => {
         <FormCard>
           <FormGridInfo>
             <FormColumn>
-              <FormGroup>
-                <FormLabel>URL da Imagem</FormLabel>
-                <FormInput
-                  name="image"
-                  value={form.image}
-                  onChange={handleChange}
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <FormLabel>Nome</FormLabel>
-                <FormInput
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <FormLabel>CNPJ</FormLabel>
-                <FormInput
-                  name="cnpj"
-                  value={form.cnpj}
-                  onChange={handleChange}
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <FormLabel>Telefone</FormLabel>
-                <FormInput
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <FormLabel>E-mail</FormLabel>
-                <FormInput
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                />
-              </FormGroup>
+              <Input
+                label="URL da Imagem"
+                name="image"
+                value={form.image}
+                onChange={handleChange}
+                margin="0"
+              />
+              <Input
+                label="Nome"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                margin="0"
+              />
+              <Input
+                label="CNPJ"
+                name="cnpj"
+                value={form.cnpj}
+                onChange={handleChange}
+                margin="0"
+              />
+              <Input
+                label="Telefone"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                margin="0"
+              />
+              <Input
+                label="E-mail"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                margin="0"
+              />
             </FormColumn>
 
             <FormColumn>
-              <FormGroup>
-                <FormLabel>Endereço</FormLabel>
-                <FormInput
-                  name="address"
-                  value={form.address}
-                  onChange={handleChange}
-                />
-              </FormGroup>
+              <Input
+                label="Endereço"
+                name="address"
+                value={form.address}
+                onChange={handleChange}
+                margin="0"
+              />
 
               <FormRow>
-                <FormGroup>
-                  <FormLabel>Cidade</FormLabel>
-                  <FormInput
-                    name="city"
-                    value={form.city}
-                    onChange={handleChange}
-                  />
-                </FormGroup>
-
-                <FormGroup>
-                  <FormLabel>Estado</FormLabel>
-                  <FormSelect
-                    name="state"
-                    value={form.state}
-                    onChange={handleChange}
-                  >
-                    <option value="">Selecione</option>
-                    {listaEstado.map(((estado, index) => (
-                      <option key={index} value={estado.sigla}>{estado.sigla}</option>
-
-                    )))}
-
-                  </FormSelect>
-                </FormGroup>
+                <Input
+                  label="Cidade"
+                  name="city"
+                  value={form.city}
+                  onChange={handleChange}
+                  margin="0"
+                />
+                <Input
+                  label="Estado"
+                  name="state"
+                  type="select"
+                  value={form.state}
+                  onChange={handleChange}
+                  margin="0"
+                >
+                  <option value="">Selecione</option>
+                  {listaEstado.map(((estado, index) => (
+                    <option key={index} value={estado.sigla}>{estado.sigla}</option>
+                  )))}
+                </Input>
               </FormRow>
 
-              <FormGroup>
-                <FormLabel>CEP</FormLabel>
-                <FormInput
-                  name="cep"
-                  value={form.cep}
-                  onChange={handleChange}
-                  maxLength={9}
-                />
-              </FormGroup>
-
-              <FormGroup>
-                <FormLabel>Horário</FormLabel>
-                <FormInput
-                  name="openingHours"
-                  value={form.openingHours}
-                  onChange={handleChange}
-                />
-              </FormGroup>
+              <Input
+                label="CEP"
+                name="cep"
+                value={form.cep}
+                onChange={handleChange}
+                maxLength={9}
+                margin="0"
+              />
+              <Input
+                label="Horário"
+                name="openingHours"
+                value={form.openingHours}
+                onChange={handleChange}
+                margin="0"
+              />
             </FormColumn>
           </FormGridInfo>
         </FormCard>
@@ -289,26 +270,29 @@ export const HospitalForm = ({ initialData }) => {
         <FormCard>
           <FormGrid>
             {bloodTypes.map((type) => (
-              <FormGroupBlood key={type}>
-                <FormLabel>{type}</FormLabel>
-                <FormInput
-                  type="number"
-                  min="0"
-                  value={form.bloodStock[type]}
-                  onChange={(e) =>
-                    handleBloodChange(type, e.target.value)
-                  }
-                />
-              </FormGroupBlood>
+              <Input
+                key={type}
+                label={type}
+                type="number"
+                min="0"
+                value={form.bloodStock[type]}
+                onChange={(e) =>
+                  handleBloodChange(type, e.target.value)
+                }
+                margin="0"
+              />
             ))}
           </FormGrid>
         </FormCard>
 
         <FormActions>
-          <FormSubmitButton type="submit" disabled={saving}>
-            <TbDeviceFloppy size={18} />
+          <MainButton
+            type="submit"
+            disabled={saving}
+            icon={<TbDeviceFloppy size={18} />}
+          >
             {saving ? 'Salvando...' : 'Salvar'}
-          </FormSubmitButton>
+          </MainButton>
         </FormActions>
       </form>
     </PageWrapperAdm>

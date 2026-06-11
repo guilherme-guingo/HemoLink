@@ -42,53 +42,6 @@ export const ActionButtons = styled.div`
   gap: 0.75rem;
 `;
 
-export const EditButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: ${theme.colors.primary};
-  color: white;
-  border: none;
-  padding: 0.5rem 1.2rem;
-  border-radius: ${theme.borderRadius.sm};
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-
-  &:hover {
-    background: ${theme.colors.primaryHover};
-  }
-`;
-
-export const DeleteButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: transparent;
-  color: ${theme.colors.status.danger};
-  border: 2px solid ${theme.colors.status.danger};
-  padding: 0.5rem 1.2rem;
-  border-radius: ${theme.borderRadius.sm};
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-
-  &:hover {
-    background: ${theme.colors.status.danger};
-    color: white;
-  }
-`;
-
-export const BtnLabel = styled.p`
-  display: none;
-  @media (min-width: 768px) {
-    display: block;
-  }
-`
-
-
 export const HeroSection = styled.div`
   display: flex;
   gap: 1rem;
